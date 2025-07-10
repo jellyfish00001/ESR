@@ -1,0 +1,71 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.rq404a'|translate}}</div> -->
+  <form nz-form [formGroup]="headForm" [nzAutoTips]="autoTips">
+    <!-- Header 个人信息 -->
+    <div class="formInline">
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'employee-id'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="emplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'dept-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="dept" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-account-no'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="rno" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'applicant'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="payee" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'ext'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="ext" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="margin-right: 20px;">
+        <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="companyCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <!-- 申请明细表格 -->
+    <div style="padding: 1% 0%">
+      <nz-table #listTable nzBordered nzShowPagination nzShowSizeChanger [nzData]="listTableData" nzSize="small"
+        [nzScroll]="{ x: '1556px', y: '80vh' }" [nzShowTotal]="totalTemplate" [nzNoResult]="null"
+        [nzShowPagination]="true">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+              [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listTable.data">
+            <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+              {{ data[column.columnKey] }}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+          }} {{'itemData'|translate}}</span></ng-template>
+    </div>
+
+    <sign-off [showExModal]="false" [rno]='rno' [showSignPaperForm]="false" (approve)="approve($event)"
+      (transform)="transform($event)" (reject)="reject($event)">
+    </sign-off>
+  </form>
+</nz-spin>

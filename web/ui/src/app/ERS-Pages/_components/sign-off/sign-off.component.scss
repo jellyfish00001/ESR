@@ -1,0 +1,55 @@
+::ng-deep .ant-modal-body {
+    background: #fafafa;
+}
+
+.formItem {
+    padding: 0px 10px 0px 0px;
+    ;
+    width: 300px;
+}
+
+.formInline {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+::ng-deep .ant-form-vertical .ant-form-item-label>label {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+}
+
+::ng-deep .formItem .ant-form-item-label>label,
+.ant-radio-wrapper {
+    // font-family: "MicrosoftJhengHeiBold", sans-serif;
+    // color: rgba(0, 0, 0, 0.65);
+    width: 110px;
+    display: inline-block;
+    padding-top: 5px;
+}
+
+::ng-deep .ant-form-item-label>label,
+.ant-radio-wrapper {
+    font-family: "MicrosoftJhengHeiBold", sans-serif;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.formRow {
+    flex-direction: unset;
+}
+
+.editable-cell {
+    position: relative;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+
+  .editable-row:hover .editable-cell {
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding: 4px 11px;
+  }
+
+  .ant-table-small .ant-table-tbody > tr > td, .ant-table-tbody > tr > td {
+    font-size: 15px;
+    white-space: pre-line;
+}

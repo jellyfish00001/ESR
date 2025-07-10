@@ -1,0 +1,103 @@
+import { TableColumnModel } from 'src/app/shared/models';
+import { CompanyInfo } from './data-item';
+
+export const BDInfoTableColumn: TableColumnModel[] = [
+  {
+    title: 'companyCategory',
+    columnKey: 'CompanyCategory',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.CompanyCategory.localeCompare(b.CompanyCategory),
+  },
+  {
+    title: 'companySap',
+    columnKey: 'CompanySap',
+    columnWidth: '10%',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.CompanySap.localeCompare(b.CompanySap),
+  },
+  {
+    title: 'description',
+    columnKey: 'CompanyDesc',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.CompanyDesc.localeCompare(b.CompanyDesc),
+  },
+  {
+    title: 'stwit',
+    columnKey: 'Stwit',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.Stwit.localeCompare(b.Stwit),
+  },
+  {
+    title: 'baseCurrency',
+    columnKey: 'BaseCurrency',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.BaseCurrency.localeCompare(b.BaseCurrency),
+  },
+  {
+    title: 'identificationNo',
+    columnKey: 'IdentificationNo',
+    columnWidth: '20%',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.IdentificationNo.localeCompare(b.IdentificationNo),
+  },
+  {
+    title: 'incomeTaxRate',
+    columnKey: 'IncomeTaxRate',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.IncomeTaxRate.toString().localeCompare(b.IncomeTaxRate.toString()),
+  },
+  {
+    title: 'vatrate',
+    columnKey: 'Vatrate',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.Vatrate.toString().localeCompare(b.Vatrate.toString()),
+  },
+  {
+    title: 'area',
+    columnKey: 'Area',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.Area.localeCompare(b.Area),
+  },
+  {
+    title: 'timeZone',
+    columnKey: 'TimeZone',
+    columnWidth: '',
+    align: 'center',
+    sortFn: (a: CompanyInfo, b: CompanyInfo) => a.TimeZone.toString().localeCompare(b.TimeZone.toString()),
+  },
+  // {
+  //   title: 'create-user',
+  //   columnKey: 'cuser',
+  //   columnWidth: '100px',
+  //   align: 'center',
+  //   sortFn: (a: SupplierInfo, b: SupplierInfo) => a.cuser.localeCompare(b.cuser),
+  // },
+  // {
+  //   title: 'create-date',
+  //   columnKey: 'cdate',
+  //   columnWidth: '100px',
+  //   align: 'center',
+  //   sortFn: (a: SupplierInfo, b: SupplierInfo) => a.cdate.localeCompare(b.cdate),
+  // },
+  // {
+  //   title: 'update-user',
+  //   columnKey: 'muser',
+  //   columnWidth: '100px',
+  //   align: 'center',
+  //   sortFn: (a: SupplierInfo, b: SupplierInfo) => a.muser.localeCompare(b.muser),
+  // },
+  // {
+  //   title: 'update-date',
+  //   columnKey: 'mdate',
+  //   columnWidth: '100px',
+  //   align: 'center',
+  //   sortFn: (a: SupplierInfo, b: SupplierInfo) => a.mdate.localeCompare(b.mdate),
+  // },
+];

@@ -1,0 +1,36 @@
+<div class="sidebar-title" *ngIf='isShowName'>
+  <h2 [ngStyle]="{'font-size':isCollapsed?'16px':'25px'}">
+    <div *ngIf=" isCollapsed== false && !isCollapsed || isCollapsed==null">
+      <img style="max-width: 200px;" src="assets/image/wistron.svg">
+      <div style="font-size: 22px;">{{'Smart ERS'|translate}}</div>
+    </div>
+  </h2>
+</div>
+<ul class="scroll-menu" nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+  <ng-container *ngTemplateOutlet="menuTpl;context:{$implicit:menus}"></ng-container>
+  <ng-template #menuTpl let-menus>
+    <ng-container *ngFor="let menu of menus ; let i = index">
+      <ng-container>
+        <li nz-menu-item *ngIf="!menu.children && menu.show" [nzSelected]="menu.selected" nzMatchRouter
+          [nzPaddingLeft]="menu.paddingLeft" style="white-space: pre-wrap;padding-right: 0px;" (click)="ClickMenu()">
+          <a [routerLink]="[menu.url]">
+            <em nz-icon [nzType]="menu.icon" *ngIf="menu.icon" class="sp-1"></em>
+            <span>{{menu.title|translate}}</span>
+          </a>
+        </li>
+        <li *ngIf="menu.children && menu.show" nz-submenu nzTitle="{{menu.title|translate}}"
+          title="{{menu.title|translate}}" [nzOpen]="menu.open" [nzIcon]="menu.icon"
+          style="white-space: pre-wrap;padding-right: 0px;">
+          <ul class="tree-view">
+            <ng-container *ngTemplateOutlet="menuTpl;context:{$implicit:menu.children}">
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</ul>
+<div class="transition-block"></div>
+<div class="version-wrapper" *ngIf="!isCollapsed">
+  <label class="version-text" style="font-size: 16px;">{{"version" | translate}}: {{version}}</label>
+</div>

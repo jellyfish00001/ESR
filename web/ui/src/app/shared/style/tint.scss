@@ -1,0 +1,72 @@
+// 
+.top-bar-wrapper {
+  background: #E7EAEF 1%;
+  .collapse {
+    em {
+      color:#000000 1%;
+    }
+  }
+  .title {
+    color:#000000 1%;
+  }
+  .user-info {
+    .user-info-front{
+      color:black;
+    }
+    span:nth-of-type(1) {
+      color:#000000 1%;
+    }
+    span:nth-of-type(2) {
+      color:#000000 1%;
+      border-left: 1px solid #000000 1%;
+    }
+  }
+}
+.user-bt{
+  color: black;
+}
+
+
+.bell {
+  color: black;
+}
+
+.ant-table-pagination.ant-pagination{
+  color: black;
+}
+
+.inner-content {
+  background: #F5F6F9 1%;
+}
+.title{
+  color: black;
+}
+.label{
+  color: black;
+}
+.ant-pagination-item,
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link,
+.ant-pagination-disabled .ant-pagination-item-link,
+.ant-pagination-disabled:hover .ant-pagination-item-link,
+.ant-pagination-disabled:focus .ant-pagination-item-link {
+  a {
+    color: black;
+  }
+  color: black;
+  border: none;
+  background: none;
+}
+.ant-pagination-item-active {
+  background: rgba(103, 173, 179, 1);
+  height: 32px;
+  width: 32px;
+  border-radius: 15px;
+  line-height: 32px;
+  a {
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,119 @@
+@import "../../../assets/scss/variables.scss";
+
+.template-page-content {
+  background-color: $content-bg-color;
+  width: calc(100vw - 208px);
+  height: calc(100vh - 48px);
+  // padding: 5px;
+  overflow: hidden;
+}
+.cont-title{
+  font-size: $header-system-name-font-size;
+  font-family: $content-font-family;
+  font-weight: $common-font-bold-weight;
+  color: $header-system-name-color;
+  font-size: 20px;
+  margin: 8px 16px;
+}
+
+.content-body{
+  max-height: calc(100vh - 100px);
+  background-color: #fff;
+  margin: 0 8px 8px;
+  padding: 16px;
+  border-radius: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+
+}
+
+.menu-sidebar,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background-color: $sidebar-menu-bg-color !important;
+}
+
+.ant-menu-item.ng-star-inserted {
+  margin: 0 !important;
+}
+
+.ant-menu-item.ant-menu-item-selected {
+  background-color: $sidebar-menu-bg-color !important;
+  border-left: 3px solid $common-wistron-green;
+  transition: none;
+  cursor: default;
+  span {
+    color: $common-wistron-green;
+  }
+}
+
+.menu-icon-font-size,
+:host::ng-deep.menu-icon-font-size .anticon.ng-star-inserted,
+:host::ng-deep.menu-title-font .anticon.ng-star-inserted{
+  font-size: $header-system-name-font-size;
+}
+
+:host::ng-deep.ant-menu{
+  font-size: 16px;
+}
+.submenu,
+.submenu.ng-star-inserted .ant-menu-item.ng-star-inserted.ant-menu-item-selected {
+  background-color: $sidebar-submenu-bg-color !important;
+}
+
+.ant-menu-inline .ant-menu-item,
+.ant-menu-inline .ant-menu-submenu-title,
+.ant-menu-vertical .ant-menu-item,
+.ant-menu-vertical .ant-menu-submenu-title,
+.ant-menu-vertical-left .ant-menu-item,
+.ant-menu-vertical-left .ant-menu-submenu-title,
+.ant-menu-vertical-right .ant-menu-item,
+.ant-menu-vertical-right .ant-menu-submenu-title {
+  height: 48px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  // padding: 0 16px;
+  overflow: hidden;
+  line-height: 48px;
+}
+
+.menu-icon{
+  width: 20px; /* 设置图片宽度 */
+  height: 20px; /* 设置图片高度 */
+  margin-right: 30px; /* 图标与文字的间距 */
+  vertical-align: middle; /* 垂直居中 */
+}
+
+.scroll-menu::-webkit-scrollbar,
+.content-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-menu::-webkit-scrollbar-thumb,
+.content-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 3);
+}
+
+.scroll-menu {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 48px);
+}

@@ -1,0 +1,25 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'menu.form101'|translate}}</div> -->
+
+  <nz-table #signTable style="padding-bottom: 0%;" nzBordered nzShowSizeChanger [nzData]="signTableData" nzSize="small"
+    [nzNoResult]="null" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize" [nzShowTotal]="totalTemplate"
+    (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)" [nzFrontPagination]="false"
+    [nzTotal]="this.total" [nzShowSizeChanger]="true">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let column of SignTableColumn" [nzWidth]="column.columnWidth" nzAlign="center">
+          {{ column.title }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of signTable.data">
+        <td *ngFor="let column of SignTableColumn" [nzAlign]="column.align">
+          <span *ngIf="column.columnKey!='rno'">{{ data[column.columnKey] }}</span>
+          <a *ngIf="column.columnKey=='rno'" (click)="skipForm(data)">{{ data[column.columnKey] }}</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+        }} {{'itemData'|translate}}</span></ng-template>
+</nz-spin>

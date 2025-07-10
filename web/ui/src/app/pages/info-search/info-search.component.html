@@ -1,0 +1,9 @@
+<div class="info-container">
+  <app-search-condition [nzOptionSelectList]="nzOptionSelectList" (searchList)="getSearchList($event)"></app-search-condition>
+  <nz-divider></nz-divider>
+  <div class="label-export">
+    <app-label [label]="'Time'" [value]='dateStr'></app-label>
+    <app-button [title]="'Export'" (submitted)="export()"></app-button>
+  </div>
+  <app-table [listOfColumn]="listOfColumn" [listOfData]="listOfData" [listOfAction]="listOfAction" (selectAction)="getSelectAction($event)"></app-table>
+</div>

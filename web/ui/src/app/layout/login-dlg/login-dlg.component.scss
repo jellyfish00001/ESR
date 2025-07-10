@@ -1,0 +1,77 @@
+.loginBackground {
+    left: 0vw;
+    top: 0vh;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 auto;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background: url('../../../assets/image/Signin_BG.png')no-repeat center;
+    // font-size: 16px;
+}
+
+// .loginBackground>div:first-child {
+//     position: absolute;
+//     left: 46.12vw;
+//     top: 31.25vh;
+//     width: 8.76vw;
+//     height: 3.125vh;
+//     color: rgba(255, 255, 255, 85);
+//     font-size: 1.46vw;
+//     text-align: center;
+//     font-family: Roboto-Regular;
+// }
+
+.loginBackground>div:first-child {
+    position: absolute;
+    top: 21.25vh;
+    width: -webkit-fill-available;
+    color: rgba(255, 255, 255, 85);
+    text-align: center;
+}
+
+.logLWelcome {
+    position: absolute;
+    font-family: Roboto-Regular;
+    left: 38.29vw;
+    top: 40.25vh;
+    width: 23.43vw;
+    height: 6.9vh;
+    // font-weight: bold;
+    color: rgba(255, 255, 255, 90);
+    font-size: 30px;
+    text-align: center;
+}
+
+.logLImg {
+    position: absolute;
+    font-family: Arial-BoldMT;
+    // left: 38.29vw;
+    top: 45.42vh;
+    width: -webkit-fill-available;
+    height: 6.9vh;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 90);
+    font-size: 50px;
+    text-align: center;
+    // background: url('../../../assets/image/WIGPS_logo.png') center no-repeat;
+    // background-size: 7.34vw 3.51vh;
+
+}
+
+.login_btn {
+    position: relative;
+    left: 38.29vw;
+    top: 57.27vh;
+    height: 7.03vh;
+    width: 23.43vw;
+    border-radius: 0.59vw;
+    background-color: rgba(69, 162, 205, 1);
+    color: white;
+    cursor: pointer;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

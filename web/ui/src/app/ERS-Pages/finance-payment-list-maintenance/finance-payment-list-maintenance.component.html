@@ -1,0 +1,176 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.py002'|translate}}</div> -->
+
+  <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="ChangeApplication($event)">
+    <label nz-radio nzValue="A">Confirm List</label>
+    <label nz-radio nzValue="B">Query Data</label>
+  </nz-radio-group>
+
+  <div *ngIf="radioValue == 'A'">
+    <div class="operation-button" style="margin-top: 30px;">
+      <button nz-button nzType="primary" [nzLoading]="isQueryLoading" class="default-button"
+        (click)="addItem()">{{'button.add'|translate}}</button>
+      <button nz-button nzType="primary" class="default-button" [nzLoading]="isQueryLoading" (click)="SaveSelect()"
+        [disabled]="selectSaveConfirmRno.size === 0">{{'button.ok'|translate}}</button>
+      <button nz-button nz-popconfirm nzType="primary" class="default-button" [nzLoading]="isQueryLoading"
+        nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteSelect()"
+        [disabled]="selectSaveConfirmRno.size === 0">{{'button.delete'|translate}}</button>
+    </div>
+    <nz-table #ConfirmlistTable style="padding-bottom: 1%;" nzBordered [nzData]="ConfirmDetailTableData" nzSize="small"
+      [nzNoResult]="null" [nzFrontPagination]="false" [nzTotal]="this.ConfirmDetailTotal" [nzShowSizeChanger]="true"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="40px" [nzChecked]="ConfirmChecked" [nzIndeterminate]="indeterminate" nzAlign="center"
+            (nzCheckedChange)="onAllChecked($event)"></th>
+          <th scope="col" *ngFor="let column of ConfirmDetailListTableColumn" [nzWidth]="column.columnWidth"
+            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          <th nzRight nzAlign="center" nzWidth="90px">{{'action'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ConfirmlistTable.data">
+          <td nzLeft [nzChecked]="selectSaveConfirmRno.has(data.sysno)"
+            (nzCheckedChange)="onItemChecked(data.sysno, $event)"></td>
+          <td *ngFor="let column of ConfirmDetailListTableColumn" [nzAlign]="column.align">
+            <span *ngIf="column.columnKey!='sysno'&&column.columnKey!='no'">{{ data[column.columnKey] }}</span>
+            <a *ngIf="column.columnKey=='sysno'" (click)="DownloadSysno(data)">{{ data[column.columnKey]
+              }}</a>
+            <a *ngIf="column.columnKey=='no'" (click)="DownloadNo(data)">{{ data[column.columnKey]}}</a>
+          </td>
+          <td nzRight nzAlign="center">
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+              (nzOnConfirm)="deleteRow(data.sysno)">{{'button.delete'|translate}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" nzTitle="{{'title.uploadPaymenList'|translate}}"
+    (nzOnOk)="handleOk()" [nzOkLoading]="isQueryLoading" (nzOnCancel)="handleCancel()">
+    <form *nzModalContent nz-form [formGroup]="uploadForm" style="padding:2% 3%">
+      <div>
+        <div class="formInline">
+          <nz-form-item class="formItem">
+            <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="company" style="width: 178px;">
+                <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'payment'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-date-picker style="width: 100%;" nzMode="date" formControlName="paymentdate">
+              </nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label nzRequired>identification</nz-form-label>
+            <nz-form-control>
+              <input formControlName="identification" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>{{'upload-attachment'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-upload [nzAction]="false" [nzFileList]="attachmentList" nzMultiple="true"
+                [nzBeforeUpload]="beforeAttachUpload" [nzShowUploadList]="uploadIcons" style="display: inline-block;"
+                (nzChange)="handleAttachChange($event)" nzMultiple="false">
+                <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
+              </nz-upload>
+              <a [href]="this.sampleUrl" [download]="this.sampleName"
+                style="position: absolute;left: 118px;top: 5px;width: max-content;">{{'payment-upload-sample'|translate}}</a>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-modal>
+
+  <div *ngIf="radioValue == 'B'">
+    <form nz-form [formGroup]="queryForm" style="padding:2% 3%">
+      <div>
+        <div class="formInline">
+          <nz-form-item class="formItem">
+            <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="company" style="width: 178px;" (ngModelChange)="ChangeBank()">
+                <nz-option *ngFor="let item of queryCompanyList" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'sysno'|translate}}</nz-form-label>
+            <nz-form-control>
+              <input formControlName="sysno" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'bank'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="bank" style="width: 178px;" nzAllowClear>
+                <nz-option *ngFor="let item of banks" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'payment-cuser'|translate}}</nz-form-label>
+            <nz-form-control>
+              <input formControlName="cuser" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'payment'|translate}}</nz-form-label>
+            <nz-form-control>
+              <!-- <input formControlName="paymentdate" nz-input /> -->
+              <nz-date-picker style="width: 100%;" nzMode="date" formControlName="paymentdate">
+              </nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>identification</nz-form-label>
+            <nz-form-control>
+              <input formControlName="identification" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <button nz-button style="left:50px;" class="default-button" nzType="primary"
+              [nzLoading]="this.isQueryLoading" (click)="QueryDetailList()"><i nz-icon
+                nzType="search"></i>{{'query'|translate}}</button>
+          </nz-form-item>
+        </div>
+      </div>
+
+
+      <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="QueryDetailTableData" nzSize="small"
+        [nzNoResult]="null" [nzScroll]="{ x: '1450px', y: '80vh' }" [nzFrontPagination]="false"
+        [nzTotal]="this.DetailTotal" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChangeDetail($event)"
+        (nzPageSizeChange)="pageSizeChangeDetail($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let column of QueryDetailListTableColumn" [nzWidth]="column.columnWidth"
+              nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listTable.data">
+            <td *ngFor="let column of QueryDetailListTableColumn" [nzAlign]="column.align">
+              <span *ngIf="column.columnKey!='sysno' && column.columnKey!='no'">{{ data[column.columnKey] }}</span>
+              <a *ngIf="column.columnKey=='sysno'" (click)="DownloadSysno(data)">{{ data[column.columnKey]}}</a>
+              <a *ngIf="column.columnKey=='no'" (click)="DownloadNo(data)">{{ data[column.columnKey]}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </form>
+  </div>
+
+</nz-spin>

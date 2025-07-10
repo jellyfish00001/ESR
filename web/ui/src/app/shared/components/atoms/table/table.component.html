@@ -1,0 +1,38 @@
+<nz-table #sortTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzShowQuickJumper]="true" nzSize="small"
+  [nzShowSizeChanger]="true" [nzShowTotal]="totalTemplate" [nzShowPagination]="showPagination" [nzScroll]="scroll">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let column of listOfColumn" [nzWidth]="column.columnWidth" [nzSortFn]="column.sortFn">
+        {{ getColumnName(column.title) }}
+      </th>
+      <th scope="col" nzWidth="200px">{{this.translate.instant('action')}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of sortTable.data">
+      <td *ngFor="let column of listOfColumn" [nzAlign]="column.align">
+        <span *ngIf="column.columnKey !== 'fileurl'">{{ data[column.columnKey] }}</span>
+        <span *ngIf="column.columnKey === 'fileurl'">
+          <a *ngIf="data[column.columnKey]" [href]="data[column.columnKey]" target="_blank">
+            <!-- <img src="assets/images/download.png" alt="Download" /> -->
+             {{data['filepath']}}
+          </a>
+        </span>
+      </td>
+      <td nzAlign="center">
+        <em nz-icon nzType="more" nzTheme="outline" nz-dropdown [nzDropdownMenu]="menu" (mouseenter)="hover(data)"></em>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <app-drop-down [listOfAction]="listOfAction" (selectAction)="getDropDownIndex($event)"></app-drop-down>
+        </nz-dropdown-menu>
+
+        <a (click)="getDropDownIndex($event)">删除</a>
+        &nbsp;
+        <ng-container *ngIf="PageKey === 'rq101'">
+          <a>标示异常</a>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #totalTemplate let-total> 共{{ total }}筆資料</ng-template>

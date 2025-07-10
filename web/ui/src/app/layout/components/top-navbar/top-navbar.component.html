@@ -1,0 +1,49 @@
+<div class="top-bar-wrapper">
+  <div class="collapse" (click)="toggleCollapsed()">
+    <em nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></em>
+    <strong>Menu</strong>
+  </div>
+  <div class="title">
+    <span>{{title}}</span>
+  </div>
+  <div class="user-info">
+    <div>
+      <span *ngIf='isShowName'>
+        <a class="user-info-front" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+          {{userName}}
+          <!-- <i nz-icon nzType="down"></i> -->
+        </a>
+        <nz-dropdown-menu style="width: 112px;" #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-submenu nzTitle={{selectLangue}}>
+              <ul *ngFor="let language of languageItems ; let i = index">
+                <li nz-menu-item (click)="switLanguage(language.value)">
+                  {{language.lable}}</li>
+              </ul>
+            </li>
+            <li nz-menu-item (click)="logout()">{{'logout'| translate}}</li>
+          </ul>
+        </nz-dropdown-menu>
+      </span>
+      <!-- <nz-badge [nzCount]="count" (click)="createBasicNotification(template)">
+        <i nz-icon class="bell" nzType="bell" nzTheme="outline"></i>
+      </nz-badge> -->
+      <!-- <nz-badge [nzDot]="dot" style="cursor: pointer; width: 36px;
+        height: 36px;bottom: 4px;">
+        <i nz-icon class="bell" nzType="bell" nzTheme="outline"></i>
+      </nz-badge> -->
+    </div>
+  </div>
+  <!-- <ng-template #template let-notification>
+    <div class="ant-notification-notice-content">
+      <div>
+        <div class="ant-notification-notice-message">通知</div>
+        <div class="ant-notification-notice-description" *ngFor="let item of oldMessage">
+          {{item.author}}：{{item.message}}
+        </div>
+        <div class="ant-notification-notice-btn">
+          <a (click)="onClick()">查看更多</a>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->

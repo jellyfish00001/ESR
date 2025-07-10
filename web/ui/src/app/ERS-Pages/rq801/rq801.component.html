@@ -1,0 +1,181 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <form nz-form [formGroup]="headForm" [nzAutoTips]="autoTips">
+    <!-- [S]Header -->
+    <div class="formInline" style="display: flex; flex-wrap: wrap; gap: 0px;">
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--申請人工號-->
+        <nz-form-label>{{'applicant-emplid'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantEmplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--申請人姓名-->
+        <nz-form-label>{{'applicant-name'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--申請人部門-->
+        <nz-form-label>{{'applicant-dept'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantDept" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--申請人分機-->
+        <nz-form-label>{{'applicant-ext'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantExt" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--申請人分機-->
+        <nz-form-label>{{'Project Code'}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="projectCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--公司別-->
+        <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+        <nz-select formControlName="companyCode" (ngModelChange)="updateSelectedArea()" style="width: 23%;">
+          <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+          </nz-option>
+        </nz-select>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--報銷類型-->
+        <nz-form-label nzRequired>{{'reimbursemen-type'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="reimbursemenType" style="width: 178px;">
+            <nz-option nzValue="1" nzLabel="週轉金報銷"></nz-option>
+            <nz-option nzValue="2" nzLabel="廠商報銷"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="flex: 1 1 23%; min-width: 200px;"><!--請款金額-->
+        <nz-form-label nzRequired>{{'requestAmount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-number formControlName="requestAmount" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" *ngIf="headForm.get('reimbursemenType').value === '2'" style="flex: 0 0 23%; min-width: 200px;"><!--廠商-->
+        <nz-form-label nzRequired>{{'vendor'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="vendor" (ngModelChange)="updateSelectedVendor()"  [nzDropdownStyle]="{ 'width': '500px' }">
+            <nz-option *ngFor="let item of vendorList" [nzValue]="item.vendorCode" [nzLabel]="item.unifyCode + ' - ' + item.vendorName">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" *ngIf="headForm.get('reimbursemenType').value === '2'" style="flex: 0 0 23%; min-width: 200px;"><!--預計付款日-->
+        <nz-form-label nzRequired>{{'payment'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-date-picker nzMode="date" formControlName="paymentDate"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="operation-button" style="flex: 1 1 100%;"> <!--大量上傳按鈕-->
+        <button type="button" nz-button nzType="primary" [nzLoading]="addloading" class="default-button" style="margin-right: 12px;"
+          (click)="uploadFile()">{{'batch-Reimbursement-upload'|translate}}</button>
+      </div>
+    </div>
+    <!-- [E]Header -->
+    <!-- [S]Excel明細 -->
+    <div style="padding: 1% 0%;">
+      <nz-table #listTable nzShowPagination nzBordered nzShowSizeChanger [nzData]="" nzSize="small"
+        [nzScroll]="{ x: '1700px', y: '80vh' }"  [nzNoResult]="null">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let column of excelColumn" [nzWidth]="column.columnWidth" nzAlign="center">
+              {{ column.title|translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of excelData">
+            <td *ngFor="let column of excelColumn" [nzAlign]="column.align">
+              <ng-container *ngIf="column.columnKey==='rdate'; else nonDate">
+                {{ data[column.columnKey] | date: 'yyyy/MM/dd' }}
+              </ng-container>
+              <ng-template #nonDate>
+                {{ data[column.columnKey] }}
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <br><br>
+    <!-- [E]Excel明細 -->
+    <!-- [S]發票明細 -->
+    <invoices-modal  [userId]="this.headForm.controls.applicantEmplid.value" [company]="this.headForm.controls.companyCode.value" (addInvoice)="addInvoice($event)"></invoices-modal>
+    <div style="padding: 0;">
+      <nz-table #listTable nzShowPagination nzBordered nzShowSizeChanger [nzData]="" nzSize="small"
+        [nzScroll]="{ x: '1500px', y: '80vh' }"  [nzNoResult]="null">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let column of invoiceColumn" [nzWidth]="column.columnWidth" nzAlign="center">
+              {{ column.title|translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of invoiceData">
+            <td *ngFor="let column of invoiceColumn" [nzAlign]="column.align">
+                  {{ data[column.columnKey] }}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <!-- [E]發票明細 -->
+    <!-- [S]上傳附件和存檔送出按鈕 -->
+    <div class="formInline" style="padding: 3% 0%">
+      <nz-form-item class="" style="margin-right: 30px;">
+        <nz-form-label>{{'upload-attachment'|translate}}
+        </nz-form-label>
+        <nz-form-control style="margin-bottom: 5px;">
+          <nz-upload [nzAction]="false" [nzFileList]="attachmentList" nzMultiple="true" [nzBeforeUpload]="beforeUpload"
+            (nzChange)="handleChange($event)" [nzPreview]="handlePreview" [nzShowUploadList]="uploadIcons">
+            <button type="button" nz-button><i nz-icon nzType="upload"></i>Upload</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-space *ngIf="this.headForm.controls.rno.value == null">
+        <button type="button" nz-button nzType="primary" [nzLoading]="isSaveLoading" (click)="save()"
+          style="margin-right: 12px;" class="default-button">{{'save'|translate}}</button>
+        <button type="button" nz-button nzType="primary" [nzLoading]="isSaveLoading" (click)="submit()"
+          class="default-button">{{'submit'|translate}}</button>
+      </nz-space>
+    </div> 
+    <!-- [E]上傳附件和存檔送出按鈕 -->
+  </form>
+
+  <!-- 大量上傳彈窗 -->
+  <nz-modal [(nzVisible)]="batchUploadModal" nzTitle="{{'batch-upload'|translate}}" nzMaskClosable="false"
+  nzOkText="Upload" (nzOnCancel)="this.batchUploadModal = false" (nzOnOk)="handleBatchUpload()"
+  [nzOkLoading]="isSaveLoading">
+    <nz-space *nzModalContent style="margin-bottom: 30px;">
+      <label nzRequired style="padding-top: 5px;">{{'upload-file'|translate}} : </label>
+      <nz-upload [nzFileList]="batchUploadList" [nzBeforeUpload]="beforeUpload" nzMultiple="false"
+          (nzChange)="handleFileChange($event)" [nzShowUploadList]="uploadIcons" [nzFilter]="filters"
+          [nzPreview]="handlePreview">
+          <button nz-button><i nz-icon nzType="upload"></i>Select</button>
+      </nz-upload>
+      <a href="../../../assets/file/Batch-Reimbursement-sample.xlsx" style="margin-left:5px;padding-top: 5px;"
+          [download]="this.translate.instant('Batch-Reimbursement-sample')+'.xlsx'">{{'batch-reimbursement-upload-sample'|translate}}</a>
+      <!--<a style="margin-left:5px;padding-top: 5px;" (click)="DownloadTemplate()">{{'file-upload-signlevel-sample'|translate}}</a>-->
+    </nz-space>
+  </nz-modal>
+  
+  <!-- pdf文件预览抽屉 -->
+  <nz-drawer [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" nzTitle="Preview"
+    (nzOnClose)="drawerVisible = false" nzWidth="50%" nzZIndex="1050">
+    <ng-container *nzDrawerContent>
+      <iframe *ngIf="!!frameSrc" [src]="frameSrc" width="100%" height="100%" frameborder="0"></iframe>
+    </ng-container>
+  </nz-drawer>
+
+  <!-- 图片文件预览弹窗 -->
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false">
+    <ng-template #modalContent>
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+</nz-spin>

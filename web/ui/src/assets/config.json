@@ -1,0 +1,34 @@
+{
+  "aad": {
+    "clientId": "7e520eb7-5705-403b-a7f3-3a9542f5bae9",
+    "authority": "https://login.microsoftonline.com/de0795e0-d7c0-4eeb-b9bb-bc94d8980d3b"
+  },
+  "idmConfig": {
+    "IDM_URL": "https://authqwt.wistron.com",
+    "CLIENT_ID": "ers"
+  },
+  "RelativePath": "/ers",
+  "env": "Dev",
+  "debug": true,
+  "API": "",
+  "KEYCLOAKURL": "https://keycloak-prd.wistron.com/auth",
+  "language": [
+    {
+      "lable": "English",
+      "value": "en"
+    },
+    {
+      "lable": "简体中文",
+      "value": "zh_CN"
+    },
+    {
+      "lable": "繁體中文",
+      "value": "zh_TW"
+    }
+  ],
+  "BPMProxy": "https://bpm-oa-d.wistron.com/common/proxy",
+  "BPMSignLevel1": "https://bpm-oa-d.wistron.com/finance/apps/nuclear-definitely-permissions",
+  "BPMSignLevel2": "https://bpm-oa-d.wistron.com/finance/apps/nuclear-definitely-project",
+  "ersUrl": "http://localhost:5000",
+  "envirenment": "dev"
+}

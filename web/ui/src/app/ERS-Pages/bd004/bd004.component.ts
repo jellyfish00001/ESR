@@ -1,0 +1,364 @@
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { URLConst } from 'src/app/shared/const/url.const';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { WebApiService } from 'src/app/shared/service/webapi.service';
+import { EnvironmentconfigService } from '../../shared/service/environmentconfig.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { BDInfoTableColumn } from './classes/table-column';
+import { AuditorInfo } from './classes/data-item';
+import { format } from 'date-fns';
+import { CommonService } from 'src/app/shared/service/common.service';
+import { Guid } from 'guid-typescript';
+import { Router } from '@angular/router';
+
+@Component({
+    selector: 'app-bd004',
+    templateUrl: './bd004.component.html',
+    styleUrls: ['./bd004.component.scss']
+})
+
+export class BD004Component implements OnInit {
+    navigationSubscription;
+
+    //#region 参数
+    nzFilterOption = () => true;
+    screenWidth: any;
+    queryForm: UntypedFormGroup;
+    listForm: UntypedFormGroup;
+    employeeList: any[] = [];
+    formInfoList: any[] = [];
+    queryCompanyList: any[] = [];
+    companyList: any[] = [];
+    showModal: boolean = false;
+    isSaveLoading: boolean = false;
+    listTableColumn = BDInfoTableColumn;
+    listTableData: AuditorInfo[] = [];
+    isSpinning = false;
+    queryParam: any;
+    userInfo: any;
+    total: any;
+    pageIndex: number = 1;
+    pageSize: number = 10;
+    showTable = false;
+    isQueryLoading = false;
+    isFirstLoading: boolean = true;
+    addloading = false;
+    editloading = false;
+    deleteloading = false;
+    //#endregion
+
+    constructor(
+        private fb: UntypedFormBuilder,
+        private Service: WebApiService,
+        private authService: AuthService,
+        private modal: NzModalService,
+        public translate: TranslateService,
+        private EnvironmentconfigService: EnvironmentconfigService,
+        private message: NzMessageService,
+        private commonSrv: CommonService,
+        private router: Router,
+    ) { }
+
+    ngOnInit(): void {
+        this.authService.CheckPermissionByRoleAndRedirect(['Admin','FinanceAdmin']);
+        this.isSpinning = true;
+        this.isFirstLoading = false;
+        this.screenWidth = window.innerWidth < 580 ? window.innerWidth * 0.9 + 'px' : '580px';
+        this.queryForm = this.fb.group({
+            company: [""],
+            formCode: [null],
+            emplid: [null],
+        });
+        this.listForm = this.fb.group({
+            id: [null],
+            company: [null, [Validators.required]],
+            formCode: [null, [Validators.required]],
+            emplid: [null, [Validators.required]],
+            deptid: [{ value: 'ALL', disabled: true }],
+            auditEmplid: [null, [Validators.required]],
+            startDate: [null, [this.startDateValidator]],
+            endDate: [null, [this.endDateValidator]],
+        });
+        this.getEmployeeInfo();
+        this.getCompanyData();
+        this.getFormInfo();
+
+        this.queryForm.valueChanges.subscribe(value => {
+            this.showTable = false;
+        });
+    }
+
+    autoTips: Record<string, Record<string, string>> = {
+        default: {
+            required: this.translate.instant('can-not-be-null'),
+            startdate: this.translate.instant('can-not-later-than-end-date'),
+            enddate: this.translate.instant('can-not-earlier-than-start-date'),
+        }
+    };
+
+
+    startDateValidator = (control: FormControl): { [s: string]: boolean } => {
+        if (!!control.value) {
+            if (!!this.listForm.controls.endDate.value && new Date(control.value).setHours(0, 0, 0, 0) > (new Date(this.listForm.controls.endDate.value)).setHours(0, 0, 0, 0))
+                return { startdate: true, error: true };
+            if (!this.listForm.controls.endDate.pristine) {
+                this.listForm.controls.endDate!.markAsPristine();
+                this.listForm.controls.endDate!.updateValueAndValidity();
+            }
+        }
+        else return { required: true, error: true }
+    };
+    endDateValidator = (control: FormControl): { [s: string]: boolean } => {
+        if (!!control.value) {
+            if (!!this.listForm.controls.startDate.value && new Date(control.value).setHours(0, 0, 0, 0) < (new Date(this.listForm.controls.startDate.value)).setHours(0, 0, 0, 0))
+                return { enddate: true, error: true };
+            if (!this.listForm.controls.startDate.pristine) {
+                this.listForm.controls.startDate!.markAsPristine();
+                this.listForm.controls.startDate!.updateValueAndValidity();;
+            }
+        }
+        else return { required: true, error: true }
+    };
+
+    getEmployeeInfo() {
+        this.userInfo = this.commonSrv.getUserInfo;
+    }
+
+    getEmployeeList(value) {
+        this.commonSrv.getEmployeeList(value).subscribe(res => this.employeeList = res);
+    }
+
+    getCompanyData() {
+      this.commonSrv.getOthersCompanys().subscribe(res => {
+        this.companyList = res;
+        this.queryCompanyList = res;
+        this.isSpinning = false;
+      });
+    }
+
+    getFormInfo() {
+        this.Service.doGet(this.EnvironmentconfigService.authConfig.ersUrl + URLConst.GetFormInfo, null).subscribe((res) => {
+            if (res && res.status === 200 && !!res.body) {
+                if (res.body.status == 1) {
+                    this.formInfoList = res.body.data.map(item => { return { formCode: item.formcode, formName: item.formname } });
+                    this.formInfoList = this.formInfoList.sort((a, b) => a.formName.localeCompare(b.formName));
+                    this.formInfoList.splice(0, 0, { formCode: 'ALL', formName: 'ALL' });
+                }
+                else { this.message.error(res.body.message, { nzDuration: 6000 }); }
+            }
+            else { this.message.error(this.translate.instant('server-error'), { nzDuration: 6000 }); }
+            this.isSpinning = false;
+        });
+    }
+
+    pageIndexChange(value) {
+        this.pageIndex = value;
+        this.queryResultWithParam();
+    }
+
+    pageSizeChange(value) {
+        this.pageSize = value;
+        this.queryResultWithParam();
+    }
+
+    queryResultWithParam(initial: boolean = false) {
+        this.isQueryLoading = true;
+        let paramValue = this.queryForm.getRawValue();
+        if (initial) {
+            this.pageIndex = 1;
+            this.pageSize = 10;
+            this.setOfCheckedId.clear();
+        }
+        this.queryParam = {
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
+            data: {
+                companyList: paramValue.company == '' ? this.companyList.filter(o => o != '') : [paramValue.company],
+                formcode: paramValue.formCode,
+                emplid: paramValue.emplid
+            }
+        }
+        this.Service.Post(this.EnvironmentconfigService.authConfig.ersUrl + URLConst.QueryBd004, this.queryParam).subscribe((res) => {
+            if (res && res.status === 200 && res.body != null) {
+                this.total = res.body.total;
+                let result: AuditorInfo[] = [];
+                res.body.data?.map(o => {
+                    result.push({
+                        id: o.id,
+                        company: o.company,
+                        formCode: o.formcode,
+                        formName: o.formname,
+                        emplid: o.emplid,
+                        name: o.cname,
+                        deptid: 'ALL',
+                        auditEmplid: o.auditid,
+                        auditName: o.auditname,
+                        startDate: o.sdate == null ? null : format(new Date(o.sdate), "yyyy/MM/dd"),
+                        endDate: o.edate == null ? null : format(new Date(o.edate), "yyyy/MM/dd"),
+                        updateUser: o.muser,
+                        updateDate: o.mdate == null ? null : format(new Date(o.mdate), "yyyy/MM/dd"),
+                        disabled: false,
+                    })
+                });
+                this.listTableData = result;
+                this.showTable = true;
+                this.isQueryLoading = false;
+            }
+        });
+    }
+
+    addRow(): void {
+        this.addloading = true;
+        this.employeeList = [];
+        this.employeeList.push({ emplid: this.userInfo.emplid, name: this.userInfo.cname, label: this.userInfo.emplid + '/' + this.userInfo.cname });
+        this.listForm.reset({ emplid: this.userInfo.emplid, name: this.userInfo.cname, deptid: 'ALL' });
+        if (!this.listForm.controls.company.enabled) this.listForm.controls.company.enable();
+        this.showModal = true;
+    }
+
+    editRow(item): void {
+        this.isSpinning = true;
+        this.editloading = true;
+        this.companyList = [];
+        this.employeeList = [];
+        this.employeeList.push({ emplid: item.emplid, name: item.name, label: item.emplid + '/' + item.name });
+        this.employeeList.push({ emplid: item.auditEmplid, name: item.auditName, label: item.auditEmplid + '/' + item.auditName });
+        this.companyList.push(item.company);
+        this.listForm.reset(item);
+        if (this.listForm.controls.company.enabled) this.listForm.controls.company.disable();
+        this.isSpinning = false;
+        this.showModal = true;
+    }
+
+    handleOk(): void {
+        this.isSpinning = true;
+        this.isSaveLoading = true;
+        if (!this.listForm.valid) {
+            Object.values(this.listForm.controls).forEach(control => {
+                if (control.invalid) {
+                    control.markAsDirty();
+                    control.updateValueAndValidity({ onlySelf: true });
+                }
+            });
+            this.message.error(this.translate.instant('fill-in-form'));
+            this.isSpinning = false;
+            this.isSaveLoading = false;
+            return;
+        }
+        let listFormData = this.listForm.getRawValue();
+        let params = {
+            Id: listFormData.id,
+            company: listFormData.company,
+            formcode: listFormData.formCode,
+            emplid: listFormData.emplid,
+            deptid: listFormData.deptid,
+            auditid: listFormData.auditEmplid,
+            sdate: new Date(listFormData.startDate),
+            edate: new Date(listFormData.endDate),
+        }
+        if (!this.editloading) this.addItem(params);
+        else this.editItem(params);
+    }
+
+    addItem(params: any) {
+        params.Id = null;
+        this.Service.Post(this.EnvironmentconfigService.authConfig.ersUrl + URLConst.MaintainBd004, params).subscribe((res) => {
+            if (res && res.status === 200 && res.body != null) {
+                if (res.body.status == 1) {
+                    this.message.success(this.translate.instant('save-successfully'));
+                    this.queryResultWithParam(true);
+                    this.showModal = false;
+                }
+                else this.message.error(this.translate.instant('save-failed') + (res.body.message == null ? '' : res.body.message));
+            }
+            else this.message.error(this.translate.instant('operate-failed') + this.translate.instant('server-error'));
+            this.addloading = false;
+            this.isSaveLoading = false;
+            this.isSpinning = false;
+        });
+    }
+
+    editItem(params: any) {
+        this.Service.Put(this.EnvironmentconfigService.authConfig.ersUrl + URLConst.MaintainBd004, params).subscribe((res) => {
+            if (res && res.status === 200 && res.body != null) {
+                if (res.body.status == 1) {
+                    this.message.success(this.translate.instant('save-successfully'));
+                    this.queryResultWithParam();
+                }
+                else this.message.error(this.translate.instant('save-failed') + (res.body.message == null ? '' : res.body.message));
+            }
+            else this.message.error(this.translate.instant('operate-failed') + this.translate.instant('server-error'));
+            this.editloading = false;
+            this.isSaveLoading = false;
+            this.isSpinning = false;
+            this.showModal = false;
+        });
+    }
+
+    handleCancel(): void {
+        this.showModal = false;
+        this.addloading = false;
+        this.editloading = false;
+    }
+
+    deleteRow(id: string = null): void {
+        this.deleteloading = true;
+        let params: any = [];
+        if (id == null) {   //多选操作
+            params = Array.from(this.setOfCheckedId);
+            this.setOfCheckedId.clear();
+        }
+        else {
+            params.push(id);
+            this.setOfCheckedId.delete(id);
+        }
+        this.Service.Delete(this.EnvironmentconfigService.authConfig.ersUrl + URLConst.MaintainBd004, params).subscribe((res) => {
+            if (res && res.status === 200 && res.body != null) {
+                if (res.body.status == 1) {
+                    this.message.success(this.translate.instant('operate-successfully'));
+                    this.queryResultWithParam();
+                }
+                else this.message.error(this.translate.instant('operate-failed') + (res.body.message == null ? '' : res.body.message));
+            }
+            else this.message.error(this.translate.instant('operate-failed') + this.translate.instant('server-error'));
+            this.deleteloading = false;
+        });
+    }
+
+    ////////带选择框表
+    checked = false;
+    indeterminate = false;
+    listOfCurrentPageData: AuditorInfo[] = [];
+    setOfCheckedId = new Set<string>();
+    updateCheckedSet(id: string, checked: boolean): void {
+        if (checked) {
+            this.setOfCheckedId.add(id);
+        } else {
+            this.setOfCheckedId.delete(id);
+        }
+    }
+
+    onCurrentPageDataChange(listOfCurrentPageData: AuditorInfo[]): void {
+        this.listOfCurrentPageData = listOfCurrentPageData;
+        this.refreshCheckedStatus();
+    }
+
+    refreshCheckedStatus(): void {
+        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
+        this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    onItemChecked(id: string, checked: boolean): void {
+        this.updateCheckedSet(id, checked);
+        this.refreshCheckedStatus();
+    }
+
+    onAllChecked(checked: boolean): void {
+        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+}

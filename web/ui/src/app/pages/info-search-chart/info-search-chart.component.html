@@ -1,0 +1,25 @@
+<div class="info-container">
+  <app-search-condition [nzOptionSelectList]="nzOptionSelectList" (searchList)="getSearchList($event)"></app-search-condition>
+  <div class="chart-container">
+    <div class="doughnut-container">
+      <div *ngFor="let item of doughnutList">
+        <app-doughnut [id]="item.id" [graphicName]="item.graphicName" [graphicValue]="item.graphicValue"
+         [dataList]="item.dataList" [colors]="item.colors">
+        </app-doughnut>
+      </div>
+    </div>
+    <div class="barChart-container">
+      <div *ngFor="let item of barChartList">
+        <app-bar-chart [id]="item.id" [axisName]="item.axisName" [barChartOrient]="item.barChartOrient" [dataZoomOrient]="item.dataZoomOrient"
+        [startValue]="item.startValue" [endValue]="item.endValue" [seriesData]="item.seriesData">
+        </app-bar-chart>
+      </div>
+    </div>
+    <div class="stackChart-container">
+      <div *ngFor="let item of stackChartList">
+        <app-stack-chart [id]="item.id" [type]="item.type" [yAxisName]="item.yAxisName" [seriesData]="item.seriesData">
+        </app-stack-chart>
+      </div>
+    </div>
+  </div>
+</div>

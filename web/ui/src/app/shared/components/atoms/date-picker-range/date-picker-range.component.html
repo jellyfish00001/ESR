@@ -1,0 +1,9 @@
+<div *ngIf="showTime; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <nz-range-picker [nzShowTime]="true" [(ngModel)]="date" nzAllowClear="true" (ngModelChange)="onChange($event)">
+  </nz-range-picker>
+</ng-template>
+<ng-template #elseBlock>
+  <nz-range-picker [(ngModel)]="date" nzAllowClear="true" (ngModelChange)="onChange($event)">
+  </nz-range-picker>
+</ng-template>

@@ -1,0 +1,88 @@
+@import "../../../assets/scss/variables.scss";
+
+.app-header {
+  height: 48px;
+  color: $header-font-color;
+  background-color: $common-wistron-blue;
+  font-size: $header-system-name-font-size;
+  border-bottom: 3px solid $common-wistron-green;
+}
+
+.col-logo {
+  margin-bottom: 6px !important;
+
+  .wistron-logo {
+    width: 160px;
+    height: 30px;
+  }
+}
+
+@mixin margin-left-right-8 {
+  margin: 0 8px !important;
+}
+
+.vertical-border {
+  @include margin-left-right-8;
+  width: 1px;
+  height: $header-system-name-font-size;
+  border-right: 1px solid $header-divider-color;
+}
+
+.user-name-font {
+  font-size: $header-user-name-font-size;
+}
+
+.col-menu-burger {
+  margin-left: 10px;
+
+  .menu-burger {
+    color: $header-font-color;
+    background-color: $common-wistron-blue;
+    border-color: $common-wistron-blue;
+    box-shadow: none;
+
+    .menu-size {
+      font-size: $header-system-name-font-size;
+    }
+  }
+}
+
+.col-bell {
+  @include margin-left-right-8;
+}
+
+@mixin margin-bottom-6 {
+  margin-bottom: 6px;
+}
+
+.col-lan {
+  @include margin-bottom-6;
+  .lan-img {
+    @include margin-left-right-8;
+    height: $header-system-name-font-size;
+    width: $header-system-name-font-size;
+    cursor: pointer;
+  }
+}
+
+.col-avatar {
+  @include margin-bottom-6;
+  .avatar {
+    color:$header-avatar-color;
+    background-color:$header-avatar-bg-color;
+    margin-right: 4px;
+  }
+}
+
+.col-logout {
+  margin-right: 10px;
+
+  .logout-icon {
+    cursor: pointer;
+    transition: color 0.5s ease-in-out;
+  }
+
+  .logout-icon:hover {
+    color: $header-divider-color;
+  }
+}

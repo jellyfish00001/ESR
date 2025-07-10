@@ -1,0 +1,140 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <!-- Header 申请人信息 -->
+    <div class="formInline">
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'company-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="companyCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'employee-id'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantEmplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <nz-form-item class="formItem">
+        <nz-form-label>{{'dept-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="dept" nz-input />
+        </nz-form-control>
+      </nz-form-item> -->
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'payee'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem"  *ngIf="!isApplicant">
+        <nz-form-label>{{'project-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="projectCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="width: 300px;" *ngIf="isApplicant">
+        <nz-form-label>{{'project-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select style="min-width: 100%;" class="prjcodeWidth" nzShowSearch nzAllowClear nzServerSearch
+            [nzShowArrow]="false" [nzFilterOption]="nzFilterOption" (nzOnSearch)="inputProjectCode($event)" nzPlaceHolder=""
+            formControlName="projectCode">
+            <nz-option *ngFor="let item of projectCodeList" [nzValue]="item.split('-')[0]" [nzLabel]="item">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'travel-order-number'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="businessTripNo" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" *ngIf="isApplicant">
+        <nz-form-control>
+          <button type="button" nz-button nzType="primary" [nzLoading]="isSaveLoading" (click)="submit()"
+            class="default-button">{{'submit'|translate}}</button>
+        </nz-form-control>
+        </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'application-number'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="rno" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+
+  <!-- 审核明细信息表格 -->
+  <div style="padding: 0% 3%">
+    <div class="operation-button">
+      <nz-form-label>{{'reimbursement-description'|translate}}</nz-form-label>
+    </div>
+    <nz-table #listTable style="padding-bottom: 0%;" nzShowPagination nzShowSizeChanger nzBordered
+      [nzData]="detailTableData" nzSize="small" [nzScroll]="{ x: '1000px', y: '80vh' }" [nzShowTotal]="totalTemplate"
+      [nzNoResult]="null" [nzShowPagination]="true">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+            [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listTable.data">
+          <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+            <ng-container [ngSwitch]="column.columnKey">
+              <ng-container *ngSwitchCase="'attribDept'">
+                <p style="margin-bottom: 0px;" *ngFor="let item of data['attribDeptList']">
+                  {{item.deptId}}</p>
+              </ng-container>
+              <ng-container *ngSwitchCase="'percent'">
+                <p style="margin-bottom: 0px;" *ngFor="let item of data['attribDeptList']">
+                  {{item.percent}}</p>
+              </ng-container>
+              <ng-container *ngSwitchCase="'expenseAmt'">
+                <p style="margin-bottom: 0px;" *ngFor="let item of data['attribDeptList']">
+                  {{item.amount}}</p>
+              </ng-container>
+              <ng-container *ngSwitchCase="'toLocalAmt'">
+                <p style="margin-bottom: 0px;" *ngFor="let item of data['attribDeptList']">
+                  {{item.baseamount}}</p>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{ data[column.columnKey] }}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+        }} {{'itemData'|translate}}</span></ng-template>
+  </div>
+
+  <!-- summary金额显示栏位 -->
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <!-- <div class="formInline">
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'total-reimbursement'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="this.currency+':'">
+            <input formControlName="totalAmt" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'actual-pay-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group *ngIf="userRole != 'Fin'" [nzPrefix]="this.currency+':'">
+            <input formControlName="actualAmt" nz-input />
+          </nz-input-group>
+          <nz-input-number *ngIf="userRole == 'Fin'" style="width: 178px;" formControlName="actualAmt" [nzPrecision]="2"
+            [nzMin]="0.01">
+          </nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div> -->
+    <sign-off [rno]='rno' [exTotalWarning]="exTotalWarning" [showTransformButton]="showTransformButton"
+      (transform)="transform($event)" (approve)="approve($event)" (reject)="reject($event)" [isFinUser]="isFinUser">
+    </sign-off>
+  </form>
+</nz-spin>

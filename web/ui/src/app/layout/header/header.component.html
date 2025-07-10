@@ -1,0 +1,43 @@
+<div nz-row class="app-header" nzAlign="middle" nzJustify="center">
+  <div nz-col class="col-menu-burger">
+    <button nz-button class="menu-burger" (click)="toggleCollapsed()">
+      <span nz-icon class="menu-size" nzType="menu" nzTheme="outline"></span>
+    </button>
+  </div>
+  <div nz-col class="col-logo">
+    <img class="wistron-logo" alt="" src="../../../assets/images/Icon/Logo.svg" />
+  </div>
+  <div nz-col class="vertical-border">
+  </div>
+  <div nz-col class="header-font" nzSpan="10">
+      <span>ERS</span>
+      <span style="color: #ffffffd7; font-size: 16px;margin-left: 10px;"> {{ headerService.envLabel }}.</span>
+  </div>
+  <div nz-col nzFlex="30">
+  </div>
+  <div nz-col class="col-lan" nzFlex="1" nz-dropdown [nzDropdownMenu]="menu">
+    <img class="lan-img" [src]="languageSetting.imageSource" />
+  </div>
+  <div nz-col class="vertical-border">
+  </div>
+  <div nz-col class="col-avatar" nzFlex="1">
+    <nz-avatar class="avatar" [nzText]="headerService.firstChar" [nzSize]="'small'"></nz-avatar>
+    <!-- <nz-avatar class="avatar" [nzText]="nameChar" [nzSize]="'small'"></nz-avatar> -->
+  </div>
+  <div nz-col class="user-name-font">
+    {{ headerService.userEnName }}
+  </div>
+  <div nz-col class="vertical-border">
+  </div>
+  <div nz-col class="col-logout" nzFlex="1">
+    <span nz-icon class="logout-icon" nzType="logout" nzTheme="outline" (click)="signout()"></span>
+  </div>
+</div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let item of languageSettingList">
+        <li nz-menu-item *ngIf="headerService.language !== item.locateName" (click)="setI18n(item.locateName)">{{ item.displayName }}</li>
+      </ng-container>
+  </ul>
+</nz-dropdown-menu>

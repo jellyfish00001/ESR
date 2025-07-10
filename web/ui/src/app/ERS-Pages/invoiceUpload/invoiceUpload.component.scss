@@ -1,0 +1,10 @@
+.list-delete-btn {
+    border: none;
+    background: none;
+    height: -webkit-fill-available;
+    font-size: 20px;
+}
+
+::ng-deep .ant-upload-list-item-card-actions-btn {
+    opacity: 1;
+}

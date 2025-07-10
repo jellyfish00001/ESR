@@ -1,0 +1,12 @@
+{ 
+  "idmConfig":{
+    "APPURL_FOR_IDM": "http://wigps-template.wigps-dev.10.41.241.111.k8sprd-wzs.k8s.wistron.com.cn/",  
+    "IDM_URL": "https://authdwt.wistron.com", 
+    "CLIENT_ID": "project-template"
+  },  
+  "WiGPS_URL": "http://wigps-ui-dev.k8sprd-wzs.k8s.wistron.com.cn",
+  "API": "", 
+  "KEYCLOAKURL":"https://keycloak-prd.wistron.com/auth"  ,
+  "language":[{"lable":"English","value":"en_US"},{"lable":"简体中文","value":"zh_CN"},{"lable":"繁體中文","value":"zh_TW"}]
+  
+  }

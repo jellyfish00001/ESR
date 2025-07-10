@@ -1,0 +1,30 @@
+::ng-deep .ant-card-head {
+    // min-height: 48px;
+    padding: 0px 18px;
+}
+
+::ng-deep .ant-collapse-icon-position-right>.ant-collapse-item>.ant-collapse-header {
+    padding: 2px 0 10px 15px;
+}
+
+.inv-detail-item {
+    padding: 2px 0 10px 15px;
+    // padding: 12px 0 12px 40px;
+    color: #000000D9;
+}
+
+::ng-deep .ant-collapse-content-box {
+    border: dashed 1px #767676
+}
+
+// ::ng-deep .ant-collapse-content-box.ng-tns-c186-14 {
+//     border: dashed 1px #767676
+// }
+
+// ::ng-deep .ant-collapse-content-box.ng-tns-c186-15 {
+//     border: dashed 1px #767676
+// }
+
+::ng-deep .ant-modal {
+    margin: 0px auto;
+}

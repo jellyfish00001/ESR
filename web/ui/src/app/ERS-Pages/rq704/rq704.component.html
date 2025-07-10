@@ -1,0 +1,147 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.rq704-signer'|translate}}</div> -->
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <!-- Header 申请人信息 -->
+    <div class="formInline">
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'company-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="companyCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-project'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="expenseProject" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-account-no'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="rno" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'project-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="projectCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'payee-emplid'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantEmplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'name'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+
+  <!-- 审核明细信息表格 -->
+  <div style="padding: 0% 3%">
+    <div class="operation-button">
+      <nz-form-label>{{'reimbursement-description'|translate}}</nz-form-label>
+    </div>
+    <nz-table #listTable nzBordered style="padding-bottom: 0%;" nzShowPagination nzShowSizeChanger
+      [nzData]="detailTableData" nzSize="small" [nzNoResult]="null" [nzScroll]="{ x: '1300px', y: '80vh' }"
+      [nzShowTotal]="totalTemplate" [nzShowPagination]="true">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+            [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listTable.data">
+          <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+            <ng-container [ngSwitch]="column.columnKey">
+              <ng-container *ngSwitchCase="'appliedAmount'">
+                {{data[column.columnKey]?.toLocaleString()}}
+              </ng-container>
+              <ng-container *ngSwitchCase="'actualAmount'">
+                <nz-input-number *ngIf="this.isApplicant" [nzPrecision]="2" [nzMin]="0" nzPrecisionMode='cut'
+                  [nzFormatter]="formatter" [(ngModel)]="data.actualAmount" (nzBlur)="this.checkActualAmount(data.id)"
+                  (nzFocus)="this.focusOnInputNumber(data.id)" style="width: 100%">{{data.actualAmount}}
+                </nz-input-number>
+                <span *ngIf="!this.isApplicant">{{data[column.columnKey]?.toLocaleString()}}</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{ data[column.columnKey] }}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+                }} {{'itemData'|translate}}</span></ng-template>
+  </div>
+  <!-- 附件 -->
+  <div *ngIf="!this.isApplicant" style="padding: 0% 3%;">
+    <nz-form-label>{{'attachment'|translate}}</nz-form-label>
+    <nz-space *ngFor="let item of attachmentList">
+      <a [href]="item.url" target="_blank" style="margin-right: 20px;">{{item.filename}}</a><br>
+    </nz-space>
+  </div>
+
+  <!-- Footer 上传附件窗口&submit -->
+  <div *ngIf="this.isApplicant" style="padding: 0% 3%; max-width: 500px;">
+    <nz-form-item class="" style="margin-right: 30px;">
+      <nz-form-label nzRequired>{{'upload-attachment'|translate}}
+      </nz-form-label>
+      <nz-form-control style="margin-bottom: 5px;">
+        <nz-upload [nzAction]="false" [nzFileList]="attachmentList" nzMultiple="true" [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)" [nzPreview]="handlePreview" [nzShowUploadList]="uploadIcons">
+          <button type="button" nz-button><i nz-icon nzType="upload"></i>Upload</button>
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <!-- summary金额显示栏位 -->
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <div class="formInline">
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'total-application-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-number-group [nzPrefix]="this.currency+':'" style="width: 100%">
+            <nz-input-number formControlName="totalAmt" [nzFormatter]="formatter" style="width: 100%">
+            </nz-input-number>
+          </nz-input-number-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'actual-pay-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-number formControlName="actualPayment" [nzPrecision]="2" nzPrecisionMode='cut' [nzMin]="0"
+            [nzFormatter]="formatter" style="width: 100%">
+          </nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <sign-off [rno]='rno' [showTransformButton]="showTransformButton" [showExModal]="false" [showPrintButton]="true"
+      (approve)="approve($event)" (reject)="reject($event)" (transform)="transform($event)" [isFinUser]="isFinUser">
+    </sign-off>
+  </form>
+
+  <!-- pdf文件预览抽屉 -->
+  <nz-drawer [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" nzTitle="Preview"
+    (nzOnClose)="drawerVisible = false" nzWidth="50%" nzZIndex="1050">
+    <ng-container *nzDrawerContent>
+      <iframe *ngIf="!!frameSrc" [src]="frameSrc" width="100%" height="100%" frameborder="0"></iframe>
+    </ng-container>
+  </nz-drawer>
+
+  <!-- 图片文件预览弹窗 -->
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false">
+    <ng-template #modalContent>
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+</nz-spin>

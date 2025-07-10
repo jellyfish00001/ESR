@@ -1,0 +1,23 @@
+::ng-deep .formItem .ant-form-item-label>label,
+.ant-radio-wrapper{
+  width: auto !important;
+}
+::ng-deep .ant-table.ant-table-small .ant-table-thead > tr > th {
+  width: auto !important;
+}
+::ng-deep .ant-input-number {
+  width: 100% !important;
+}
+.addRowButton {
+  background-color: transparent;
+  color: #3074B8;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px #959EA9 dashed;
+  align-items: center;
+  height: 37px;
+}
+.addRowButton svg {
+  margin-right: 12px;
+}

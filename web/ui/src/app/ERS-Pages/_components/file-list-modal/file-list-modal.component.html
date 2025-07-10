@@ -1,0 +1,99 @@
+<a (click)="openModal()">{{linkName}}</a>
+<!-- item发票文件明细list弹窗 -->
+<nz-modal [(nzVisible)]="showPicList" nzTitle="{{linkName}}" [nzFooter]="null"
+    [nzBodyStyle]="{maxHeight: '60vh', overflowY: 'auto', backgroundColor:'#f5f6f9'}"
+    (nzOnCancel)="handlePicCancel()" (nzOnOk)="handlePicCancel()">
+    <ng-container *nzModalContent>
+        <div *ngIf="fileList.length>0">
+            <!-- <div *ngFor="let item of fileList">
+                <div *ngIf="item.url =='...' && !item.safeUrl"><a (click)="openPicFile(item.preview,item.name)">{{item.name}}</a></div>
+                <div *ngIf="!!item.safeUrl && item.display"><a [href]="item.safeUrl" target="_blank">{{item.name}}</a></div>
+                <div *ngIf="!!item.safeUrl && !item.display"><a [href]="item.safeUrl" [download]="item.name">{{item.name}}</a></div>
+                <div *ngIf="!item.safeUrl && (item.invno?.length >= 20 || item.invoiceno?.length >= 20)"><a (click)="showTips()">{{(item.name || item.category || item.filename || '') + item.invno}}</a></div>
+            </div> -->
+            <nz-table [nzFrontPagination]="false" [nzShowTotal]="fileList.length"  [nzData]="fileList"
+            nzSize="small" [nzScroll]="{ x: '1000px', y: '500px' }"  [nzNoResult]="null">
+            <thead>
+              <tr *ngIf="fileCategory==='invoice'">
+                <th nzAlign="center" nzWidth="120px">{{'invoice-no'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'price-excluding-tax'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'tax-amount'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'total-amount-including-tax'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'seller-tax-number'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'col.invoice-file'|translate}}</th>
+                <th *ngIf="pageKey === 'rq104'" nzAlign="center" nzWidth="120px">{{'action'|translate}}</th>
+              </tr>
+              <tr *ngIf="fileCategory==='attachment'">
+                <th nzAlign="center" nzWidth="120px">{{'exp-filecategory'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'attachment'|translate}}</th>
+                <th nzAlign="center" nzWidth="120px">{{'create-date'|translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of fileList">
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center">{{item.invno || item.invoiceNo}}</td>
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center">{{item.amount}}</td>
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center">{{item.taxamount || item.taxLoss}}</td>
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center">{{item.oamount}}</td>
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center">{{item.paymentNo || item.sellerTaxId}}</td>
+                <td *ngIf="fileCategory==='invoice'" nzAlign="center"><a *ngIf="item.fileurl" target="_blank" href="{{item.fileurl}}">{{'button.view'|translate}}</a></td>
+                <td *ngIf="fileCategory==='invoice' && pageKey === 'rq104' && item.source === 'manual'"><a style="margin-right: 10px;" (click)="editRow(item)">{{'button.edit'|translate}}</a>
+                  <br></td>
+
+                <td *ngIf="fileCategory==='attachment'" nzAlign="center">{{item.category}}</td>
+                <td *ngIf="fileCategory==='attachment'" nzAlign="center"><a (click)="openPicFile(item.preview,item.name)">{{item.name}}</a></td>
+                <td *ngIf="fileCategory==='attachment'" nzAlign="center">{{item.lastModifiedDate || item.cdate | date:'yyyy-MM-dd'}}</td>
+              </tr>
+            </tbody>
+            </nz-table>
+
+        </div>
+        <p *ngIf="fileList.length==0">{{'null'|translate}}</p>
+    </ng-container>
+
+      <!-- 编辑表格弹窗 -->
+      <nz-modal [(nzVisible)]="showEditModel" nzMaskClosable="false" [nzFooter]="modalFooter"
+      [nzTitle]="'editinvoice' | translate"
+      [nzBodyStyle]="{maxHeight: '60vh', overflowY: 'auto', width:'30vw', backgroundColor:'#f5f6f9'}"
+      (nzOnCancel)="handleCancel()"  [nzOkLoading]="isSaveLoading">
+      <form *nzModalContent nz-form [formGroup]="editForm" [nzAutoTips]="autoTips" nzLayout="vertical" style="padding: 0% 1%;">
+        <nz-form-item>
+          <nz-form-label >{{'invoice-no'|translate}}</nz-form-label>
+          <nz-form-control>
+              <input formControlName="invno" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label >{{'price-excluding-tax'|translate}}</nz-form-label>
+          <nz-form-control>
+              <input type="number" formControlName="amount" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label >{{'tax-amount'|translate}}</nz-form-label>
+          <nz-form-control>
+              <input type="number" formControlName="taxamount" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label >{{'total-amount-including-tax'|translate}}</nz-form-label>
+          <nz-form-control>
+              <input type="number" formControlName="oamount" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label >{{'seller-tax-number'|translate}}</nz-form-label>
+          <nz-form-control>
+              <input formControlName="paymentNo" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <ng-template #modalFooter>
+        <button type="button" nz-button nzType="default" class="default-button"
+            (click)="handleCancel()">{{'cancel'|translate}}</button>
+        <button type="button" nz-button nzType="primary" class="default-button"
+            (click)="handleOk()">{{'button.ok'|translate}}</button>
+      </ng-template>
+      </nz-modal>
+</nz-modal>
+

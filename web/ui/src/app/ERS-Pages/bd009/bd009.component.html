@@ -1,0 +1,45 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <!-- <div class="title">{{'title.bd009'|translate}}</div> -->
+    <form nz-form [formGroup]="queryForm">
+        <div class="formInline">
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'category'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="category" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'criteria'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="criteria" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+            <button nz-button class="default-button" style="margin-left: 20px;"
+                (click)="queryResultWithParam(true)" nzType="primary" [nzLoading]="this.isQueryLoading"><i nz-icon
+                    nzType="search"></i>{{'query'|translate}}</button>
+        </div>
+
+        <!-- 表格 -->
+        <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%">
+            <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="listTableData" nzSize="small" [nzNoResult]="null"
+                [nzScroll]="{ x: '1000px', y: '80vh' }" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+                [nzTotal]="this.total" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange($event)"
+                (nzPageSizeChange)="pageSizeChange($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth"
+                            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listTable.data">
+                        <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+                            {{ data[column.columnKey] }}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+        </div>
+    </form>
+</nz-spin>

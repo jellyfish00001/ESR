@@ -1,0 +1,45 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <!-- <div class="title">{{'title.form201'|translate}}</div> -->
+    <!-- 查询结果表格 -->
+    <div style="padding:2% 1%">
+        <div class="operation-button">
+            <button nz-button nz-popconfirm nzType="primary" [disabled]="setOfCheckedId.size === 0"
+                class="default-button" [nzLoading]="approveloading" nzPopconfirmTitle="Sure to approve?"
+                (nzOnConfirm)="approve()">{{'operation-approve'|translate}}</button>
+            <span>Selected {{ setOfCheckedId.size }} items</span>
+        </div>
+        <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="detailTableData" nzSize="small" [nzNoResult]="null"
+            [nzScroll]="{ x: '1450px', y: '80vh' }" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+            [nzTotal]="this.total" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange($event)"
+            (nzPageSizeChange)="pageSizeChange($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"
+            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+            <thead>
+                <tr>
+                    <th nzLeft nzWidth="30px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzAlign="center"
+                        (nzCheckedChange)="onAllChecked($event)"></th>
+                    <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth"
+                        nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+                    <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="90px">{{'action'|translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of listTable.data">
+                    <td nzLeft [nzChecked]="setOfCheckedId.has(data.rno)" [nzDisabled]="data.disabled"
+                        (nzCheckedChange)="onItemChecked(data.rno, $event)"></td>
+                    <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+                        <span *ngIf="column.columnKey!='rno'">{{ data[column.columnKey] }}</span>
+                        <a *ngIf="column.columnKey=='rno'" (click)="checkForm(data)">{{ data[column.columnKey]
+                            }}</a>
+                    </td>
+                    <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+                        <a nz-popconfirm nzPopconfirmTitle="Sure to approve?"
+                            (nzOnConfirm)="approve(data.rno)">{{'operation-approve'|translate}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                }} {{'itemData'|translate}}</span></ng-template>
+    </div>
+
+</nz-spin>

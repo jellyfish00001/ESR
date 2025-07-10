@@ -1,0 +1,19 @@
+.editable-cell {
+  position: relative;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 4px 11px;
+}
+
+::ng-deep .formItem .ant-form-item-label>label,
+.ant-radio-wrapper{
+  width: auto !important;
+}
+::ng-deep .ant-table.ant-table-small .ant-table-thead > tr > th {
+  width: auto !important;
+}

@@ -1,0 +1,118 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <div *ngIf="isFinUser" class="title">{{'title.rq604-fin'|translate}}</div>
+  <div *ngIf="!isFinUser" class="title">{{'title.rq604-supervisor'|translate}}</div>
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <!-- Header 申请人信息 -->
+    <div class="formInline">
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'company-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="companyCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-project'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="expenseProject" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-account-no'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="rno" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'project-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="projectCode" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'payee-emplid'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantEmplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'name'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+
+  <!-- 审核明细信息表格 -->
+  <div style="padding: 0% 1%">
+    <div class="operation-button">
+      <nz-form-label>{{'reimbursement-description'|translate}}</nz-form-label>
+    </div>
+    <nz-table #listTable nzBordered style="padding-bottom: 0%;" nzShowPagination nzShowSizeChanger
+      [nzData]="detailTableData" nzSize="small" [nzNoResult]="null" [nzScroll]="{ x: '1300px', y: '80vh' }"
+      [nzShowTotal]="totalTemplate" [nzShowPagination]="true">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+            [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+          <th nzAlign="center" nzWidth="90px">{{'col.invoice-list'|translate}}</th>
+          <th *ngIf="isFinUser">{{'white-form-remark'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listTable.data">
+          <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+            {{ data[column.columnKey] }}
+          </td>
+          <td nzAlign="center">
+            <file-list-modal [fileList]="fileList" (filterFileList)="checkInvoiceDetail(data.id)">
+            </file-list-modal>
+          </td>
+          <td *ngIf="isFinUser"><input type="text" nz-input [(ngModel)]="data.whiteRemark" /></td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+        }} {{'itemData'|translate}}</span></ng-template>
+  </div>
+  <!-- 附件 -->
+  <div style="padding: 0% 1%;">
+    <nz-form-label>{{'attachment'|translate}}</nz-form-label>
+    <nz-space *ngFor="let item of attachmentList">
+      <a [href]="item.url" target="_blank" style="margin-right: 20px;">{{item.filename}}</a><br>
+    </nz-space>
+  </div>
+
+  <!-- summary金额显示栏位 -->
+  <form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips">
+    <div class="formInline">
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'total-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group nzPrefix="{{userInfo.curr}}:">
+            <input formControlName="totalAmt" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'actual-reimbursable-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group nzPrefix="{{userInfo.curr}}:">
+            <input formControlName="actualExpenseAmt" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem" style="margin-right: 10px;">
+        <nz-form-label>{{'actual-pay-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group nzPrefix="{{userInfo.curr}}:">
+            <input formControlName="actualPayment" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <sign-off [exTotalWarning]="exTotalWarning" [rno]='rno' [showTransformButton]="showTransformButton"
+      (approve)="approve($event)" (reject)="reject($event)" (transform)="transform($event)"
+      [isFinUser]="isFinUser"></sign-off>
+  </form>
+</nz-spin>

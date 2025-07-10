@@ -1,0 +1,12 @@
+.label {
+  text-align: left;
+}
+
+.label::after {
+  content: "：";
+}
+
+.value {
+  color: rgba(255, 255, 255, 100);
+  text-align: left;
+}

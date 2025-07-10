@@ -1,0 +1,4 @@
+<div class="search-container">
+  <app-input-title [title]="'關鍵字'" [placeholder]="'輸入關鍵字'" #input></app-input-title>
+  <app-button [title]="'查詢'" (submitted)="enterSearch(input.value)"></app-button>
+</div>

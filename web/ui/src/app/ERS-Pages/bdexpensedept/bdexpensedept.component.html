@@ -1,0 +1,125 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.expensedept'|translate}}</div> -->
+
+  <form nz-form [formGroup]="queryForm">
+    <div><!-- [S]查詢欄位 -->
+      <div class="formInline">
+        <nz-form-item class="formItem">
+          <nz-form-label>{{'company'|translate}}</nz-form-label>
+          <nz-form-control>
+            <input formControlName="company" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="formItem">
+          <nz-form-label>{{'dept-code'|translate}}</nz-form-label>
+          <nz-form-control>
+            <input formControlName="deptid" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="formItem">
+          <button nz-button style="left:50px;" class="default-button" nzType="primary" [nzLoading]="this.isQueryLoading"
+            (click)="queryResultWithParam(true)"><i nz-icon nzType="search"></i>{{'query'|translate}}</button>
+        </nz-form-item>
+      </div>
+    </div><!-- [E]查詢欄位 -->
+
+    <!-- [S]BD明细表格 -->
+    <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%; width: 80%">
+      <div class="operation-button">
+          <!-- 新增按钮 -->
+          <button nz-button nzType="primary" [nzLoading]="addloading" class="default-button"
+              (click)="addRow()">{{'button.add'|translate}}</button>
+          <!-- 批次刪除按钮 -->
+          <button nz-button nz-popconfirm nzType="primary" [disabled]="setOfCheckedId.size === 0"
+              class="default-button" [nzLoading]="deleteloading" nzPopconfirmTitle="Sure to delete?"
+              (nzOnConfirm)="deleteRow()">{{'button.delete'|translate}}</button>
+          <!-- 下載按钮 -->
+          <button nz-button nzType="primary" [nzLoading]="addloading" class="default-button"
+          (click)="DownloadFile()">{{'button.download'|translate}}</button>
+          <!-- 大量上傳按钮 -->
+          <button nz-button nzType="primary" [nzLoading]="addloading" class="default-button"
+           (click)="UploadFile()">{{'batch-upload'|translate}}</button>
+      </div>
+      <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="listTableData" nzSize="small" [nzNoResult]="null"
+          [nzScroll]="{ x: '1050px', y: '80vh' }" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+          [nzTotal]="this.total" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange($event)"
+          (nzPageSizeChange)="pageSizeChange($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"
+          (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+          <thead>
+              <tr>
+                  <th nzLeft nzWidth="5%" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzAlign="center" (nzCheckedChange)="onAllChecked($event)"></th>
+                  <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth" nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+                  <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="15%">{{'action'|translate}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let data of listTable.data">
+                  <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
+                      (nzCheckedChange)="onItemChecked(data.id, $event)">
+                  </td>
+                  <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+                        {{ data[column.columnKey] }}
+                  </td>
+                  <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+                    <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">{{'button.delete'|translate}}</a>
+                  </td>
+              </tr>
+          </tbody>
+      </nz-table>
+      <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total}} {{'itemData'|translate}}</span></ng-template>
+    </div><!-- [E]BD明细表格 -->
+  </form>
+
+  <!-- 大量上传弹窗 -->
+  <nz-modal [(nzVisible)]="batchUploadModal" nzTitle="{{'batch-upload'|translate}}" nzMaskClosable="false"
+  nzOkText="Upload" (nzOnCancel)="this.batchUploadModal = false" (nzOnOk)="handleBatchUpload()"
+  [nzOkLoading]="isSaveLoading">
+    <nz-space *nzModalContent style="margin-bottom: 30px;">
+      <label nzRequired style="padding-top: 5px;">{{'upload-file'|translate}} : </label>
+      <nz-upload [nzFileList]="batchUploadList" [nzBeforeUpload]="beforeUpload" nzMultiple="false"
+          (nzChange)="handleFileChange($event)" [nzShowUploadList]="uploadIcons" [nzFilter]="filters"
+          [nzPreview]="handlePreview">
+          <button nz-button><i nz-icon nzType="upload"></i>Select</button>
+      </nz-upload>
+      <a style="margin-left:5px;padding-top: 5px;" (click)="DownloadTemplate()">{{'file-upload-expensedept-sample'|translate}}</a>
+    </nz-space>
+  </nz-modal>
+
+  <!-- 新增编辑表格弹窗 -->
+  <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" [nzTitle]="this.translate.instant('title.expensedept')"
+      [nzBodyStyle]="{maxHeight: '60vh', overflowY: 'auto', maxWidth:'90vw', backgroundColor:'#f5f6f9'}"
+      (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isSaveLoading"
+      [nzOkText]="this.translate.instant('confirm')"
+      [nzCancelText]="this.translate.instant('cancel')">
+      <form *nzModalContent nz-form [formGroup]="listForm" nzLayout="vertical" style="padding: 0% 1%; width: 200px;">
+          <div style="padding: 0% 10%;">
+              <nz-form-item><!--公司別-->
+                  <nz-form-label nzRequired>{{'company'|translate}}</nz-form-label>
+                  <nz-form-control>
+                      <nz-form-control>
+                        <input formControlName="company" nz-input style="width: 178px;" />
+                      </nz-form-control>
+                  </nz-form-control>
+              </nz-form-item>
+              <nz-form-item><!--部門代碼-->
+                <nz-form-label nzRequired>{{'dept-code'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-form-control>
+                      <input formControlName="deptid" nz-input style="width: 178px;"/>
+                    </nz-form-control>
+                </nz-form-control>
+            </nz-form-item>
+              <nz-form-item><!--是否為虛擬部門-->
+                  <nz-form-label nzRequired>{{'isVirtualDept'|translate}}</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="isvirtualdept" style="width: 178px;">
+                      <nz-option [nzValue]="'N'" [nzLabel]="'N'"></nz-option>
+                      <nz-option [nzValue]="'Y'" [nzLabel]="'Y'"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+              </nz-form-item>
+          </div>
+      </form>
+  </nz-modal>
+  <!-- [S]新增表格弹窗 -->
+</nz-spin>

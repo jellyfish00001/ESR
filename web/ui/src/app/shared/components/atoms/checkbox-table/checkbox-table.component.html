@@ -1,0 +1,31 @@
+<!-- <nz-table #listTable nzShowPagination nzShowSizeChanger [nzData]="listTableData" nzSize="small" [nzWidth]="width"
+  [nzScroll]="scroll" [nzShowTotal]="totalTemplate" [nzTotal]="19"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+    <tr>
+      <th nzLeft nzWidth="40px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzAlign="center"
+        (nzCheckedChange)="onAllChecked($event)"></th>
+      <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+        [nzSortFn]="column.sortFn">{{ column.title }}</th>
+      <th nzAlign="center" hidden="!showDetailCol">{{detailColName}}</th>
+      <th nzRight nzAlign="center" nzWidth="90px">{{'Action'|translate}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of listTable.data">
+      <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
+        (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+        {{ data[column.columnKey] }}
+      </td>
+      <td nzAlign="center" hidden="!showDetailCol"><a>{{detailCellName}}</a></td>
+      <td nzRight nzAlign="center">
+        <a style="margin-right: 10px;" (click)="editRow(data.id)" [hidden]="!showEditButton">{{'button.edit'|translate}}</a>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+          (nzOnConfirm)="deleteRow(data.id)">{{'button.delete'|translate}}</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+    }} {{'itemData'|translate}}</span></ng-template> -->

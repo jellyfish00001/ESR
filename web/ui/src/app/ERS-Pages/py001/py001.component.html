@@ -1,0 +1,159 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.py001'|translate}}</div> -->
+
+
+  <form nz-form [formGroup]="accountListForm" [nzAutoTips]="autoTips">
+    <div>
+      <div class="formInline">
+        <nz-form-item class="formItem">
+          <nz-form-label>{{'accountRno'|translate}}</nz-form-label>
+          <nz-form-control>
+            <input formControlName="rno" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="formItem">
+          <nz-form-label>{{'accountant'|translate}}</nz-form-label>
+          <nz-form-control>
+            <input formControlName="accountant" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="formItem">
+          <nz-form-label>{{'settleAccountDate'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker style="width: 100%;" nzMode="date" formControlName="startDate">
+            </nz-date-picker>
+          </nz-form-control> ~
+          <nz-form-control>
+            <nz-date-picker style="width: 100%;" nzMode="date" formControlName="endDate">
+            </nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="formItem">
+          <button nz-button class="default-button" nzType="primary" [nzLoading]="this.isQueryLoading"
+            (click)="QueryAccountList(true)"><i nz-icon nzType="search"></i>{{'query'|translate}}</button>
+        </nz-form-item>
+      </div>
+    </div>
+
+
+    <div class="operation-button">
+      <button nz-button nzType="primary" class="default-button" (click)="addItem()">{{'button.add'|translate}}</button>
+      <button nz-button nz-popconfirm nzType="primary" class="default-button" [nzLoading]="isSaveLoading"
+        [disabled]="selectSaveAccountRno.size === 0" nzPopconfirmTitle="Sure to delete?"
+        (nzOnConfirm)="deleteSelect()">{{'button.delete'|translate}}</button>
+    </div>
+    <nz-table #AccountlistTable style="padding-bottom: 1%;" nzBordered [nzData]="AccountDetailTableData" nzSize="small"
+      [nzNoResult]="null" [nzFrontPagination]="false" [nzTotal]="this.AccountDetailTotal" [nzShowSizeChanger]="true"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="40px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzAlign="center"
+            (nzCheckedChange)="onAllChecked($event)"></th>
+          <th scope="col" *ngFor="let column of AccountDetailListTableColumn" [nzWidth]="column.columnWidth"
+            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          <th nzRight nzAlign="center" nzWidth="90px">{{'action'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of AccountlistTable.data">
+          <td nzLeft [nzChecked]="selectSaveAccountRno.has(data.rno)"
+            (nzCheckedChange)="onItemChecked(data.rno, $event)"></td>
+          <td *ngFor="let column of AccountDetailListTableColumn" [nzAlign]="column.align">
+            <span *ngIf="column.columnKey!='rno'">{{ data[column.columnKey] }}</span>
+            <a *ngIf="column.columnKey=='rno'" (click)="DownloadFile(data)">{{ data[column.columnKey]
+              }}</a>
+          </td>
+          <td nzRight nzAlign="center">
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+              (nzOnConfirm)="deleteRow(data.rno)">{{'button.delete'|translate}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </form>
+
+
+
+  <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" nzTitle="{{'title.py001'|translate}}"
+    [nzBodyStyle]="{height: '70vh', overflowY: 'auto', width:'90vw', backgroundColor:'#f5f6f9'}"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isSaveLoading"
+    [nzOkDisabled]="selectSaveAccountRno1.size === 0">
+    <form *nzModalContent nz-form [formGroup]="queryForm" style="padding:2% 3%">
+      <div>
+        <div class="formInline">
+          <nz-form-item class="formItem">
+            <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="companyCode" style="width: 178px;" (ngModelChange)="ChangeBank()">
+                <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'accountant'|translate}}</nz-form-label>
+            <nz-form-control>
+              <input formControlName="accountant" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <nz-form-label>{{'bank'|translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="banks" style="width: 178px;" nzAllowClear>
+                <nz-option *ngFor="let item of banks" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="formItem">
+            <button nz-button style="left:50px;" class="default-button" nzType="primary"
+              [nzLoading]="this.isQueryLoading" (click)="QueryDetailList(true)"><i nz-icon
+                nzType="search"></i>{{'query'|translate}}</button>
+          </nz-form-item>
+        </div>
+      </div>
+
+
+      <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="QueryDetailTableData" nzSize="small"
+        [nzNoResult]="null" [nzScroll]="{ x: '1450px', y: '80vh' }" [nzFrontPagination]="false"
+        [nzTotal]="this.QueryDetailTotal" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange1($event)"
+        (nzPageSizeChange)="pageSizeChange1($event)" [nzPageIndex]="this.pageIndex1" [nzPageSize]="this.pageSize1"
+        [nzShowTotal]="totalTemplate">
+        <thead>
+          <tr>
+            <th nzLeft nzWidth="40px" [nzChecked]="checked1" [nzIndeterminate]="indeterminate1" nzAlign="center"
+              (nzCheckedChange)="onAllChecked1($event)"></th>
+            <th scope="col" *ngFor="let column of QueryDetailListTableColumn" [nzWidth]="column.columnWidth"
+              nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listTable.data">
+            <td nzLeft [nzChecked]="selectSaveAccountRno1.has(data.rno)"
+              (nzCheckedChange)="onItemChecked1(data.rno, $event)"></td>
+            <td *ngFor="let column of QueryDetailListTableColumn" [nzAlign]="column.align">
+              <span *ngIf="column.columnKey!='rno'">{{ data[column.columnKey] }}</span>
+              <a *ngIf="column.columnKey=='rno'" (click)="skipForm(data)">{{ data[column.columnKey]
+                }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.QueryDetailTotal
+          }} {{'itemData'|translate}}</span></ng-template>
+      <!-- <div style="text-align: center;">
+        <button nz-button nzType="primary" style="margin:0 10px;" [nzLoading]="isSaveLoading"
+          class="default-button">{{'save'|translate}}</button>
+        <button nz-button nzType="primary" style="margin:0 10px;" [nzLoading]="isSaveLoading"
+          class="default-button">{{'cancel'|translate}}</button>
+      </div> -->
+    </form>
+  </nz-modal>
+
+
+
+
+
+</nz-spin>

@@ -1,0 +1,9 @@
+<div class="search-container">
+  <app-date-picker-range-title [title]="'Time'" [showTime]="true" [date]="date" (dateRange)="getDateRange($event)"></app-date-picker-range-title>
+  <div *ngFor="let item of nzOptionSelectList; index as i;">
+    <app-select-title [listOfOption]="item.optionalValue" [title]="item.label" [defaultValue]="item.default"
+    (selectValue)="getSelectValue($event,i)">
+    </app-select-title>
+  </div>
+  <app-button [title]="'Submit'" (submitted)="enterSearch()"></app-button>
+</div>

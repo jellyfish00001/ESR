@@ -1,0 +1,171 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <!-- <div class="title">{{'title.form104'|translate}}</div> -->
+    <form nz-form [formGroup]="queryForm" [nzAutoTips]="autoTips">
+        <div>
+            <div class="formInline">
+                <nz-form-item class="formItem">
+                    <nz-form-label>{{'start-date'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker style="width: 100%;" nzMode="date" formControlName="startDate">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="formItem">
+                    <nz-form-label>{{'end-date'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker style="width: 100%;" nzMode="date" formControlName="endDate">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="formItem">
+                    <nz-form-label>{{'application-number'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="rno" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="formItem">
+                    <nz-form-label>{{'applicant'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="applicantEmplid" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="formItem">
+                    <nz-form-label>{{'approver'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="approverEmplid" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <!-- 样式一 -->
+                <!-- <nz-form-item class="formItem">
+                <nz-form-label>{{'state'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="state" nzMode="multiple">
+                        <nz-option *ngFor="let item of stateList" [nzLabel]="item.split('-')[0]" [nzValue]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'voucher-type'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="voucherType" nzMode="multiple">
+                        <nz-option *ngFor="let item of voucherTypeList" [nzLabel]="item.split('-')[0]" [nzValue]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'form-type'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="formType" nzMode="multiple">
+                        <nz-option *ngFor="let item of formTypeList" [nzLabel]="item.split('-')[0]" [nzValue]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'company-code'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="companyCode" nzMode="multiple">
+                        <nz-option *ngFor="let item of companyList" [nzLabel]="item" [nzValue]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item> -->
+            </div>
+            <!-- 样式二 -->
+            <div class="formInline">
+                <nz-form-item>
+                    <nz-form-label style="width: 110px;">{{'state'|translate}}</nz-form-label>
+                    <nz-form-control class="checkboxGroup">
+                        <nz-checkbox-group formControlName="state"></nz-checkbox-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+                       <!-- <div class="formInline">
+                <nz-form-item>
+                    <nz-form-label style="width: 110px;">{{'voucher-type'|translate}}</nz-form-label>
+                    <nz-form-control class="checkboxGroup">
+                        <nz-checkbox-group formControlName="voucherType">
+                        </nz-checkbox-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div> -->
+
+            <div class="formInline">
+                <nz-form-item>
+                    <nz-form-label style="width: 110px;">{{'form-type'|translate}}</nz-form-label>
+                    <nz-form-control class="checkboxGroup">
+                        <nz-checkbox-group formControlName="formType"></nz-checkbox-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-row [nzGutter]="24">
+                <div nz-col nzMd="18" nzSm="24" class="formInline" style="padding-left: unset !important;">
+                    <nz-form-item>
+                        <nz-form-label style="width: 110px;">{{'company-code'|translate}}</nz-form-label>
+                        <nz-form-control class="checkboxGroup">
+                            <nz-checkbox-group formControlName="companyCode">
+                            </nz-checkbox-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzMd="6" nzSm="24">
+                    <button nz-button style="margin-right: 12px;"
+                        class="default-button" (click)="queryResultWithParam(true)" nzType="primary"
+                        [nzLoading]="this.isQueryLoading"><i nz-icon nzType="search"></i>{{'query'|translate}}</button>
+                    <button nz-button class="default-button"
+                        (click)="ResetQueryParams()" nzType="primary" [nzLoading]="this.isQueryLoading"><i nz-icon
+                            nzType="undo"></i>{{'reset-query-params'|translate}}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <nz-space>
+            <button nz-button style="margin-bottom: 10px;width: 125px;margin-right: 5px;" class="default-button"
+                nzType="primary"><i nz-icon nzType="search"></i>{{'query'|translate}}</button>
+            <button nz-button style="margin-bottom: 10px;" class="default-button" nzType="primary"><i
+                    nz-icon nzType="download"></i>{{'download'|translate}}</button>
+        </nz-space> -->
+        <!-- 查询结果表格 -->
+        <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%">
+            <div class="operation-button">
+                <button nz-button class="default-button" nzType="primary" (click)="download()"><i nz-icon
+                        nzType="download"></i>{{'download'|translate}}</button>
+            </div>
+            <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="detailTableData" nzSize="small"
+                [nzNoResult]="null" [nzScroll]="{ x: '1400px', y: '80vh' }" [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate" [nzTotal]="this.total" [nzShowSizeChanger]="true"
+                (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+                [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth"
+                            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title }}</th>
+                        <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="85px">{{'action'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listTable.data">
+                        <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+                            <span *ngIf="column.columnKey!='rno'">{{ data[column.columnKey] }}</span>
+                            <a *ngIf="column.columnKey=='rno'" (click)="checkForm(data)">{{ data[column.columnKey]
+                                }}</a>
+                        </td>
+                        <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+                            <a style="margin-right: 10px;" (click)="editRow(data)">{{'button.edit'|translate}}</a>
+                            <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
+                                (nzOnConfirm)="cancelRow(data)">{{'cancel'|translate}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+        </div>
+
+
+
+
+    </form>
+</nz-spin>

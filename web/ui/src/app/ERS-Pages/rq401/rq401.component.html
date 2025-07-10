@@ -1,0 +1,339 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.rq401'|translate}}</div> -->
+  <form nz-form [formGroup]="headForm" [nzAutoTips]="autoTips">
+    <!-- Header 个人信息 -->
+    <div class="formInline">
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'applicant-emplid'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="applicantEmplid">
+            <nz-option *ngFor="let item of userIdList" [nzValue]="item" [nzLabel]="item">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'applicant-name'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="applicantName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'dept-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="dept" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'expense-account-no'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="rno" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'ext'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="ext" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'project-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch nzAllowClear nzServerSearch [nzShowArrow]="false"
+            (nzOnSearch)="getProjectCode($event)" nzPlaceHolder="" formControlName="projectCode">
+            <nz-option *ngFor="let item of projectCodeList" [nzValue]="item.split('-')[0]" [nzLabel]="item">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="companyCode">
+            <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'payee-emplid'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="payeeEmplid" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <nz-form-label>{{'payee-name'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="payeeName" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="formItem">
+        <a (click)="showChargeAgainstModal()"
+          style="padding-top: 5px;">{{'not-charge-against-detail-overdue'|translate}}</a>
+      </nz-form-item>
+    </div>
+
+    <!-- 申请明细表格 -->
+    <div style="padding: 0% 0% 1%">
+      <div class="operation-button">
+        <button type="button" nz-button nzType="primary" [nzLoading]="addloading" class="default-button" style="margin-right: 12px;"
+          (click)="addItem()">{{'button.add'|translate}}</button>
+        <button type="button" nz-button nz-popconfirm nzType="primary" [disabled]="setOfCheckedId.size === 0"
+          class="default-button" [nzLoading]="deleteloading" nzPopconfirmTitle="Sure to delete?"
+          (nzOnConfirm)="deleteRow()">{{'button.delete'|translate}}</button>
+
+        <span>Selected {{ setOfCheckedId.size }} items</span>
+      </div>
+      <nz-table #listTable nzBordered nzShowPagination nzShowSizeChanger [nzData]="listTableData" nzSize="small"
+        [nzScroll]="{ x: '1556px', y: '80vh' }" [nzShowTotal]="totalTemplate" [nzNoResult]="null"
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+          <tr>
+            <th nzLeft nzWidth="30px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzAlign="center"
+              (nzCheckedChange)="onAllChecked($event)"></th>
+            <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+              [nzSortFn]="column.sortFn">{{ column.title }}</th>
+            <th nzAlign="center" nzWidth="100px">{{'attachment-list'|translate}}</th>
+            <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="90px">{{'action'|translate}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listTable.data">
+            <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
+              (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+            <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+              {{ data[column.columnKey] }}
+            </td>
+            <td nzAlign="center">
+              <file-list-modal [fileList]="fileList" (filterFileList)="checkFileDetail(data.id)"
+                [linkName]="data.fileCategory">
+              </file-list-modal>
+            </td>
+            <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+              <a style="margin-right: 10px;" (click)="editRow(data.id)">{{'button.edit'|translate}}</a>
+              <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                (nzOnConfirm)="deleteRow(data.id)">{{'button.delete'|translate}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total
+                    }} {{'itemData'|translate}}</span></ng-template>
+    </div>
+    <!-- 申请信息sum up -->
+    <!-- <div class="formInline" style="padding: 0.5% 0%">
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'total-application-amount'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="totalAmt" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'actual-pay-amount'|translate}}
+                </nz-form-label>
+                <nz-form-control>
+                    <input formControlName="actualAmt" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+        </div> -->
+
+    <!-- Footer 上传附件窗口&submit -->
+    <div class="formInline" style="padding: 3% 0%">
+      <nz-form-item class="" style="margin-right: 30px;">
+        <nz-form-label>{{'upload-attachment'|translate}}
+        </nz-form-label>
+        <nz-form-control style="margin-bottom: 5px;">
+          <nz-upload [nzAction]="false" [nzFileList]="attachmentList" nzMultiple="true" [nzBeforeUpload]="beforeUpload"
+            (nzChange)="handleChange($event)" [nzPreview]="handlePreview" [nzShowUploadList]="uploadIcons">
+            <button type="button" nz-button><i nz-icon nzType="upload"></i>Upload</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item style="margin-right: 30px;">
+        <nz-form-label>{{'total-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+          <input formControlName="totalCost" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-space *ngIf="this.headForm.controls.rno.value == null || this.userInfo?.emplid==this.cuser">
+        <button type="button" nz-button nzType="primary" [nzLoading]="isSaveLoading" (click)="commit('save')"
+          style="margin-right: 12px;" class="default-button">{{'save'|translate}}</button>
+        <button type="button" nz-button nzType="primary" [nzLoading]="isSaveLoading" (click)="commit('submit')"
+          class="default-button">{{'submit'|translate}}</button>
+      </nz-space>
+    </div>
+  </form>
+
+  <!-- 申请报销新增弹窗 -->
+  <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" nzTitle="{{'title.input-advance-application'|translate}}"
+    [nzBodyStyle]="{maxHeight: '60vh', overflowY: 'auto', width:this.screenWidth, backgroundColor:'#f5f6f9'}"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isSaveLoading">
+    <form *nzModalContent nz-form [formGroup]="listForm" [nzAutoTips]="autoTips" nzLayout="vertical"
+      style="padding: 0% 1%;">
+      <div style="padding: 0% 10%;">
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'advance-situation'|translate}}
+          </nz-form-label>
+          <nz-form-control>
+            <!-- <nz-select nzShowSearch nzAllowClear [nzShowArrow]="false" nzServerSearch
+                            [nzFilterOption]="nzFilterOption" (nzOnSearch)="getAdvanceSceneList($event)"
+                            nzPlaceHolder="" formControlName="advanceScene"> -->
+            <nz-select nzShowSearch nzAllowClear [nzShowArrow]="false" [nzFilterOption]="nzFilterOption"
+              nzPlaceHolder="" formControlName="advanceScene">
+              <nz-option *ngFor="let item of advanceSceneList" [nzValue]="item.expcode" [nzLabel]="item.description">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+          <!-- <p style="color: #0f9919;padding-top: 10px;">{{sceneKeyword}}</p> -->
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>{{'expname'|translate}}</nz-form-label>
+          <input [disabled]="true" [value]="this.expname" nz-input />
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'required-payment-date'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker nzMode="date" formControlName="requiredPaymentDate"></nz-date-picker>
+          </nz-form-control>
+          <p style="color: #1890ff;">{{'tips.cannot-earlier'|translate}}</p>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'digest'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group [nzSuffix]="textAreaClearTpl" class="ant-input-affix-wrapper-textarea-with-clear-btn">
+              <textarea nz-input formControlName="digest" placeholder=""></textarea>
+            </nz-input-group>
+            <ng-template #textAreaClearTpl>
+              <i nz-icon class="ant-input-textarea-clear-icon" nzTheme="fill" nzType="close-circle"
+                *ngIf="this.listForm.controls.digest.value" (click)="this.listForm.controls.digest.setValue('')"></i>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'advance-charge-against-date'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker nzMode="date" formControlName="advanceDate"></nz-date-picker>
+          </nz-form-control>
+          <p style="color: #1890ff;">{{'tips.advance-remark'|translate}}</p>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'request-payment'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="requestPayment">
+              <nz-option *ngFor="let item of paymentList" [nzValue]="item.payType" [nzLabel]="item.payName">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'col.currency'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="curr" nzShowSearch>
+              <nz-option *ngFor="let item of currList" [nzValue]="item" [nzLabel]="item">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{'col.applied-amount'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="appliedAmt" [nzPrecision]="2" [nzMin]="0" style="width: 100%">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item style="margin-bottom: 0px;">
+          <nz-form-label>{{'col.remark'|translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group [nzSuffix]="textAreaClearTpl1" class="ant-input-affix-wrapper-textarea-with-clear-btn">
+              <textarea nz-input formControlName="remark" placeholder=""></textarea>
+            </nz-input-group>
+            <ng-template #textAreaClearTpl1>
+              <i nz-icon class="ant-input-textarea-clear-icon" nzTheme="fill" nzType="close-circle"
+                *ngIf="this.listForm.controls.remark.value" (click)="this.listForm.controls.remark.setValue('')"></i>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="this.listForm.controls.fileCategory.value||this.bpmFlag" class="formRow"
+          style="margin-bottom: 0px;">
+          <nz-form-label style="padding-top: 32px;" [nzRequired]="this.listForm.controls.fileList.validator != null">
+            {{'upload-attachment'|translate}}
+            <i nz-icon nzType="info-circle" nzTheme="twotone" nz-tooltip [nzTooltipTitle]="noteTemplate"></i> :
+            <ng-template #noteTemplate>
+              <p>{{this.listForm.controls.fileRequstTips.value }}</p>
+            </ng-template>
+          </nz-form-label>
+          <nz-form-control>
+            <input formControlName="fileList" style="display: none;" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="this.bpmFlag" class="formRow">
+          <nz-form-label nzFlex="auto">{{'bpm-signature-no'|translate}}
+          </nz-form-label>
+          <nz-form-control style="margin-bottom: 10px; margin-right:10px; max-width: 169px;">
+            <input formControlName="bpmRno" nz-input />
+          </nz-form-control>
+          <button type="button" nz-button nzType="primary" class="default-button" [nzLoading]="isSaveLoading"
+            [disabled]="!this.canUpload" (click)="getBpmRnoFile()">Upload</button>
+        </nz-form-item>
+
+        <nz-form-item class="formRow">
+          <nz-form-control [nzSm]="13" [nzXs]="24" style="margin-bottom: 10px;">
+            <nz-upload [nzFileList]="fileList" [nzRemove]="removeFile" [nzBeforeUpload]="beforeUpload" nzMultiple="true"
+              (nzChange)="handleChange($event)" [nzPreview]="handlePreview" [nzShowUploadList]="uploadIcons">
+              <button type="button" nz-button *ngIf="this.listForm.controls.fileCategory.value"><i nz-icon
+                  nzType="upload"></i>{{this.listForm.controls.fileCategory.value}}</button>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </nz-modal>
+
+  <!-- 逾期未冲账明细表格弹窗 -->
+  <nz-modal [(nzVisible)]="showChargeAgainst" nzMaskClosable="false"
+    nzTitle="{{'not-charge-against-detail-overdue'|translate}}"
+    [nzBodyStyle]="{maxWidth: '80vw',maxHeight: '60vh', minWidth:this.screenWidth, overflowY: 'auto', backgroundColor:'#f5f6f9'}"
+    [nzCancelText]="null" (nzOnCancel)="showChargeAgainst=false" (nzOnOk)="showChargeAgainst=false">
+    <div *nzModalContent style="padding: 1% 0%">
+      <div class="operation-button"><span>{{'tips.not-charge-against-detail-overdue'|translate}}</span></div>
+      <nz-table #overdueTable nzBordered nzShowPagination nzShowSizeChanger [nzData]="chargeAgainstTableData"
+        nzSize="small" [nzScroll]="{ x: '1000px', y: '500px' }" [nzShowTotal]="totalTemplate" [nzNoResult]="null">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let column of overdueTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+              [nzSortFn]="column.sortFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of overdueTable.data">
+            <td *ngFor="let column of overdueTableColumn" [nzAlign]="column.align">{{ data[column.columnKey]
+                            }}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <!-- <app-table [listOfColumn]="chargeAgainstTableColumn" showPagination="false"
+                [scroll]="{ x: '650px', y: '200px' }" [listOfData]="chargeAgainstTableData">
+            </app-table> -->
+      <ng-template #totalTemplate let-total><span style="color: #555757;">{{'total'|translate}} {{ total }}
+          {{'itemData'|translate}}</span></ng-template>
+    </div>
+  </nz-modal>
+
+  <!-- pdf文件预览抽屉 -->
+  <nz-drawer [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" nzTitle="Preview"
+    (nzOnClose)="drawerVisible = false" nzWidth="50%" nzZIndex="1050">
+    <ng-container *nzDrawerContent>
+      <iframe *ngIf="!!frameSrc" [src]="frameSrc" width="100%" height="100%" frameborder="0"></iframe>
+    </ng-container>
+  </nz-drawer>
+
+  <!-- 图片文件预览弹窗 -->
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false">
+    <ng-template #modalContent>
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+</nz-spin>

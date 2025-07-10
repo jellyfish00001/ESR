@@ -1,0 +1,185 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <div style="width: 230px;padding-bottom: 12px;">
+        <button type="button" nz-button nzType="primary" nzGhost style="margin-bottom: 1%" [nzLoading]="isLoading"
+            (click)="openFolder()"><span nz-icon nzType="folder-open"
+                nzTheme="outline"></span>{{'btn-select-invoices'|translate}}</button>
+        <!-- <div *ngFor="let item of selectedInvItemList"
+            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            <span *ngIf="this.isMobile||!item.fileurl">{{item.invtype+item.oamount}}</span>
+            <a *ngIf="!this.isMobile&&!!item.fileurl" [href]="item.fileurl"
+                target="_blank">{{item.invtype+item.oamount}}</a>
+            <span style="float: right;cursor: pointer;" nz-icon nzType="delete" nzTheme="outline"
+                (click)="deleteInvItem(item.invoiceid)"></span>
+        </div> -->
+    </div>
+
+    <!-- 手机版列表弹窗 -->
+    <nz-modal [(nzVisible)]="this.showItems && this.isMobile" nzTitle="{{'btn-select-invoices'|translate}}"
+        [nzBodyStyle]="{width:'100vw',height:'calc(100vh - 122px)', overflowY: 'auto', backgroundColor:'#f5f6f9',padding: '5% 3%'}"
+        (nzOnOk)="handleConfirm()" [nzCancelText]="null" nzClosable="false">
+        <ng-container *nzModalContent>
+            <!-- 发票item卡片 -->
+            <div *ngFor="let item of invoiceItemList" style="padding-bottom: 2%;display: -webkit-box;">
+                <td style="vertical-align: middle;padding-right: 4px;" [nzChecked]="setOfCheckedId.has(item.invoiceid)"
+                    [nzDisabled]="item.disabled" (nzCheckedChange)="onItemChecked(item, $event)"></td>
+                <nz-card style="width:100%;" [nzExtra]="stateMessage"
+                    [nzTitle]="this.translate.instant('invoice-no')+': '+(item.invno??'')"
+                    [nzBodyStyle]="{padding: '24px 18px'}" nzHoverable="true">
+                    <nz-card-meta [nzTitle]="bodyContent" [nzDescription]="bodyFooter"></nz-card-meta>
+                </nz-card>
+                <ng-template #stateMessage>
+                    <div *ngIf="!!item.expdesc" style="color: red; border: red solid 2px;padding:2px 3px">
+                        {{item.expdesc}}</div>
+                    <div *ngIf="!item.expdesc" nz-icon nzType="check" style="color:red"></div>
+                </ng-template>
+                <ng-template #bodyContent>
+                    <div nz-row>
+                        <div nz-col nzSpan="17">
+                            <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                {{item.collectionName}}
+                            </div>
+                        </div>
+                        <div nz-col nzSpan="7" style="text-align: right;">
+                            <div *ngIf="item.oamount<10000">¥{{item.oamount}}</div>
+                            <div *ngIf="item.oamount>=10000">
+                                ¥{{(item.oamount*0.0001).toFixed(2)}}{{'ten-thousand'|translate}}
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #bodyFooter>
+                    <div nz-row>
+                        <div nz-col nzSpan="16">{{this.translate.instant('invoice-date')+': '+item.invdate??''}}</div>
+                        <div nz-col nzSpan="8" style="text-align: right;color:red">({{item.paymentStatDesc}})</div>
+                    </div>
+                </ng-template>
+            </div>
+
+        </ng-container>
+    </nz-modal>
+
+    <!-- PC版列表弹窗 -->
+    <nz-modal [(nzVisible)]="this.showItems && !this.isMobile" nzTitle="{{'btn-select-invoices'|translate}}"
+        [nzBodyStyle]="{maxWidth: '80vw',maxHeight: '60vh', overflowY: 'auto', backgroundColor:'#f5f6f9'}"
+        (nzOnOk)="handleConfirm()" [nzCancelText]="null" nzClosable="false">
+        <ng-container *nzModalContent>
+            <!-- 发票item表格 -->
+            <!-- <div style="padding: 0% 0% 1% 0%"> -->
+            <div nz-row style="float: right;">
+              <button type="button" nz-button nzType="primary" class="default-button" (click)="showInvoicePage()">{{'title.invoice' | translate}}</button>
+              &nbsp;
+              <button type="button" nz-button nzType="primary" class="default-button" (click)="getInvoices()">{{'refresh' | translate}}</button>
+            </div>
+            <nz-table #listTable nzBordered style="padding-bottom: 1%;" [nzData]="invoiceItemList" nzSize="small"
+                [nzNoResult]="null" [nzScroll]="{ x: '1240px', y: '' }" [nzFrontPagination]="false">
+                <!-- [nzShowTotal]="totalTemplate"
+            [nzTotal]="this.total" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange($event)"
+            (nzPageSizeChange)="pageSizeChange($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"> -->
+                <thead>
+                    <tr>
+                        <th nzLeft nzWidth="30px"></th>
+                        <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth"
+                            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+                        <th nzAlign="center" nzWidth="80px">{{'invoice-pic'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listTable.data">
+                        <td nzLeft [nzChecked]="setOfCheckedId.has(data.invoiceid)" [nzDisabled]="data.disabled"
+                            (nzCheckedChange)="onItemChecked(data, $event)"></td>
+                        <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+                            {{ data[column.columnKey] }}
+                        </td>
+                        <td nzAlign="center">
+                            <a *ngIf="!!data.fileurl" [href]="data.fileurl"
+                                target="_blank">{{'col-invoice'|translate}}</a>
+                            <span *ngIf="!data.fileurl">{{'null'|translate}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+            <!-- </div> -->
+        </ng-container>
+    </nz-modal>
+
+    <!-- 异常信息填写弹窗 -->
+    <nz-modal [(nzVisible)]="invExceptionModal" nzTitle="{{'exception-expense-reason'|translate}}"
+        nzMaskClosable="false" (nzOnCancel)="handleExCancel()" (nzOnOk)="handleExOk()" [nzOkLoading]="isSaveLoading"
+        [nzBodyStyle]="{backgroundColor:'#f5f6f9'}">
+        <form *nzModalContent nz-form [formGroup]="exInvForm" [nzAutoTips]="autoTips">
+            <div nz-row [nzGutter]="24">
+                <div nz-col class="gutter-row" [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="11">{{'invoice-code'|translate}}</nz-form-label>
+                        <nz-form-control nzSpan="13">
+                            <input formControlName="invcode" nz-input />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col class="gutter-row" [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="10">{{'invoice-no'|translate}}</nz-form-label>
+                        <nz-form-control nzSpan="14">
+                            <input onmouseover="this.title=this.value" formControlName="invno" nz-input />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row [nzGutter]="24">
+                <div nz-col nzSpan="12" class="gutter-row">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="11">{{'exception-expense-amount'|translate}}</nz-form-label>
+                        <nz-form-control nzSpan="13">
+                            <nz-input-number formControlName="oamount" [nzPrecision]="2" [nzMin]="0"
+                                style="width: 100%">
+                            </nz-input-number>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12" class="gutter-row">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="10">{{'col.currency'|translate}}</nz-form-label>
+                        <nz-form-control nzSpan="14">
+                            <input formControlName="curr" nz-input />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <nz-form-item nzSpan="24">
+                <nz-form-label>{{'exception-expense-reason'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="expdesc" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzSpan="24">
+                <nz-form-label><span style="color: red;">{{'tax-loss'|translate}}({{this.curr}})</span></nz-form-label>
+                <nz-form-control>
+                    <nz-input-number formControlName="toLocalTaxLoss" [nzPrecision]="2" [nzMin]="0" style="width: 100%">
+                    </nz-input-number>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzSpan="24">
+                <nz-form-label nzRequired>{{'causes-of-exceptions'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="invabnormalreason" nz-input />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzSpan="24" style="text-align: center;">
+                <nz-form-control>
+                    <nz-radio-group formControlName="affordParty" nzSpan="24">
+                        <label nz-radio nzValue="self">{{'individual-afford'|translate}}</label>
+                        <label nz-radio nzValue="company">{{'company-afford'|translate}}</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </nz-modal>
+</nz-spin>
+<nz-modal (nzOnCancel)="showInvoicePageModal = false" [(nzVisible)]="showInvoicePageModal" 
+[nzOkText]="null" [nzBodyStyle]="{maxWidth: '80vw', minWidth: '80vw',maxHeight: '60vh', overflowY: 'auto', backgroundColor:'#f5f6f9'}">
+  <ng-container *nzModalContent>
+    <app-invoice-query></app-invoice-query>
+  </ng-container>
+</nz-modal>

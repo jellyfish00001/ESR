@@ -1,0 +1,32 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <div *ngIf="isFinUser" class="title">{{'title.rq204a-fin'|translate}}</div>
+  <div *ngIf="!isFinUser" class="title">{{'title.rq204a-supervisor'|translate}}</div>
+  <app-rq201a-form [auditMode]="this.isFinUser" (getExTotalTips)="getTotalExTips($event)"
+    [showPicList]="this.showInvoiceList" (getData)="getExSummaryData($event)" (getFileData)="getFileData($event)">
+  </app-rq201a-form>
+  <!-- 异常报销Summary表格 -->
+  <nz-table #exSummaryTable nzBordered *ngIf="exSummaryData.length>0" [nzData]="exSummaryData" nzSize="small"
+    nzShowPagination="false" style="padding:0% 3% 1% 3%">
+    <thead>
+      <tr>
+        <th>{{'col.invoice-list'|translate}}</th>
+        <th>{{'abnormal-loss-amount-slef'|translate}}</th>
+        <th>{{'abnormal-loss-amount-company'|translate}}</th>
+        <th *ngIf="isFinUser">{{'white-form-remark'|translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of exSummaryTable.data" class="editable-row">
+        <td>
+          <file-list-modal [fileList]="fileList"></file-list-modal>
+        </td>
+        <td>{{ data.selfAffordAmt }}</td>
+        <td>{{ data.companyAffordAmt }}</td>
+        <td *ngIf="isFinUser"><input type="text" nz-input [(ngModel)]="data.whiteRemark" /></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <sign-off [exTotalWarning]="exTotalWarning" [rno]='rno' [showTransformButton]="showTransformButton" (approve)="approve($event)" (reject)="reject($event)"
+    (transform)="transform($event)" [isFinUser]="isFinUser">
+  </sign-off>
+</nz-spin>

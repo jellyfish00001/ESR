@@ -1,0 +1,30 @@
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th nzAlign="center">{{'notetable-invite-supervisor'|translate}}</th>
+            <th nzAlign="center">{{'notetable-inside-budget-limit'|translate}}</th>
+            <th nzAlign="center">{{'notetable-outside-budget-limit'|translate}}</th>
+            <th nzAlign="center">{{'notetable-description'|translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td nzAlign="center">{{'notetable-business-group-supervisor'|translate}}</td>
+            <td nzAlign="center">{{'notetable-content1'|translate}}</td>
+            <td nzAlign="center">{{'notetable-content1'|translate}}</td>
+            <td nzAlign="center">-</td>
+        </tr>
+        <tr>
+            <td nzAlign="center">{{'notetable-content2'|translate}}</td>
+            <td nzAlign="center">{{amountList?.insideSupervisor}} {{this.curr}}{{'notetable-unit'|translate}}</td>
+            <td nzAlign="center">{{amountList?.outsideSupervisor}} {{this.curr}}{{'notetable-unit'|translate}}</td>
+            <td nzAlign="center">{{'notetable-content3'|translate}}</td>
+        </tr>
+        <tr>
+            <td nzAlign="center">{{'notetable-content4'|translate}}</td>
+            <td nzAlign="center">{{amountList?.insideElse}} {{this.curr}}{{'notetable-unit'|translate}}</td>
+            <td nzAlign="center">{{amountList?.outsideElse}} {{this.curr}}{{'notetable-unit'|translate}}</td>
+            <td nzAlign="center">{{'notetable-content5'|translate}}</td>
+        </tr>
+    </tbody>
+</table>

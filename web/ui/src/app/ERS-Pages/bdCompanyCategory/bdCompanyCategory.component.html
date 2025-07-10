@@ -1,0 +1,186 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+  <!-- <div class="title">{{'title.companyCategory'|translate}}</div> -->
+  <form nz-form [formGroup]="queryForm" [nzAutoTips]="autoTips">
+    <!-- 查询栏位 -->
+    <div class="formInline">
+        <nz-form-item class="formItem" style="margin-right: 20px;">
+            <nz-form-label style="width: auto;">{{'companyCategory'|translate}}</nz-form-label>
+            <nz-form-control>
+                <input formControlName="companyCategory" nz-input />
+            </nz-form-control>
+        </nz-form-item>
+
+      <div class="operation-button">
+        <button type="button" [nzLoading]="isQueryLoading" nz-button nzType="primary" class="default-button"
+        (click)="search()">{{'query'|translate}}</button>
+        <button type="button" nz-button nzType="primary" class="default-button"
+        (click)="create()">{{'button.add'|translate}}</button>
+      </div>
+    </div>
+    <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%">
+      <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="listTableData" nzSize="small" [nzNoResult]="null"
+      [nzScroll]="{ x: '1000px', y: '80vh' }" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+      [nzTotal]="this.total" [nzShowSizeChanger]="true" (nzPageIndexChange)="pageIndexChange($event)"
+      (nzPageSizeChange)="pageSizeChange($event)" [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+            <tr>
+                <!-- <th nzLeft nzWidth="30px" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                    nzAlign="center" (nzCheckedChange)="onAllChecked($event)"></th> -->
+                <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth"
+                    nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+                <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="150px">{{'action'|translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listTable.data">
+            <!-- <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
+                            (nzCheckedChange)="onItemChecked(data.id, $event)"></td> -->
+            <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+                <span *ngIf="column.columnKey === 'TimeZone'">{{ data[column.columnKey] >=0 ? 'UTC+' + data[column.columnKey] : 'UTC' + data[column.columnKey] }}</span>
+                <span *ngIf="column.columnKey !== 'TimeZone'">{{ data[column.columnKey] }}</span>
+            </td>
+            <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+              <a style="margin-right: 10px;" (click)="view(data)">{{'button.view'|translate}}</a>
+              <a style="margin-right: 10px;" (click)="update(data)">{{'button.edit'|translate}}</a>
+              <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                (nzOnConfirm)="delete(data.Id)">{{'button.delete'|translate}}</a>
+            </td>
+           </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+    </div>
+  </form>
+
+  <!-- 新增编辑表格弹窗 -->
+  <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" [nzFooter]="modalFooter"
+  [nzTitle]="this.translate.instant((!addloading && !editloading)? 'button.view' : this.addloading?'addCompanyCategory':'editCompanyCategory')"
+  [nzBodyStyle]="{maxHeight: '60vh', overflowY: 'auto', width:'30vw', backgroundColor:'#f5f6f9'}"
+  (nzOnCancel)="handleCancel()"  [nzOkLoading]="isSaveLoading">
+  <form *nzModalContent nz-form [formGroup]="listForm" [nzAutoTips]="autoTips" nzLayout="vertical"
+      style="padding: 0% 1%;">
+      <div>
+          <nz-form-item>
+                <nz-form-label nzRequired>{{'companyCategory'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="CompanyCategory" maxlength="10" nz-input />
+                </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label nzRequired>{{'companySap'|translate}}</nz-form-label>
+              <nz-form-control >
+                  <input formControlName="CompanySap" maxlength="10" nz-input />
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label nzRequired>{{'description'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <input formControlName="CompanyDesc" maxlength="50" nz-input />
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label nzRequired>{{'stwit'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <input formControlName="Stwit" maxlength="6" nz-input />
+              </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+              <nz-form-label nzRequired>{{'baseCurrency'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <nz-select formControlName="BaseCurrency" nzAllowClear nzShowSearch>
+                    <nz-option *ngFor="let item of currList" [nzValue]="item" [nzLabel]="item">
+                    </nz-option>
+                  </nz-select>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label>{{'identificationNo'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <input formControlName="IdentificationNo" maxlength="20" nz-input />
+              </nz-form-control>
+          </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>{{'incomeTaxRate'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-input-number nzMin="0" nzMax="1" formControlName="IncomeTaxRate"/>
+
+                </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label>{{'vatrate'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <nz-input-number nzMin="0" nzMax="1" formControlName="Vatrate"/>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label nzRequired>{{'area'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <nz-select formControlName="Area" nzAllowClear nzShowSearch>
+                    <nz-option *ngFor="let item of areaList" [nzValue]="item.value" [nzLabel]="item.label">
+                    </nz-option>
+                  </nz-select>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label nzRequired>{{'timeZone'|translate}}</nz-form-label>
+              <nz-form-control>
+                  <nz-select formControlName="TimeZone" nzAllowClear nzShowSearch>
+                    <nz-option *ngFor="let item of utcTimeZones" [nzValue]="item.value" [nzLabel]="item.key">
+                    </nz-option>
+                  </nz-select>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>{{'applicable-area'|translate}}</nz-form-label>
+          </nz-form-item>
+
+          <nz-table [nzData]="companySiteArray" [nzFrontPagination]="false" [nzNoResult]="null" nzSize="small">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>{{'Seq' | translate}}</th>
+                    <th>{{'companyCode' | translate}}</th>
+                    <th>{{'companySite'| translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let staff of companySiteArray; let i = index; trackBy: trackByFn;">
+                    <td class="iconCell">
+                      <img src="../../../assets/imgs/dash-square.svg" width="24" height="24" (click)="delEmpRow(i)">
+                    </td>
+                    <td>
+                        {{companySiteArray[i].seq}}
+                    </td>
+                    <td class="input-group-sm">
+                      <!--CompanyCode.-->
+                      <input style="width: 100%;" type="text" [disabled]="!addloading && !editloading" [(ngModel)]="companySiteArray[i].Company" [name]="'CompanyCode'+i"
+                        [ngModelOptions]="{standalone: true}" maxlength="3"
+                        [ngClass]="{'form-control-danger': companySiteArray[i].Company}"/>
+                    </td>
+                    <td class="input-group-sm">
+                      <!--CompanySite.-->
+                      <input style="width: 100%;" type="text" [disabled]="!addloading && !editloading" [(ngModel)]="companySiteArray[i].Site" [name]="'CompanySite'+i"
+                        [ngModelOptions]="{standalone: true}" maxlength="6"
+                        [ngClass]="{'form-control-danger': companySiteArray[i].Site}"/>
+                    </td>
+                  </tr>
+                </tbody>
+            </nz-table>
+            <button *ngIf="addloading || editloading" class="addRowButton" nz-button nzType="primary" (click)="addEmpRow()">
+              <svg class="bi" width="20" height="20" fill="currentColor" style="color:#3074B8">
+                <use xlink:href="assets/bootstrap-icons.svg#plus-square" />
+              </svg>
+              {{ 'addItem' | translate }}
+            </button>
+      </div>
+  </form>
+  <ng-template #modalFooter>
+    <button type="button" nz-button nzType="default" class="default-button"
+        (click)="handleCancel()">{{'cancel'|translate}}</button>
+    <button *ngIf="addloading || editloading" type="button" nz-button nzType="primary" class="default-button"
+        (click)="handleOk()">{{'button.ok'|translate}}</button>
+  </ng-template>
+</nz-modal>
+</nz-spin>

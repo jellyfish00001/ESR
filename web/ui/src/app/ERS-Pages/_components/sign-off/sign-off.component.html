@@ -1,0 +1,145 @@
+<form nz-form [formGroup]="signForm" [nzAutoTips]="autoTips">
+  <!-- <button type="button" *ngIf="this.userRole=='Fin'" nz-button nzType="primary" nzGhost style="margin-bottom: 1%"
+    [nzLoading]="isDownloadLoading" (click)="download()"><i nz-icon
+      nzType="download"></i>{{'col.invoice-list'|translate}}</button> -->
+  <!-- 邀签选择栏位 -->
+  <div class="formInline">
+    <nz-form-item style="margin-right:10px">
+      <nz-form-label>{{'invite-colleague'|translate}}</nz-form-label>
+      <nz-form-control>
+        <nz-select nzShowSearch nzAllowClear nzServerSearch formControlName="inviteColleague" [nzShowArrow]="false"
+          style="width: 178px;" [nzFilterOption]="nzFilterOption" (nzOnSearch)="getEmployeeList($event)"
+          nzPlaceHolder="">
+          <nz-option *ngFor="let item of employeeList" [nzValue]="item.emplid" [nzLabel]="item.emplid+'/'+item.name">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-radio-group formControlName="inviteType">
+          <label nz-radio nzValue="-1">{{'before'|translate}}</label>
+          <label nz-radio nzValue="1">{{'after'|translate}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <!-- 意见栏位 -->
+  <!-- <div class="formInline"> -->
+  <nz-form-item>
+    <nz-form-label>{{'sign-off-comment'|translate}}</nz-form-label>
+    <nz-form-control>
+      <input formControlName="comment" nz-input />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="isFinUser && showSignPaperForm">
+    <nz-form-label><span style="color: red;">{{'sign-paper-form-meanwhile'|translate}}</span></nz-form-label>
+    <nz-form-control>
+      <label nz-checkbox formControlName="signPaperForm">{{'yes'|translate}}</label>
+    </nz-form-control>
+  </nz-form-item>
+  <!-- </div> -->
+  <!-- 签核按钮组 -->
+  <div style="text-align: center;">
+    <nz-space>
+      <button type="button" nz-button nzType="primary" style="margin-right: 20px;width: 80px;" class="default-button"
+        [nzLoading]="isSaveLoading" (click)="handleApprove()">{{'approve'|translate}}</button>
+      <button type="button" nz-button nzType="primary" style="margin-right: 20px;width: 80px;" class="default-button"
+        [nzLoading]="isSaveLoading" (click)="handleReject()">{{'audit.reject'|translate}}</button>
+      <!-- <button type="button" nz-button nzType="primary" *ngIf="showTransformButton"
+        style="margin-right: 20px;width: 80px;" class="default-button" [nzLoading]="isSaveLoading"
+        (click)="handleTransform()">{{'audit.transform'|translate}}</button> -->
+      <!-- <button type="button" nz-button nzType="primary" style="margin-right: 20px;width: 80px;" class="default-button">{{actionButtonName}}</button>
+      <button *ngIf="showPrintButton" type="button" nz-button nzType="primary" style="margin-right: 20px;width: 80px;" class="default-button"
+        (click)="handlePrint()">{{'button.print'|translate}}</button>-->
+    </nz-space>
+  </div>
+  <!-- 异常报销总提示 -->
+  <div style="padding:1% 0%;" *ngIf="this.exTotalWarning.length>0 && this.showExModal">
+    {{'title.exception-warning'|translate}} :<br>
+    <p *ngFor="let item of exTotalWarning">{{DecorateLine(item)}}</p>
+  </div>
+  <p style="padding:1% 0%;" *ngIf="this.exTotalWarning.length==0 && this.showExModal">
+    {{'title.exception-warning'|translate}}
+    :<br>{{'null'|translate}}</p>
+</form>
+
+<div nz-row [nzGutter]="24">
+  <div nz-col nzLg="16" nzSm="24">
+    <p>{{'signform.title'|translate}}:</p>
+    <nz-table #signLogTable nzBordered style="padding-bottom: 0%;" [nzData]="signLogTableData" nzSize="small" [nzNoResult]="null"
+      nzShowPagination="false" nzFrontPagination="false">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of SignLogTableColumn" [nzWidth]="column.columnWidth" nzAlign="center">
+            {{ column.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of signLogTable.data">
+          <td *ngFor="let column of SignLogTableColumn" [nzAlign]="column.align">
+            {{ data[column.columnKey] }}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div nz-col nzLg="8" nzSm="24">
+    <p>{{'signform2.title'|translate}}:</p>
+    <nz-table #signTable nzBordered style="padding-bottom: 0%;" [nzData]="signTableData" nzSize="small" [nzNoResult]="null"
+      nzShowPagination="false" nzFrontPagination="false">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of SignTableColumn" [nzWidth]="column.columnWidth" nzAlign="center">
+            {{ column.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of signTable.data">
+          <td *ngFor="let column of SignTableColumn" [nzAlign]="column.align">
+            {{ data[column.columnKey] }}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<!-- 异常报销汇总提示弹窗 -->
+<nz-modal [(nzVisible)]="totalExTipModal" nzTitle="{{'title.exception-warning'|translate}}" nzMaskClosable="false"
+  nzOkText="{{'approve'|translate}}" (nzOnCancel)="totalExTipModal = false" (nzOnOk)="approveConfirm()"
+  [nzOkLoading]="isSaveLoading" [nzBodyStyle]="{backgroundColor:'#f5f6f9'}">
+  <ng-container *nzModalContent>
+    <div *ngIf="this.exTotalWarning.length>0">
+      <!-- {{'title.exception-warning'|translate}} :<br> -->
+      <p *ngFor="let item of exTotalWarning">{{DecorateLine(item)}}</p>
+    </div>
+    <p *ngIf="this.exTotalWarning.length==0">{{'null'|translate}}</p>
+  </ng-container>
+</nz-modal>
+
+<!-- 会计转单 -->
+<nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" nzTitle="{{'title.Accountant-transform'|translate}}"
+  [nzBodyStyle]="{height: '70vh', overflowY: 'auto', width:'90vw', backgroundColor:'#f5f6f9'}"
+  (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isSaveLoading"
+  [nzOkDisabled]="selectAccountant.size === 0">
+  <nz-table *nzModalContent #listTable nzBordered style="padding-bottom: 1%;" [nzData]="FinDetailTableData" nzSize="small"
+    [nzNoResult]="null" [nzFrontPagination]="false" [nzFrontPagination]="false">
+    <thead>
+      <tr>
+        <th nzLeft nzWidth="30px"></th>
+        <th scope="col" *ngFor="let column of FinDetailListTableColumn" [nzWidth]="column.columnWidth" nzAlign="center"
+          [nzSortFn]="column.sortFn">{{ column.title }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listTable.data">
+        <!-- <td nzLeft [nzChecked]="selectAccountant.has(data.Id)" (nzCheckedChange)="onItemChecked(data.Id, $event)"></td> -->
+        <td nzLeft><label nz-radio [nzValue]="data.Id" [ngModel]="this.selectAccountant.has(data.Id)"
+            (ngModelChange)="onItemChecked(data.Id, $event)"></label></td>
+        <td *ngFor="let column of FinDetailListTableColumn" [nzAlign]="column.align">{{ data[column.columnKey]
+          }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

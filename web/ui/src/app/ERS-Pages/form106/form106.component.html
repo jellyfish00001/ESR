@@ -1,0 +1,23 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <!-- <div class="title">{{'title.form106'|translate}}</div> -->
+    <form nz-form [formGroup]="queryForm" [nzAutoTips]="autoTips">
+        <!-- 查询栏位 -->
+        <div class="formInline">
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'start-date'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker nzMode="date" formControlName="startDate"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'end-date'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker nzMode="date" formControlName="endDate"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <button nz-button class="default-button" style="margin-left: 20px;"
+                (click)="queryResultWithParam()" nzType="primary" [nzLoading]="this.isQueryLoading"><i nz-icon
+                    nzType="download"></i>{{'button.download'|translate}}</button>
+        </div>
+    </form>
+</nz-spin>

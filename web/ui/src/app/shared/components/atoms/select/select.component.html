@@ -1,0 +1,3 @@
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select" [(ngModel)]="selectedValue" (ngModelChange)="selectChange($event)">
+  <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option"></nz-option>
+</nz-select>

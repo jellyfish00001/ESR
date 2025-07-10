@@ -1,0 +1,83 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <!-- <div class="title">{{'title.permission'|translate}}</div> -->
+    <form nz-form [formGroup]="queryForm" [nzAutoTips]="autoTips" style="padding:2% 3%">
+        <!-- 查询栏位 -->
+        <div class="formInline">
+            <nz-form-item class="formItem">
+                <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="company">
+                        <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label nzRequired>{{'role'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="role">
+                        <nz-option *ngFor="let item of roleList" [nzValue]="item.key" [nzLabel]="item.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem" style="margin-right: 5%; width: 400px !important;">
+                <nz-form-label>{{'employee-id'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select nzMode="tags" [nzPlaceHolder]="this.translate.instant('tips-input-emplid-enter')"
+                        formControlName="emplidList">
+                        <nz-option *ngFor="let option of emplidList" [nzLabel]="option" [nzValue]="option"></nz-option>
+                    </nz-select>
+                    <p style="color: #144f81;">{{'tips-input-emplid'|translate}}</p>
+                </nz-form-control>
+            </nz-form-item>
+            <div>
+                <button nz-button style="margin-bottom: 10px;width: 125px; margin-right: 12px;" class="default-button"
+                    (click)="queryResultWithParam()" nzType="primary" [nzLoading]="this.isQueryLoading"><i nz-icon
+                        nzType="search"></i>{{'query'|translate}}</button>
+                <button nz-button style="margin-bottom: 10px;width: 125px; margin-right: 12px;" class="default-button"
+                    (click)="grantPermission()" nzType="primary" [nzLoading]="this.addloading"><span nz-icon
+                        nzType="key" nzTheme="outline"></span>{{'grant-permission'|translate}}</button>
+                <button nz-button style="margin-bottom: 10px;width: 125px;" class="default-button"
+                    (click)="ResetQueryParams()" nzType="primary"><i nz-icon
+                        nzType="undo"></i>{{'reset-query-params'|translate}}</button>
+            </div>
+        </div>
+
+        <!-- BD明细表格 -->
+        <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%">
+            <div class="operation-button">
+                <!-- <button nz-button nz-popconfirm nzType="primary" [disabled]="setOfCheckedId.size === 0"
+                    class="default-button" [nzLoading]="deleteloading" nzPopconfirmTitle="Sure to delete?"
+                    (nzOnConfirm)="deleteRow()">{{'button.delete'|translate}}</button> -->
+            </div>
+            <nz-table #listTable style="padding-bottom: 1%;" nzBordered nzShowPagination nzShowSizeChanger [nzData]="listTableData"
+                nzSize="small" [nzNoResult]="null" [nzScroll]="{ x: '300px', y: '80vh' }"
+                [nzShowTotal]="totalTemplate">
+                <thead>
+                    <tr>
+                        <!-- <th nzLeft nzWidth="40px" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            nzAlign="center" (nzCheckedChange)="onAllChecked($event)"></th> -->
+                        <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth"
+                            nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+                        <th nzRight nzAlign="center" nzWidth="90px">{{'action'|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listTable.data">
+                        <!-- <td nzLeft [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
+                            (nzCheckedChange)="onItemChecked(data.id, $event)"></td> -->
+                        <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+                            {{ data[column.columnKey] }}</td>
+                        <td nzRight nzAlign="center">
+                            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                (nzOnConfirm)="deleteRow(data)">{{'button.delete'|translate}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+        </div>
+    </form>
+</nz-spin>

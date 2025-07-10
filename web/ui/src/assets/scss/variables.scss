@@ -1,0 +1,44 @@
+:root {
+  --green-hue: 83;
+  --green-saturation: 46%;
+  --green-focus-lightness: 25%;
+  --green-lightness: 55%;
+  --green-hover-lightness: 65%;
+}
+
+$common-wistron-green: #9AC258;
+$common-wistron-blue: #0D759F;
+$common-font-size: 16px;
+$common-font-weight: 400;
+$common-font-bold-weight: 600;
+$common-font-family: 'SF Pro Text', sans-serif;
+$common-gray-bg-color: #F5F5F5;
+
+$header-divider-color: #6BAAC4;
+$header-font-family: $common-font-family;
+$header-font-weight: $common-font-bold-weight;
+$header-font-color: white;
+$header-avatar-color: #FA8C16;
+$header-avatar-bg-color: #FFF7E6;
+$header-system-name-font-size: 20px;
+$header-user-name-font-size: $common-font-size;
+$header-system-name-color: #000000D9;
+$sidebar-menu-bg-color: #203033;
+$sidebar-submenu-bg-color: #132224;
+
+$table-font-weight: $common-font-bold-weight;
+$table-font-family: $common-font-family;
+$table-font-size: 14px;
+
+$content-font-family: 'Noto Sans TC', 'Noto Sans', sans-serif;
+$content-font-weight: $common-font-weight;
+$content-bg-color: $common-gray-bg-color;
+
+$sub-content-font-size: 12px;
+
+$signoff-approve-btn-color: hsl(var(--green-hue), var(--green-saturation), var(--green-lightness));
+$signoff-approve-btn-hover-color: hsl(var(--green-hue), var(--green-saturation), var(--green-hover-lightness));
+$signoff-approve-btn-focus-color: hsl(var(--green-hue), var(--green-saturation), var(--green-focus-lightness));
+
+$disabled-btn-color: #D9D9D9;
+$disabled-btn-bg-color: $common-gray-bg-color;

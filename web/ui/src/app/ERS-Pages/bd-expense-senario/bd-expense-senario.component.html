@@ -1,0 +1,421 @@
+<nz-spin nzTip="Loading..." [nzSpinning]="isSpinning" [nzDelay]="500">
+    <form nz-form [formGroup]="queryForm">
+        <!-- 查询栏位 -->
+        <div class="formInline">
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'company-code'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="companyCode">
+                        <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem" >
+                <nz-form-label>{{'reimbursement-scene'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="senarioname" nz-input/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'expense-category'|translate}}</nz-form-label>
+                <nz-form-control style="width: 200px;">
+                    <nz-select formControlName="expcode" nzAllowClear>
+                        <nz-option *ngFor="let item of expensecodeList" [nzValue]="item.expcode"
+                        [nzLabel]="this.commonSrv.getLocalizedName(item.expname,item.expnamezhcn,item.expnamezhtw,item.expnamees,item.expnamevn,item.expnamecz)">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <button nz-button class="default-button" style="margin-left: 20px;" (click)="queryResultWithParam(true)"
+                nzType="primary" [nzLoading]="this.isQueryLoading"><i nz-icon
+                    nzType="search"></i>{{'query'|translate}}</button>
+            <button nz-button class="default-button" style="margin-left: 10px;" (click)="resetQueryForm()"
+                nzType="default"><i nz-icon nzType="clear"></i>{{'reset-query-params'|translate}}</button>
+        </div>
+
+        <!-- 大量上传弹窗 -->
+        <nz-modal [(nzVisible)]="batchUploadModal" nzTitle="{{'batch-upload'|translate}}" nzMaskClosable="false"
+            nzOkText="Upload" (nzOnCancel)="this.batchUploadModal = false" (nzOnOk)="handleBatchUpload()"
+            [nzOkLoading]="isSaveLoading">
+            <nz-space *nzModalContent style="margin-bottom: 30px;">
+                <label nzRequired style="padding-top: 5px;">{{'upload-file'|translate}} : </label>
+                <nz-upload [nzFileList]="batchUploadList" [nzBeforeUpload]="beforeUpload" nzMultiple="false"
+                    (nzChange)="handleFileChange($event)" [nzShowUploadList]="uploadIcons" [nzFilter]="filters"
+                    [nzPreview]="handlePreview">
+                    <button nz-button><i nz-icon nzType="upload"></i>Select</button>
+                </nz-upload>
+                <a href="../../../assets/file/upload-bdexp-scene-sample.xlsx" style="margin-left:5px;padding-top: 5px;"
+                    [download]="this.translate.instant('file-upload-scene-sample')+'.xlsx'">{{'file-upload-scene-sample'|translate}}</a>
+            </nz-space>
+        </nz-modal>
+
+        <!-- BD明细表格 -->
+        <div *ngIf="this.showTable" style="padding: 0% 0% 1% 0%">
+            <div class="operation-button">
+                <button nz-button nzType="primary" [nzLoading]="addloading" class="default-button"
+                    (click)="addRow()">{{'button.add'|translate}}</button>
+                <button nz-button nzType="primary" [nzLoading]="downloadloading" class="default-button"
+                    (click)="DownloadFile()">{{'button.download'|translate}}</button>
+                <!-- 暂时不需要大量上传 -->
+                    <!-- <button nz-button nzType="primary" [nzLoading]="addloading" class="default-button"
+                    (click)="clickBatchUpload()">{{'batch-upload'|translate}}</button> -->
+            </div>
+            <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="listTableData" nzSize="small"
+                [nzNoResult]="null" [nzScroll]="{ x: '1200px', y: '80vh' }" [nzFrontPagination]="false"
+                [nzShowTotal]="totalTemplate" [nzTotal]="this.total" [nzShowSizeChanger]="true"
+                (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+                [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngFor="let column of listTableColumn" [nzWidth]="column.columnWidth"
+                            nzAlign="center" [nzSortFn]="column.sortFn">{{column.title|translate}}</th>
+                        <th [nzRight]="!this.userInfo?.isMobile" nzAlign="center" nzWidth="140px">{{'action'|translate}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listTable.data">
+                        <td *ngFor="let column of listTableColumn" [nzAlign]="column.align">
+                            <ng-container [ngSwitch]="column.columnKey">
+                                <ng-container *ngSwitchCase="'category'">
+                                    {{getCategoryLocalizedName(data[column.columnKey])}}
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'expcode'">
+                                    {{getExpenseCategoryLocalizedName(data[column.columnKey])}}
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    {{ data[column.columnKey] }}
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                        <td [nzRight]="!this.userInfo?.isMobile" nzAlign="center">
+                            <a style="margin-right: 10px;" (click)="showRow(data)">{{'button.view'|translate}}</a>
+                            <a style="margin-right: 10px;" (click)="editRow(data)">{{'button.edit'|translate}}</a>
+                            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                (nzOnConfirm)="deleteRow(data)">{{'button.delete'|translate}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                    }} {{'itemData'|translate}}</span></ng-template>
+        </div>
+
+    </form>
+
+    <!-- 新增编辑表格弹窗 -->
+    <nz-modal [(nzVisible)]="showModal" nzMaskClosable="false" [nzTitle]="this.translate.instant('title.bdexp')"
+        [nzBodyStyle]="{maxHeight: '80vh', overflowY: 'auto',width:this.screenWidth, backgroundColor:'#f5f6f9'}"
+        (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isQueryLoading">
+        <form *nzModalContent nz-form [formGroup]="listForm" style="padding: 0% 1%;" nzLayout="vertical"
+            [nzAutoTips]="autoTips">
+            <div style="padding: 0% 10%;">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'company-code'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="companycategory">
+                            <nz-option *ngFor="let item of companyList" [nzValue]="item" [nzLabel]="item">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'col-category'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <!-- <nz-select formControlName="category">
+                            <nz-option [nzValue]="1"
+                                [nzLabel]="this.translate.instant('options-reimbursement')"></nz-option>
+                            <nz-option [nzValue]="2" [nzLabel]="this.translate.instant('options-advance')"></nz-option>
+                            <nz-option [nzValue]="3"
+                                [nzLabel]="this.translate.instant('options-Salary-requests')"></nz-option>
+                            <nz-option [nzValue]="4"
+                                [nzLabel]="this.translate.instant('many-reimbursement')"></nz-option>
+                        </nz-select> -->
+                        <nz-select formControlName="category" style="width: 100%;">
+                            <nz-option *ngFor="let item of senarioCategoryList" [nzValue]="item.value"
+                            [nzLabel]="this.commonSrv.getLocalizedName(item.name,item.nameZhcn,item.nameZhtw,item.nameEs,item.nameVn,item.nameCz)">
+                            </nz-option>
+                        </nz-select>
+
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'reimbursement-scene'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="senarioname" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'col-keyword'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="keyword" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'expense-category'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="expcode" nzAllowClear>
+                            <nz-option *ngFor="let item of expensecodeList" [nzValue]="item.expcode"
+                            [nzLabel]="this.commonSrv.getLocalizedName(item.expname,item.expnamezhcn,item.expnamezhtw,item.expnamees,item.expnamevn,item.expnamecz)">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'accounting-subject'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="acctcode" nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let item of acctcodeList" [nzValue]="item" [nzLabel]="item">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'auditlevelcode'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="auditlevelcode">
+                            <nz-option *ngFor="let item of auditLevelCodeList" [nzValue]="item" [nzLabel]="item">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'exp-descriptionnotice'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-textarea-count [nzMaxCharacterCount]="100">
+                            <textarea formControlName="descriptionnotice" nz-input nzAutosize></textarea>
+                        </nz-textarea-count>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'exp-attachmentnotice'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-textarea-count [nzMaxCharacterCount]="50">
+                            <textarea formControlName="attachmentnotice" nz-input nzAutosize></textarea>
+                        </nz-textarea-count>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'requirespaperattachment'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="requirespaperattachment">
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'exp-isinvoice'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="requiresinvoice">
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'exp-requiresattachment'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="requiresattachment">
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'exp-attachmentname'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-textarea-count [nzMaxCharacterCount]="50">
+                            <textarea formControlName="attachmentname" nz-input nzAutosize></textarea>
+                        </nz-textarea-count>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'exp-isdeduction'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="isvatdeductable">
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{'exp-canbypassfinanceapproval'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="canbypassfinanceapproval">
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <!-- <nz-form-item>
+                    <nz-form-label>{{'exp-addsign'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="addsign" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'exp-addsignstep'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="addsignstep" nz-input />
+                    </nz-form-control>
+                    <div class="ExpDesc">{{'exp-addsignstep-desc'|translate}}</div>
+                </nz-form-item> -->
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='advance'">
+                    <nz-form-label>{{'exp-calmethod'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <!-- <nz-select formControlName="calmethod">
+                            <nz-option [nzValue]="0"
+                                [nzLabel]="this.translate.instant('exp-calmethod-option1')"></nz-option>
+                            <nz-option [nzValue]="1"
+                                [nzLabel]="this.translate.instant('exp-calmethod-option2')"></nz-option>
+                            <nz-option [nzValue]="2"
+                                [nzLabel]="this.translate.instant('exp-calmethod-option3')"></nz-option>
+                        </nz-select> -->
+                        <!--要转换为number类型，否则值会绑定不上；前缀加号是一种将字符串转换为数字的简便方法 -->
+                        <nz-select formControlName="calmethod" style="width: 100%;">
+                            <nz-option *ngFor="let item of calmethodList" [nzValue]="+item.value"
+                            [nzLabel]="this.commonSrv.getLocalizedName(item.name,item.nameZhcn,item.nameZhtw,item.nameEs,item.nameVn,item.nameCz)">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="listForm.controls.calmethod.value != 0">
+                    <nz-form-label>{{'exp-departday'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number formControlName="departday" style="width: 100%" [nzPrecision]="0" [nzMin]="0">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="listForm.controls.calmethod.value != 0">
+                    <nz-form-label>{{'exp-sectionday'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number formControlName="sectionday" style="width: 100%" [nzPrecision]="0" [nzMin]="0">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'exp-expcategory'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <!-- 报销模块 -->
+                        <!-- <nz-select formControlName="extraformcode">
+                            <nz-option [nzValue]="0"
+                                [nzLabel]="this.translate.instant('exp-expcategory-option1')"></nz-option>
+                            <nz-option [nzValue]="1"
+                                [nzLabel]="this.translate.instant('exp-expcategory-option2')"></nz-option>
+                            <nz-option [nzValue]="2"
+                                [nzLabel]="this.translate.instant('exp-expcategory-option3')"></nz-option>
+                            <nz-option [nzValue]="3"
+                                [nzLabel]="this.translate.instant('exp-expcategory-option4')"></nz-option>
+                        </nz-select> -->
+                        <!--要转换为number类型，否则值会绑定不上；前缀加号是一种将字符串转换为数字的简便方法 -->
+                        <nz-select formControlName="extraformcode" style="width: 100%;">
+                            <nz-option *ngFor="let item of extraformcodeList" [nzValue]="+item.value"
+                            [nzLabel]="this.commonSrv.getLocalizedName(item.name,item.nameZhcn,item.nameZhtw,item.nameEs,item.nameVn,item.nameCz)">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'credited-cost-center'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="costcenter" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'credited-assignment'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="assignment" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>{{'credited-project-code'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="pjcode" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='advance'">
+                    <nz-form-label nzRequired>{{'whether-advance-date-limited'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="datelevel">
+                            <nz-option nzValue="Y" nzLabel="Y"></nz-option>
+                            <nz-option nzValue="N" nzLabel="N"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='payroll'">
+                    <nz-form-label>{{'credited-authorizer'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="authorizer" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='payroll'">
+                    <nz-form-label>{{'credited-authorized'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="authorized" nz-input />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='payroll'">
+                    <nz-form-label>{{'credited-sdate'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker nzMode="date" formControlName="sdate"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="this.listForm.controls.category.value=='payroll'">
+                    <nz-form-label>{{'credited-edate'|translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker nzMode="date" formControlName="edate"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <div nz-row [nzGutter]="[8, 0]" style="height: 25px;">
+                        <div nz-col [nzSpan]="6">{{'assgin-step-name'|translate}}</div>
+                        <div nz-col [nzSpan]="isView ? 13 : 11">{{'assgin-employee-id'|translate}}</div>
+                        <div nz-col [nzSpan]="5">{{'assign-position'|translate}}</div>
+                        <div nz-col [nzSpan]="2" [hidden]="isView">{{'action'|translate}}</div>
+                    </div>
+
+                    <ng-container formArrayName="assignSteps" *ngFor="let o of assignStepList.controls; let i = index">
+                        <div nz-row [nzGutter]="[8, 24]" nzAlign="middle" nzJustify="center" [formGroupName]="i"
+                            style="padding: 4px 0px;">
+                            <div nz-col [nzSpan]="6">
+                                <input nz-input formControlName="name" />
+                            </div>
+                            <div nz-col [nzSpan]="isView ? 13 : 11">
+                                <nz-select nzMode="multiple" nzPlaceHolder="Select users" nzAllowClear nzShowSearch
+                                    nzServerSearch (nzOnSearch)="onSearch($event)" [compareWith]="compareFn"
+                                    style="width: 100%;"
+                                    [nzDropdownStyle]="searchChange$.getValue().length >= 3 ? { display: 'block' } : { display: 'none' }"
+                                    formControlName="approverList">
+                                    <ng-container *ngFor="let o of employeeInfoList">
+                                        <nz-option *ngIf="!isLoading" [nzValue]="o" [nzLabel]="o.display"></nz-option>
+                                    </ng-container>
+                                    <nz-option *ngFor="let o of listOfSelectedValue[i]" [nzValue]="o"
+                                        [nzLabel]="o.display" nzHide></nz-option>
+                                    <nz-option *ngIf="isLoading && searchChange$.getValue().length >= 3" nzDisabled
+                                        nzCustomContent>
+                                        <span nz-icon nzType="loading" class="loading-icon"></span>
+                                        Loading Data...
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                            <div nz-col [nzSpan]="5">
+                                <nz-select style="width: 100%;" formControlName="position">
+                                    <nz-option nzValue="" nzLabel=""></nz-option>
+                                    <nz-option nzValue="Before" [nzLabel]="'before-manager'|translate"></nz-option>
+                                    <nz-option nzValue="After" [nzLabel]="'after-manager'|translate"></nz-option>
+                                </nz-select>
+                            </div>
+                            <div nz-col [nzSpan]="2" [hidden]="isView">
+                                <a *ngIf="i === 0" (click)="onAdd()">{{'button.add'|translate}}</a>
+                                <a *ngIf="i !== 0" nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                    (nzOnConfirm)="onDeleteItem(i)">{{'button.delete'|translate}}</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </nz-form-item>
+            </div>
+        </form>
+    </nz-modal>
+</nz-spin>

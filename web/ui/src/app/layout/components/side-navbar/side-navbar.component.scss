@@ -1,0 +1,71 @@
+// @import url(../../../shared/style/nz-global-custome.scss);
+
+// /* title */
+// .sidebar-title>h2 {
+//   color: rgba(255, 255, 255, 0.9);
+//   /* font-size: 24px;
+//   line-height: 88px; */
+//   text-align: center;
+//   height: 88px;
+//   margin: 0;
+//   border-bottom: 1px solid #718eb3;
+//   font-family: "MicrosoftJhengHeiBold", sans-serif;
+// }
+
+// /* version-block */
+// .version-wrapper {
+//   position: absolute;
+//   width: 100%;
+//   bottom: 0;
+//   text-align: center;
+//   background-color: #2b4c74;
+//   height: 24px;
+//   line-height: 24px;
+//   color: rgba(255, 255, 255, 0.8);
+//   font-size: 12px;
+//   font-family: Arial, 'Microsoft JhengHei', sans-serif;
+
+// }
+
+// .tree-view {
+//   background: #042341;
+// }
+
+// .scroll-menu::-webkit-scrollbar {
+//   width: 4px;
+// }
+
+// .scroll-menu::-webkit-scrollbar-thumb {
+//   border-radius: 10px;
+//   box-shadow: inset 0 0 6px rgba(0, 0, 0, 3);
+// }
+
+// .scroll-menu {
+//   ::ng-deep .anticon svg {
+//     font-size: 16px;
+//     margin-right: 9px;
+//   }
+
+//   overflow-x: hidden;
+//   overflow-y: auto;
+//   height: calc(100vh - 108px);
+//   background-color: #042341;
+
+//   li>div {
+//     font-size: 16px !important;
+//   }
+
+//   li>a>span {
+//     font-size: 16px !important;
+//   }
+
+//   li>a {
+//     line-height: 48px;
+//   }
+
+//   ::ng-deep .ant-menu-inline .ant-menu-item {
+//     height: auto !important;
+//     /*  line-height: 100% !important; */
+//     text-align: left;
+//   }
+// }

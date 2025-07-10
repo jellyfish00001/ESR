@@ -1,0 +1,252 @@
+.function-area {
+    text-align: center;
+}
+
+.function-area button {
+    margin-bottom: 16px;
+    margin-right: 12px;
+}
+
+.function-btn {
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.operation-button {
+    margin-bottom: 16px;
+}
+
+// .operation-button span {
+//     margin-left: 8px;
+// }
+
+.operation-button button {
+    margin-right: 4px;
+}
+
+.gutter-row {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+// ::-webkit-scrollbar {
+//     width: 12px;
+//     height: 12px;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 6px;
+//     background-color: rgb(19 48 72 / 68%);
+// }
+
+// 边框button内的字体颜色
+// .ant-modal-footer .ant-btn:first-child:not(:only-child) {
+//     color: white;
+// }
+.formItem .ant-form-item-label > label::after {
+  // content: ':';
+  // position: relative;
+  // top: -0.5px;
+  margin: 0 0 0 2px;
+}
+.formItem .ant-input{
+  // padding: 0 7px;
+  width: auto;
+  min-width: 80px;
+  max-width: 130px;
+}
+
+// .formItem .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+//   padding: 0 7px;
+//   height: 24px;
+
+// }
+// .formItem .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+//   line-height: 24px;
+// }
+// .formItem .ant-select-single.ant-select-sm:not(.ant-select-customize-input) .ant-select-selector {
+//   padding: 0 7px;
+// }
+// .formItem .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input,
+// .formItem .ant-select-single.ant-select-sm:not(.ant-select-customize-input) .ant-select-selector {
+//  height: 24px;
+// }
+
+.ant-modal-body {
+    background: #fafafa;
+}
+
+// .formItem {
+//     padding: 0px 10px 0px 0px;
+//     width: 300px;
+// }
+
+// form
+.formInline {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// .ant-form-vertical .ant-form-item-label>label {
+//     color: rgba(0, 0, 0, 0.65);
+//     font-size: 14px;
+// }
+.formItem .ant-form-item{
+  margin-bottom: 2px;
+}
+.formItem .ant-form-item-label>label,
+.ant-radio-wrapper {
+    // width: 110px;
+    display: inline-block;
+    padding: 6px;
+
+}
+.formItem .ant-form-item-control-input{
+  width: auto;
+  min-width: 100px;
+  //max-width: 130px;
+  padding-right:6px;
+}
+.radioItem .ant-radio-wrapper {
+    width: auto;
+    display: inline-flex;
+    padding-top: 0px
+}
+
+.ant-form-item-label>label,
+.ant-radio-wrapper {
+    // font-family: "MicrosoftJhengHeiBold", sans-serif;
+    // color: rgba(0, 0, 0, 0.65);
+    font-family: SF Pro Text, sans-serif !important;
+    font-weight: 400 !important;
+}
+.ant-form-item-label > label{
+  height: auto;
+}
+.formLabel {
+    // width: 200px;
+    display: block;
+}
+
+.formRow {
+    flex-direction: unset !important;
+}
+
+.title {
+    // font-size: x-large;
+    font-size: 20px;
+    font-family: "MicrosoftJhengHeiBold", sans-serif;
+    font-weight: 600;
+    color: #000000E0;
+}
+
+.ant-form-item {
+    margin-bottom: 1.5%;
+}
+
+// :host ::ng-deep
+.upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: auto;
+    margin-right: 8px;
+}
+
+.upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
+    float: right;
+}
+
+.upload-list-inline .ant-upload-animate-enter {
+    animation-name: uploadAnimateInlineIn;
+}
+
+.upload-list-inline .ant-upload-animate-leave {
+    animation-name: uploadAnimateInlineOut;
+}
+
+.formSpaceDivider {
+    border-left: solid #d6d6d6 thin;
+    padding-left: 5% !important;
+}
+
+.formTitle {
+    font-family: "MicrosoftJhengHeiBold", sans-serif;
+    color: rgb(0 0 0 / 67%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+}
+
+.spaceItem {
+    margin-bottom: 10px;
+}
+
+.checkboxGroup {
+    border: solid thin #d9d9d9;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+.ant-divider {
+    margin: 16px auto;
+    background: rgb(48 94 139 / 58%);
+    height: 2px;
+}
+
+
+// .ant-table-body .nz-table-hide-scrollbar {
+//   &::-webkit-scrollbar {
+//       width: 8px !important;
+//       background-color: transparent;
+//   }
+
+//   &::-webkit-scrollbar-track {
+//       background-color: greenyellow;
+//       border: none;
+//       border-top-left-radius: 0px;
+//       border-top-right-radius: 4px;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//       background-color: greenyellow;
+//       border: none;
+//       border-top-left-radius: 0px;
+//       border-top-right-radius: 4px;
+//   }
+// }
+// 设置滚动条样式
+// ::ng-deep .ant-table-container{
+//   ::-webkit-scrollbar {
+//     width: 6px;
+//     height: 6px;
+//   }
+
+//   ::-webkit-scrollbar-track {
+//     border: none;
+//     border-radius: 3px;
+//     background-color: #ffffff;
+//     cursor: pointer;
+//   }
+
+//   ::-webkit-scrollbar-thumb {
+//     border-radius: 3px;
+//     background-color: #D7D7D7;;
+//   }
+
+//   ::-webkit-scrollbar-corner {
+//     background: transparent; /* 或者你想要的任何颜色 \*/
+//     display: none; /* 如果想完全隐藏 \*/
+//   }
+// }
+
+
+// .ant-table-thead th.ant-table-column-has-sorters:hover, .ant-table-small .ant-table-thead > tr > th, .ant-table-thead > tr > th,
+// .ant-table-small .ant-table-tbody > tr > td {
+//   font-size: 14px;
+// }
+
+// model右上角 × 颜色
+// .ant-modal-close {
+//     color: #fafafa !important;
+// }
+

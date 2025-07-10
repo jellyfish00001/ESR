@@ -1,0 +1,40 @@
+<nz-layout>
+  <nz-sider class="menu-sidebar content-font" nzCollapsible [(nzCollapsed)]="layoutService.menuStatus"
+    [nzTrigger]="null" nzWidth="240px">
+    <ul class="scroll-menu" nz-menu nzMode="inline" nzTheme="dark">
+      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menusService.menusBS$ | async }"></ng-container>
+      <ng-template #menuTpl let-menus>
+        <ng-container *ngFor="let menu of menus">
+          <li *ngIf="!menu.children" nz-menu-item [nzPaddingLeft]="menu.paddingLeft * 24" [nzSelected]="menu.selected"
+            nz-tooltip nzTooltipPlacement="right"
+            [nzTooltipTitle]="layoutService.menuStatus ? (menu.title | translate) : ''" [routerLink]="menu.url"
+            nzMatchRouter>
+            <a [href]="menu.url" (click)="checkClick($event, menu)">
+              <img *ngIf="menu.icon" [src]="menu.icon" alt="icon" class="menu-icon" />
+              <span class="menu-title-font">{{ menu.title | translate }}</span>
+            </a>
+          </li>
+          <li *ngIf="menu.children" nz-submenu [nzTitle]="menu.title" [nzPaddingLeft]="menu.level * 24"
+            [nzTitle]="titleTpl" [nzOpen]="menu.open" class="menu-title-font">
+            <ng-template #titleTpl>
+                <img *ngIf="menu.icon" [src]="menu.icon" alt="icon" class='menu-icon-font-size menu-icon' />
+                <span class="menu-title-font">{{ menu.title | translate }}</span>
+            </ng-template>
+            <ul class="submenu">
+              <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </nz-sider>
+
+  <nz-content class="template-page-content">
+    <div class="cont-title">
+      <div class="content-title-font">{{ currentPageName | translate }}</div>
+    </div>
+    <div class="content-body">
+      <router-outlet r-outlet></router-outlet>
+    </div>
+  </nz-content>
+</nz-layout>

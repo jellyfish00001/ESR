@@ -1,0 +1,196 @@
+<nz-spin nzTip="this.spinningText" [nzSpinning]="isSpinning" [nzDelay]="500">
+    <form nz-form [formGroup]="queryForm" [nzAutoTips]="autoTips" style="padding:1% 1%">
+        <!-- 查询栏位 -->
+        <div class="formInline">
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'start-date'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker style="width: 100%;max-width: 178px;" nzMode="date" formControlName="startDate">
+                    </nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem">
+                <nz-form-label>{{'end-date'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker style="width: 100%;max-width: 178px;" nzMode="date" formControlName="endDate">
+                    </nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="formItem" style="margin-right: 20px;">
+                <nz-form-label>{{'invoice-request-status'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="paytype">
+                        <nz-option *ngFor="let item of payStateList" [nzValue]="item.code" [nzLabel]="item.name">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <div class="function-area">
+                <button nz-button class="default-button" (click)="queryResultWithParam(true)" nzType="primary"
+                    [nzLoading]="this.isQueryLoading"><i nz-icon nzType="search"></i>{{'query'|translate}}</button>
+                <button nz-button nzType="primary" [nzLoading]="false" class="default-button"
+                    (click)="showAddInvliceModal()">{{'btn.add-invoice'|translate}}</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 发票查询结果表格 -->
+    <div *ngIf="this.showItems && !this.isMobile" style="padding: 0% 0% 1% 0%">
+        <nz-table #listTable style="padding-bottom: 1%;" nzBordered [nzData]="invoiceItemList" nzSize="small"
+            [nzNoResult]="null" [nzScroll]="{ x: '2120px', y: '80vh' }" [nzFrontPagination]="false"
+            [nzShowTotal]="totalTemplate" [nzTotal]="this.total" [nzShowSizeChanger]="true"
+            (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+            [nzPageIndex]="this.pageIndex" [nzPageSize]="this.pageSize">
+            <thead>
+                <tr>
+                    <th scope="col" *ngFor="let column of detailListTableColumn" [nzWidth]="column.columnWidth"
+                        nzAlign="center" [nzSortFn]="column.sortFn">{{ column.title|translate }}</th>
+                    <th nzAlign="center" nzWidth="70px">{{'invoice-pic'|translate}}</th>
+                    <th nzRight nzAlign="center" nzWidth="120px">{{'action'|translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of listTable.data">
+                    <td *ngFor="let column of detailListTableColumn" [nzAlign]="column.align">
+                        <ng-container [ngSwitch]="column.columnKey">
+                            <ng-container *ngSwitchCase="'paytype'">
+                                {{paymentDic[data[column.columnKey]]}}
+                            </ng-container>
+                            <!-- 添加对invdate的格式化处理 -->
+                            <ng-container *ngSwitchCase="'invdate'">
+                                {{data[column.columnKey] | date: 'yyyy/MM/dd'}}
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                {{ data[column.columnKey] }}
+                            </ng-container>
+                        </ng-container>
+                    </td>
+                    <td nzAlign="center">
+                        <a *ngIf="!!data.url" [href]="data.url" target="_blank">{{'col-invoice'|translate}}</a>
+                        <span *ngIf="!data.url">{{'null'|translate}}</span>
+                    </td>
+                    <td nzRight nzAlign="center">
+                        <a style="margin-right: 8px;" (click)="editRow(data)">{{'button.edit'|translate}}</a>
+                        <a style="margin-right: 8px;" nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                            (nzOnConfirm)="deleteRow(data)">{{'button.delete'|translate}}</a>
+                        <a (click)="shareInv(data)">{{'btn.share'|translate}}</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <ng-template #totalTemplate><span style="color: #555757;">{{'total'|translate}} {{ this.total
+                }} {{'itemData'|translate}}</span></ng-template>
+    </div>
+
+    <!-- 编辑发票明细弹窗 -->
+    <nz-modal [(nzVisible)]="editModal" nzTitle="{{'fill-in-invoice-info'|translate}}" nzMaskClosable="false"
+        (nzOnCancel)="this.editModal=false" (nzOnOk)="handleEditOk()" [nzOkLoading]="isSaveLoading"
+        [nzBodyStyle]="{maxHeight: '80vh', overflowY: 'auto', maxWidth:'90vw', minWidth:this.minWidth, backgroundColor:'#f5f6f9'}">
+        <ng-container *nzModalContent [ngTemplateOutlet]="invoiceDetailContent"></ng-container>
+    </nz-modal>
+
+    <!-- 发票明细编辑 -->
+    <ng-template #invoiceDetailContent>
+        <div style="padding: 2%;">
+            <!-- OCR结果查看链接  -->
+            <div *ngIf="this.itemDetail.ocrid" style="text-align: right; margin-bottom: 10px;">
+                <a (click)="showOcrResult()">{{'viewOcrResult'|translate}}</a>
+            </div>
+            <!-- 编辑表单组件 -->
+            <app-invoice-form-fields #editFormFields></app-invoice-form-fields>
+        </div>
+    </ng-template>
+
+    <!-- 添加OCR结果查看模态窗口 -->
+    <nz-modal [(nzVisible)]="ocrResultVisible" nzTitle="{{'viewOcrResult'|translate}}"
+        (nzOnCancel)="this.ocrResultVisible = false" [nzFooter]="null"
+        [nzBodyStyle]="{maxHeight: '80vh', overflowY: 'auto', backgroundColor:'#f5f6f9'}">
+        <ng-container *nzModalContent>
+            <!-- OCR结果表单组件 -->
+            <app-invoice-form-fields #viewFormFields [readOnly]="true">
+            </app-invoice-form-fields>
+        </ng-container>
+    </nz-modal>
+
+    <!-- 分享窗口 -->
+    <nz-modal [nzVisible]="shareModal" nzTitle="{{'btn.share'|translate}}" [nzBodyStyle]="{backgroundColor:'#f5f6f9'}"
+        (nzOnOk)="handleShare()" (nzOnCancel)="this.shareModal=false">
+        <ng-container *nzModalContent>
+            <nz-form-item>
+                <nz-form-label nzRequired>{{'input.receiver-emplid'|translate}}</nz-form-label>
+                <nz-form-control>
+                    <input nz-input placeholder="" [(ngModel)]="receiver" />
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+    </nz-modal>
+
+    <!-- pdf文件预览抽屉 -->
+    <nz-drawer [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" nzTitle="Preview"
+        (nzOnClose)="drawerVisible = false" nzWidth="80%" nzZIndex="1050">
+        <ng-container *nzDrawerContent>
+            <!-- <iframe *ngIf="!!frameSrc" [src]="frameSrc" width="100%" height="100%" frameborder="0"></iframe> -->
+            <ng2-pdfjs-viewer *ngIf="!!frameSrc" [pdfSrc]="frameSrc"></ng2-pdfjs-viewer>
+        </ng-container>
+    </nz-drawer>
+
+    <!-- 图片文件预览弹窗 -->
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+        (nzOnCancel)="previewVisible = false">
+        <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+        </ng-template>
+    </nz-modal>
+
+    <!-- 发票上传弹窗 -->
+    <nz-modal [(nzVisible)]="uploadModal" nzTitle="{{'fill-in-invoice-info'|translate}}" nzMaskClosable="false"
+        (nzOnCancel)="this.uploadModal=false" (nzOnOk)="addInvoice()" [nzOkLoading]="isSaveLoading"
+        [nzCancelText]="null" [nzOkText]="this.translate.instant('btn.add-invoice')"
+        [nzBodyStyle]="{maxHeight: '80vh', overflowY: 'auto', maxWidth:'90vw', minWidth:this.minWidth, backgroundColor:'#f5f6f9'}">
+        <ng-container *nzModalContent>
+            <nz-spin [nzTip]="this.spinningText" [nzSpinning]="isModalSpinning" [nzDelay]="0">
+                <ng-container [ngSwitch]="this.uploadMode">
+                    <ng-container *ngSwitchCase="''">
+                        <div>
+                            <nz-radio-group [(ngModel)]="addOption" (ngModelChange)="onRadioBtnChange($event)">
+                                <label nz-radio nzValue="file">{{'upload-file-recognition'|translate}}</label>
+                                <label nz-radio nzValue="number">{{'query-by-invoice-number'|translate}}</label>
+                            </nz-radio-group>
+                            <br>
+                            <nz-form-label>{{'invoice-area'|translate}}</nz-form-label>
+                            <nz-select [(ngModel)]="invoiceArea" style="width: 100%;">
+                                <nz-option *ngFor="let item of invoiceAreaList" [nzValue]="item" [nzLabel]="item">
+                                </nz-option>
+                            </nz-select>
+                        </div>
+                        <br>
+                        <div *ngIf="addOption === 'file'">
+                            <nz-form-label>{{'upload-electronic-invoice-file'|translate}}</nz-form-label>
+                            <nz-upload [nzAction]="false" [nzFileList]="invoiceFile" nzMultiple="false"
+                                [nzBeforeUpload]="beforeUpload" (nzChange)="handleFileChange($event)"
+                                [nzPreview]="handlePreview" [nzShowUploadList]="uploadIcons" [nzFilter]="filters">
+                                <button nz-button><i nz-icon nzType="upload"></i>{{'select-file'|translate}}</button>
+                            </nz-upload>
+                            <br>
+                        </div>
+                        <div *ngIf="addOption === 'number'">
+                            <nz-form-label nzRequired>{{'invoice-no'|translate}}</nz-form-label>
+                            <input nz-input [(ngModel)]="invoiceNo" />
+                            <nz-form-label>{{'invoice-code'|translate}}</nz-form-label>
+                            <input nz-input [(ngModel)]="invoiceCode" />
+                            <br>
+                            <br>
+                            <button nz-button nzType="primary"
+                                (click)="queryInvoiceInfo()">{{'query'|translate}}</button>
+                        </div>
+                        <div>
+                            <app-invoice-form-fields #addFormFields></app-invoice-form-fields>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </nz-spin>
+        </ng-container>
+    </nz-modal>
+
+</nz-spin>

@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./app/shared/style/design-guide.scss";
+@import "./app/shared/style/nz-global-custome.scss";
+@import "./app/shared/style/custom-styles.scss";
+
+// @font-face {
+//   font-family: "MicrosoftJhengHei";
+//   src: url(./assets/font/msjh-boot-2.ttf);
+// }
+
+// @font-face {
+//   font-family: "MicrosoftJhengHeiBold";
+//   src: url(./assets/font/msjhbd.ttf);
+// }
+
+body {
+  font-family: "MicrosoftJhengHei", "MicrosoftJhengHeiBold", -apple-system, Arial, "PingFang TC", "Microsoft YaHei",
+    sans-serif;
+  overflow-y: hidden;
+}
+/* 修改滚动条的宽度 */
+// ::-webkit-scrollbar {
+//   width: 8px; /* 垂直滚动条的宽度 */
+//   height: 8px; /* 水平滚动条的高度 */
+// }
+/* 滚动条轨道样式 */
+::-webkit-scrollbar-track {
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+}
+/* 滚动条拐角样式 */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+  display: none;
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #8b8b8b; /* 修改滑块颜色  rgba(0, 0, 0, 0.5)*/
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 修改滑块悬停颜色 */
+  }
+}

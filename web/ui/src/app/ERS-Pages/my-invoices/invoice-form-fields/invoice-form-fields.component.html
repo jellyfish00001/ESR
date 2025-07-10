@@ -1,0 +1,199 @@
+<form nz-form [formGroup]="infoForm" [nzAutoTips]="autoTips" nzLayout="vertical">
+    <nz-form-item>
+        <nz-form-label nzRequired>{{'exp-invoicecategory'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="invtype" style="width: 100%;" (ngModelChange)="onInvTypeChange($event)">
+                <nz-option *ngFor="let item of invTypeList" [nzValue]="item.invType"
+                    [nzLabel]="item.invType">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['invno']">
+        <nz-form-label [nzRequired]="fieldRequired['invno']">{{'invoice-no'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="invno" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['invcode']">
+        <nz-form-label [nzRequired]="fieldRequired['invcode']">{{'invoice-code'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="invcode" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzRequired>{{'invoice-date'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-date-picker formControlName="invdate"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 发票金额 -->
+    <nz-form-item>
+        <nz-form-label nzRequired>{{'invoice-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="oamount" [nzPrecision]="2" [nzMin]="0" style="width: 100%">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzRequired>{{'col.currency'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="curr" style="width: 100%;" nzAllowClear nzShowSearch>
+                <nz-option *ngFor="let item of this.currList" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['buyertaxno']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['buyertaxno']">{{'buyer_tax_no'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="buyertaxno" style="width: 100%;" nzAllowClear nzShowSearch>
+                <nz-option *ngFor="let item of buyerTaxNoList" [nzValue]="item.identificationNo"
+                    [nzLabel]="item.companyDesc">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['salestaxno']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['salestaxno']">{{'sales_tax_no'|translate}}</nz-form-label>
+        <nz-select formControlName="salestaxno" style="width: 100%;" nzAllowClear nzShowSearch>
+            <nz-option *ngFor="let item of salesTaxNoList" [nzValue]="item.unifyCode"
+                [nzLabel]="item.venderName">
+            </nz-option>
+        </nz-select>
+    </nz-form-item>
+    <!-- 課稅別-->
+    <nz-form-item *ngIf="fieldVisibility['taxtype']">
+        <nz-form-label [nzRequired]="fieldRequired['taxtype']">{{'taxType'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="taxtype" style="width: 100%;">
+                <nz-option *ngFor="let item of taxTypeList" [nzValue]="item.value"
+                    [nzLabel]="this.commonSrv.getLocalizedName(item.name,item.nameZhcn,item.nameZhtw,item.nameEs,item.nameVn,item.nameCz)">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 不含税金额 -->
+    <nz-form-item *ngIf="fieldVisibility['amount']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['amount']">{{'price-excluding-tax'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="amount" [nzPrecision]="2" [nzMin]="0" style="width: 100%">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 税额 -->
+    <nz-form-item *ngIf="fieldVisibility['taxamount']">
+        <nz-form-label [nzRequired]="fieldRequired['taxamount']">{{'tax-amount'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="taxamount" [nzPrecision]="2" [nzMin]="0" style="width: 100%">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['startstation']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['startstation']">{{'startStation'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="startstation" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['endstation']">
+        <nz-form-label [nzRequired]="fieldRequired['endstation']">{{'endStation'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="endstation" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['invoicetitle']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['invoicetitle']">{{'invoiceTitle'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="invoicetitle" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['importtaxamount']">
+        <nz-form-label
+        [nzRequired]="fieldRequired['importtaxamount']">{{'importTaxAmount'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="importtaxamount" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['servicefee']">
+        <nz-form-label [nzRequired]="fieldRequired['servicefee']">{{'serviceFee'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="servicefee" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['shippingfee']">
+        <nz-form-label>{{'shippingFee'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="shippingfee" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['transactionfee']">
+        <nz-form-label>{{'transactionFee'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="transactionfee" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['taxbase']">
+        <nz-form-label [nzRequired]="fieldRequired['taxbase']">{{'taxBase'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="taxbase" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['quantity']">
+        <nz-form-label>{{'quantity'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-input-number formControlName="quantity" nz-input [nzPrecision]="2" [nzMin]="0"
+                style="width: 100%" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['productinfo']">
+        <nz-form-label>{{'productInfo'|translate}}</nz-form-label>
+        <nz-form-control>
+            <input formControlName="productinfo" nz-input />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldVisibility['remarks']">
+        <nz-form-label>{{'col.remark'|translate}}</nz-form-label>
+        <nz-form-control>
+            <textarea formControlName="remarks" nz-input></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 是否为异常发票 -->
+    <nz-form-item *ngIf="fieldVisibility['isabnormal']">
+        <nz-form-label nzRequired>{{'isAbnormalInvoice'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="isabnormal" style="width: 100%;"
+                (ngModelChange)="onIsAbnormalChange($event)">
+                <nz-option nzValue="true" nzLabel="{{'yes'|translate}}"></nz-option>
+                <nz-option nzValue="false" nzLabel="{{'no'|translate}}"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 异常原因-->
+    <nz-form-item *ngIf="infoForm.get('isabnormal')?.value === 'true'">
+        <nz-form-label nzRequired>{{'abnormalReason'|translate}}</nz-form-label>
+        <nz-form-control>
+            <textarea formControlName="abnormalreason" nz-input rows="2"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <!-- 承担方-->
+    <nz-form-item *ngIf="infoForm.get('isabnormal')?.value === 'true'">
+        <nz-form-label nzRequired>{{'responsibleParty'|translate}}</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="responsibleparty" style="width: 100%;">
+                <nz-option *ngFor="let item of responsiblePartyList" [nzValue]="item.value"
+                [nzLabel]="this.commonSrv.getLocalizedName(item.name,item.nameZhcn,item.nameZhtw,item.nameEs,item.nameVn,item.nameCz)">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>

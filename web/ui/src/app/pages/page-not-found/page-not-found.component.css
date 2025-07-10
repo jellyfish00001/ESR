@@ -1,0 +1,21 @@
+.error {
+    font-size: 15vh;
+    margin-top: 18vh;
+    margin-left: 14vw;
+}
+.message {
+    font-size: 2.8vh;
+    color: rgba(0, 0, 0, 0.25);
+    margin-left: 14vw;
+}
+.logout {
+    margin-top: 1.5vh;
+    margin-left: 14vw;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border: 1px solid transparent;
+    padding: 8px 12px;
+    font-size: 2.5vh;
+    border-radius: 4px;
+}

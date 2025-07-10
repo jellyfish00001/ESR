@@ -1,0 +1,26 @@
+<div class="search-container">
+  <div class="container1">
+    <app-date-picker-range-title [title]="'分析區間'" [date]="date" [showTime]="false" (dateRange)="getDateRange($event)"></app-date-picker-range-title>
+    <div *ngFor="let item of nzOptionSelectList; index as i;">
+      <app-select-title [listOfOption]="item.optionalValue" [title]="item.label" [defaultValue]="item.default"
+      (selectValue)="getSelectValue($event,i)">
+      </app-select-title>
+    </div>
+  </div>
+  <div class="container2">
+    <div>
+      <a nz-dropdown [nzDropdownMenu]="menu">
+        進階
+        <i nz-icon nzType="down"></i>
+      </a>
+    </div>
+    <app-button [title]="'開始分析'" (submitted)="enterSearch(input.value)"></app-button>
+  </div>
+  <div class="container3">
+    <app-input-title [title]="'關鍵字'" [placeholder]="'關鍵字'" #input></app-input-title>
+  </div>
+</div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <app-drop-down [listOfAction]="listOfAction" (selectAction)="getDropDownIndex($event)"></app-drop-down>
+</nz-dropdown-menu>

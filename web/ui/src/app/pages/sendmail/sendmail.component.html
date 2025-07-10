@@ -1,0 +1,7 @@
+<div
+  class="title"
+  style="width: 100%; word-break: break-all"
+  *ngFor="let item of postMessage_keys"
+>
+  {{ item }}:{{ postMessage_value[item] | json }}
+</div>

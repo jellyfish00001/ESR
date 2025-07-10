@@ -1,0 +1,55 @@
+@import "../../../assets/scss/variables.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: $content-font-family;
+  background: url("../../../assets/images/svg/login_background_pic.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.board {
+  // width: 496px;
+  height: 400px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 32px;
+}
+
+.button_login {
+  width: 320px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: $common-font-size;
+  background: $common-wistron-blue;
+  border-color: $common-wistron-blue;
+}
+
+.titlelg{
+  font-size: 30px;
+  font-weight: $common-font-bold-weight;
+  color: rgba(0, 0, 0, 0.88);
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.divider {
+  width: 80%;
+}
+
+.line {
+  margin-top: 80px;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.copyright{
+  font-size: $sub-content-font-size;
+  margin-top: 16px;
+  color: rgba(0, 0, 0, 0.65);
+}
