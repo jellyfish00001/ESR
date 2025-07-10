@@ -1,0 +1,46 @@
+[
+    {
+		"type" : 1,
+		"name" : "燃油汽車",
+		"amount" : 1.80,
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"type" : 1,
+		"name" : "燃油汽車",
+		"amount" : 1.80,
+		"company" : "WTZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"type" : 2,
+		"name" : "摩托車",
+		"amount" : 0.70,
+		"company" : "WTZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"type" : 2,
+		"name" : "摩托車",
+		"amount" : 0.70,
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	}
+]

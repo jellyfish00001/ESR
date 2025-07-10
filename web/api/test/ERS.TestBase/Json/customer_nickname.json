@@ -1,0 +1,24 @@
+[
+	{
+		"Id" : "b1d9fd99-2132-3a4f-0890-2ba3cee291e5",
+		"nickname" : "学校",
+		"name" : "学院学校领导老师",
+		"iscarry" : "1",
+		"company" : "WZS"
+	},
+
+  {
+		"Id" : "b447b093-40cd-ddf3-0bae-b80404408c3b",
+		"nickname" : "老師",
+		"name" : "学院学校领导老师",
+		"iscarry" : "1",
+		"company" : "WZS"
+	},
+  {
+		"Id" : "b163ce67-b76c-6b81-d66f-6c96384cd413",
+		"nickname" : "员工借调公司",
+		"name" : "员工借调公司",
+		"iscarry" : "1",
+		"company" : "WZS"
+	}
+]

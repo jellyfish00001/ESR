@@ -1,0 +1,1802 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ERS.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:ERS.DTO.Account.CarryDetailReportDto">
+            <summary>
+            导出入账清单Exceldto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Account.QueryFormDto">
+            <summary>
+            入账清单DTO(QueryForm)
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Account.QueryFormDto.rno">
+            <summary>
+            申请单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Account.QueryFormDto.company">
+            <summary>
+            公司别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Account.QueryFormDto.cemplid">
+            <summary>
+            签核会计
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Account.QueryFormDto.bank">
+            <summary>
+            银行
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.Account.QueryFormParamDto">
+            <summary>
+            入账清单查询参数Dto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Account.SACarryDetailReportDto">
+            <summary>
+            SA入账清单ExcelDTO
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Application.BcfpInvoice.BcfpInvDto">
+            <summary>
+            获取区块链电子票请求dto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Application.BcfpInvoice.BcfpInvResultDto">
+            <summary>
+            存放获取到的发票信息（区块链电子发票）
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.CashDetailDto.amount">
+            <summary>
+            实际报销
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.companycode">
+            <summary>
+            公司别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.expinfo">
+            <summary>
+            报销情景
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.reqdate">
+            <summary>
+            需款日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.salarydate">
+            <summary>
+            薪资所属期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.bank">
+            <summary>
+            银行
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.payway">
+            <summary>
+            请款方式
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.currency">
+            <summary>
+            币别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.amount">
+            <summary>
+            申请金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.ApplyInfoDto.remarks">
+            <summary>
+            生成的摘要
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.PayWayDto.paytype">
+            <summary>
+            请款方式代码 E：现金 T：汇款
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.PayWayDto.payname">
+            <summary>
+            请款方式名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.Application.CashX.SummaryInfoDto">
+            <summary>
+            薪资请款生成摘要提交参数
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.SummaryInfoDto.summary">
+            <summary>
+            薪资所属期（年月 YYMM）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.SummaryInfoDto.keyword">
+            <summary>
+            薪资请款费用情景中的keyword
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.SummaryInfoDto.payname">
+            <summary>
+            汇款方式 现金：现金，汇款：银行别 对应detail当中的payname
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.CashX.SummaryInfoDto.companycode">
+            <summary>
+            公司别代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invcode">
+            <summary>
+            发票代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.amount">
+            <summary>
+            开票金额（不含税）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invdate">
+            <summary>
+            开票日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.taxamount">
+            <summary>
+            税额/營業稅/增值稅
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.oamount">
+            <summary>
+            价税合计金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invstat">
+            <summary>
+            发票状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.abnormalamount">
+            <summary>
+            异常报销金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.taxloss">
+            <summary>
+            税金损失
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.curr">
+            <summary>
+            币别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.undertaker">
+            <summary>
+            承担方
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.paymentName">
+            <summary>
+            付款方名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.paymentNo">
+            <summary>
+            付款方证件号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.collectionName">
+            <summary>
+            收款方名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.collectionNo">
+            <summary>
+            收款方证件号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.expdesc">
+            <summary>
+            异常信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.expcode">
+            <summary>
+            发票异常原因
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invdesc">
+            <summary>
+            发票名称显示
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.paymentStat">
+            <summary>
+            請款狀態 true為可請款
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.flag">
+            <summary>
+            文件與發票信息對應flag
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invtype">
+            <summary>
+            發票類型名稱
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.salestaxno">
+            <summary>
+            銷售方稅號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.salesname">
+            <summary>
+            銷售方名稱
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.buyertaxno">
+            <summary>
+            購買方稅號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.buyername">
+            <summary>
+            購貨方名稱
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.verifycode">
+            <summary>
+            校驗碼
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.salesaddress">
+            <summary>
+            銷售方地址
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.salesbank">
+            <summary>
+            銷售方開戶行及賬號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.buyeraddress">
+            <summary>
+            購買方地址及電話
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.buyerbank">
+            <summary>
+            購買方開戶行及賬號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.remark">
+            <summary>
+            備註
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.msg">
+            <summary>
+            識別結果消息，無異常則為空
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.taxrate">
+            <summary>
+            税率
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invoiceid">
+            <summary>
+            票夹发票id
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invabnormalreason">
+            <summary>
+            發票異常原因
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.fileurl">
+            <summary>
+            文件url
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.expinfo">
+            <summary>
+            异常信息描述
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.baseamt">
+            <summary>
+            本位幣金額（總金額）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.modelid">
+            <summary>
+            OCR模型model_id
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.startstation">
+            <summary>
+            出發地
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.endstation">
+            <summary>
+            目的地
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.ocrid">
+            <summary>
+            OCR識別記錄表ID
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.source">
+            <summary>
+            invoice pool/ocr/manual
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.identificationno">
+            <summary>
+            存票據上唯一值識別碼
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invoicetitle">
+            <summary>
+            發票標題
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.taxbase">
+            <summary>
+            營業/增值税基
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.importtaxamount">
+            <summary>
+            進口稅
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.servicefee">
+            <summary>
+            服務費/推廣貿易服務費
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.shippingfee">
+            <summary>
+            運輸費
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.transactionfee">
+            <summary>
+            手續費
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.quantity">
+            <summary>
+            數量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.productinfo">
+            <summary>
+            商品資訊
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invoicecategory">
+            <summary>
+            發票類型
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.remarks">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.taxtype">
+            <summary>
+            課稅別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.responsibleparty">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Application.InvoiceDto.invtypecode">
+            <summary>
+            發票類型代碼
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Auditor.AuditorDto">
+            <summary>
+            bd04查询结果dto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Auditor.AuditorParamsDto">
+            <summary>
+            bd04查询参数dto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDExpenseSenario.BDSenarioDto">
+            <summary>
+            報銷情景 DTO
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.companycategory">
+            <summary>
+            公司別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.senarioname">
+            <summary>
+            報銷情景名稱
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.expensecode">
+            <summary>
+            費用類別代碼
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.accountcode">
+            <summary>
+            會計科目
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.auditlevelcode">
+            <summary>
+            核決權限代碼
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.attachmentnotice">
+            <summary>
+            附件提示
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.requirespaperattatchment">
+            <summary>
+            是否需繳交紙本附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.requiresinvoice">
+            <summary>
+            是否需附上發票憑證
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.isvatdeductable">
+            <summary>
+            是否可抵扣稅金
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.canbypassfinanceapproval">
+            <summary>
+            是否可跳過會計簽核
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.extraformcode">
+            <summary>
+            報銷模塊
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.projectcode">
+            <summary>
+            Project code
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.authorized">
+            <summary>
+            被授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.sdate">
+            <summary>
+            授权开始日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioDto.edate">
+            <summary>
+            授权结束日期
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDExpenseSenario.BDSenarioOptionDto">
+            <summary>
+            報銷情景選項 DTO
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionDto.companycategory">
+            <summary>
+            公司別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionDto.senarioname">
+            <summary>
+            報銷情景名稱
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionDto.keyword">
+            <summary>
+            關鍵字
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionDto.expensecode">
+            <summary>
+            費用類別代碼
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDExpenseSenario.BDSenarioOptionFilterDto">
+            <summary>
+            報銷情景選項查詢篩選 DTO
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionFilterDto.Companycategory">
+            <summary>
+            公司別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioOptionFilterDto.Keyword">
+            <summary>
+            關鍵字
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDExpenseSenario.BDSenarioFilterDto">
+            <summary>
+            報銷情景查詢篩選 DTO
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioFilterDto.CompanyCategory">
+            <summary>
+            公司別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioFilterDto.SenarioName">
+            <summary>
+            報銷情景名稱
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExpenseSenario.BDSenarioFilterDto.ExpenseCode">
+            <summary>
+            費用類別代碼
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.authorizer">
+            <summary>
+            授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.authorized">
+            <summary>
+            被授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.sdate">
+            <summary>
+            授权开始日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.edate">
+            <summary>
+            授权结束日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.requiresinvoice">
+            <summary>
+            是否需附上發票憑證
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.requirespaperattachment">
+            <summary>
+            是否需繳交紙本附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.requiresattachment">
+            <summary>
+            是否需上傳附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.isvatdeductable">
+            <summary>
+            是否可抵扣稅金
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.AddBDExpDto.canbypassfinanceapproval">
+            <summary>
+            是否可跳過會計簽核
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.auditlevelcode">
+            <summary>
+            核決權限代碼
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.requirespaperattachment">
+            <summary>
+            是否需繳交紙本附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.isvatdeductable">
+            <summary>
+            是否可抵扣稅金
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.extraformcode">
+            <summary>
+            報銷模塊
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.category">
+            <summary>
+            費用類別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.authorized">
+            <summary>
+            被授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.sdate">
+            <summary>
+            授权开始日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.edate">
+            <summary>
+            授权结束日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.descriptionnotice">
+            <summary>
+            摘要提示
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.attachmentnotice">
+            <summary>
+            上傳附件提示
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.attachmentname">
+            <summary>
+            上傳附件名稱
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.BDExpFormDto.canbypassfinanceapproval">
+            <summary>
+            是否可跳過會計簽核
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.authorizer">
+            <summary>
+            授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.authorized">
+            <summary>
+            被授权人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.sdate">
+            <summary>
+            授权开始日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.edate">
+            <summary>
+            授权结束日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.requiresinvoice">
+            <summary>
+            是否需附上發票憑證
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.requirespaperattachment">
+            <summary>
+            是否需繳交紙本附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.requiresattachment">
+            <summary>
+            是否需上傳附件
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.isvatdeductable">
+            <summary>
+            是否可抵扣稅金
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.EditBDExpDto.canbypassfinanceapproval">
+            <summary>
+            是否可跳過會計簽核
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDExp.UploadBDExpDto">
+            <summary>
+            批量上传费用情景结果Dto
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDExp.UploadBDExpDto.status">
+            <summary>
+            上传结果 1成功 2失败
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDExp.UploadBDExpDto.uploadmsg">
+            <summary>
+            成功失败都会有提示信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDExp.UploadBDExpDto.seq">
+            <summary>
+            第幾行數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDExp.UploadBDExpDto.data">
+            <summary>
+            上传的情景信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.buyername">
+            <summary>
+            買方名稱
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.buyertaxno">
+            <summary>
+            購買方稅號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.salestaxno">
+            <summary>
+            销售方税号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invcode">
+            <summary>
+            发票代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invno">
+            <summary>
+            发票号码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invtype">
+            <summary>
+            发票类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invdate">
+            <summary>
+            发票日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.amount">
+            <summary>
+            不含税金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.taxamount">
+            <summary>
+            税额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.oamount">
+            <summary>
+            含税总金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.verifytype">
+            <summary>
+            发票核验状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.paytype">
+            <summary>
+            发票请款状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.abnormalreason">
+            <summary>
+            异常原因
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.rno">
+            <summary>
+            ERS报销单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.filepath">
+            <summary>
+            发票路径
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.cuser">
+            <summary>
+            申请人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.isfill">
+            <summary>
+            是否补全信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.url">
+            <summary>
+            发票文件url
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.curr">
+            <summary>
+            幣別
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.cdate">
+            <summary>
+            創建時間
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.taxrate">
+            <summary>
+            税率
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.remark">
+            <summary>
+            備註
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invoicecategory">
+            <summary>
+            發票類型：A,B,C,D,E
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.startstation">
+            <summary>
+            出發站
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.endstation">
+            <summary>
+            抵達站
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.invoicetitle">
+            <summary>
+            發票標題
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.taxbase">
+            <summary>
+            營業/增值税基
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.importtaxamount">
+            <summary>
+            進口稅
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.servicefee">
+            <summary>
+            服務費/推廣貿易服務費
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.shippingfee">
+            <summary>
+            運輸費
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.transactionfee">
+            <summary>
+            手續費
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.responsibleparty">
+            <summary>
+            承擔方
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.BDInvoiceFolderDto.taxtype">
+            <summary>
+            課稅別
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.startdate">
+            <summary>
+            开始日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.enddate">
+            <summary>
+            结束日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.invno">
+            <summary>
+            发票号码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.invtype">
+            <summary>
+            发票类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.verifytype">
+            <summary>
+            核验状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.paytype">
+            <summary>
+            请款状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto.isphone">
+            <summary>
+            是否为手机版
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.Id">
+            <summary>
+            票夾發票id
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invcode">
+            <summary>
+            發票代碼
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invno">
+            <summary>
+            發票號碼
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invdate">
+            <summary>
+            發票日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.amount">
+            <summary>
+            開票金額（不含稅）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.taxamount">
+            <summary>
+            稅額
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.oamount">
+            <summary>
+            含稅總金額
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.taxloss">
+            <summary>
+            税金损失
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.curr">
+            <summary>
+            幣別
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.baseamt">
+            <summary>
+            本位幣金額（總金額）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invtype">
+            <summary>
+            發票類型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.verifyStateDesc">
+            <summary>
+            校驗狀態
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.collectionName">
+            <summary>
+            收款方名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.collectionNo">
+            <summary>
+            收款方证件号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.paymentName">
+            <summary>
+            付款方名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.paymentNo">
+            <summary>
+            付款方证件号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.paymentStat">
+            <summary>
+            請款狀態
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.expdesc">
+            <summary>
+            異常原因
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.fileurl">
+            <summary>
+            發票文件url
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.filepath">
+            <summary>
+            發票文件路徑
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.expcode">
+            <summary>
+            異常描述？
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invstat">
+            <summary>
+            發票狀態
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.invdesc">
+            <summary>
+            發票描述
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.paymentStatDesc">
+            <summary>
+            请款状态描述
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.remark">
+            <summary>
+            备注
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.source">
+            <summary>
+            发票来源
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.identificationno">
+            <summary>
+            纳税人识别号
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceFolder.UnpaidInvInfoDto.responsibleparty">
+            <summary>
+            承担方
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDInvoiceRail.UploadBDInvoiceRailDto">
+            <summary>
+            批量上传费用情景结果Dto
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceRail.UploadBDInvoiceRailDto.status">
+            <summary>
+            上传结果 1成功 2失败
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceRail.UploadBDInvoiceRailDto.uploadmsg">
+            <summary>
+            成功失败都会有提示信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceRail.UploadBDInvoiceRailDto.seq">
+            <summary>
+            第幾行數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDInvoiceRail.UploadBDInvoiceRailDto.data">
+            <summary>
+            上传的发票字轨信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.BDInvoiceType.InvTypeCheckDto">
+            <summary>
+            发票类型输入参数校验Dto
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.BDMealArea.UploadBDMealAreaDto.status">
+            <summary>
+            上传结果 1成功 2失败
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDMealArea.UploadBDMealAreaDto.uploadmsg">
+            <summary>
+            成功失败都会有提示信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDMealArea.UploadBDMealAreaDto.seq">
+            <summary>
+            第幾行數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.BDMealArea.UploadBDMealAreaDto.data">
+            <summary>
+            上傳數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.BDPaperSign.PaperSignDto">
+            <summary>
+            纸本单签核人返回DTO
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.BDTicketRail.TicketRailCheckDto">
+            <summary>
+            发票类型输入参数校验Dto
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.DataSync.OraEFormHeadDto">
+            <summary>
+            接收Oracle查询到的数据
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Invoice.ERSPayDto">
+            <summary>
+            ers生成付款清单时传递参数
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Invoice.ERSPayDto.ERSRno">
+            <summary>
+            ers申请单号
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Invoice.ERSPayDto.DocNo">
+            <summary>
+            传票号
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Invoice.ERSPayDto.DocDate">
+            <summary>
+            传票日期
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Invoice.ERSPayDto.invoices">
+            <summary>
+            发票
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.UpdatePayStatDto.invcode">
+            <summary>
+            發票代碼
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.UpdatePayStatDto.invno">
+            <summary>
+            發票號碼
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.NickNameCommonDto.nickname">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.NickNameCommonDto.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.NickNameCommonDto.iscarry">
+            <summary>
+            是否带昵称
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Nickname.UploadNickNameDto.status">
+            <summary>
+            上传结果 1成功 2失败
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Nickname.UploadNickNameDto.uploadmsg">
+            <summary>
+            成功失败都会有提示信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Nickname.UploadNickNameDto.seq">
+            <summary>
+            第幾行數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Nickname.UploadNickNameDto.data">
+            <summary>
+            上傳的數據
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Print.PrintQueryDto.aemplid">
+            <summary>
+            签核人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.AddProxyCashDto.aemplid">
+            <summary>
+            报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.AddProxyCashDto.remplid">
+            <summary>
+            代报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.EditProxyCashDto.Id">
+            <summary>
+            id
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.EditProxyCashDto.aemplid">
+            <summary>
+            报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.EditProxyCashDto.remplid">
+            <summary>
+            代报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.Proxy.ProxyCashDto">
+            <summary>
+            查詢結果Dto
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.Id">
+            <summary>
+            id
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.aemplid">
+            <summary>
+            报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.remplid">
+            <summary>
+            代报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.cuser">
+            <summary>
+            创建人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.cdate">
+            <summary>
+            创建时间
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.muser">
+            <summary>
+            修改人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.ProxyCashDto.mdate">
+            <summary>
+            修改时间
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.DTO.Proxy.QueryProxyCashDto">
+            <summary>
+            查詢條件Dto
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Proxy.QueryProxyCashDto.aemplid">
+            <summary>
+            报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Proxy.QueryProxyCashDto.remplid">
+            <summary>
+            代报销人工号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.CheckProxyCashDto.isproxy">
+            <summary>
+            是否可代理
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.CheckProxyCashDto.cuser">
+            <summary>
+            登录人
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.CheckProxyCashDto.proxylist">
+            <summary>
+            可代理报销对象
+            </summary>
+        </member>
+        <member name="T:ERS.DTO.Report.QuerySignedReportDto">
+            <summary>
+            已簽核表單查詢參數DTO
+            </summary>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.sdate">
+            <summary>
+            開始日期（簽核日期）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.edate">
+            <summary>
+            結束日期（簽核日期）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.rno">
+            <summary>
+            申請單號
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.cuser">
+            <summary>
+            申請人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.aemplid">
+            <summary>
+            簽核人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.status">
+            <summary>
+            状态（EFormHead）
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.category">
+            <summary>
+            憑證類別
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.formcode">
+            <summary>
+            單據類型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.DTO.Report.QuerySignedReportDto.company">
+            <summary>
+            公司別
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Application.CashResult.ElecInvStat">
+            <summary>
+            财务加签
+            </summary>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Application.DeferredDto.delay">
+            <summary>
+            逾期次数
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Application.DeferredDto.delaydays">
+            <summary>
+            逾期天数
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ERS.Application.Contracts.DTO.Invoice.DIInfo">
+            <summary>
+            DI发票信息
+            </summary>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Invoice.DIInfo.InvoiceRegion">
+            <summary>
+            发票区域
+            </summary>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Invoice.DIInfo.InvoiceType">
+            <summary>
+            发票类型
+            </summary>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Invoice.DIInfo.Currency">
+            <summary>
+            币别
+            </summary>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.rno">
+            <summary>
+            申请单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.formcode">
+            <summary>
+            表单类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.formname">
+            <summary>
+            表單名稱
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.cemplid">
+            <summary>
+            申请人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.cname">
+            <summary>
+            申请人名
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.cdate">
+            <summary>
+            申请日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.step">
+            <summary>
+            步骤
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.stepname">
+            <summary>
+            步骤名
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.invlist">
+            <summary>
+            发票清单
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.PapreSign.PaperDto.payment">
+            <summary>
+            付款时间
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.company">
+            <summary>
+            公司别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.rno">
+            <summary>
+            申请单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.formcode">
+            <summary>
+            表单类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.formname">
+            <summary>
+            表單名稱
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.deptid">
+            <summary>
+            申请部门
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.cemplid">
+            <summary>
+            申请人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.cname">
+            <summary>
+            申请人名
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.cdate">
+            <summary>
+            申请日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.expname">
+            <summary>
+            费用类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.expensetype">
+            <summary>
+            费用类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.expdeptid">
+            <summary>
+            费用归属部门
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.currency">
+            <summary>
+            币别
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.actamt">
+            <summary>
+            实际金额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.step">
+            <summary>
+            步骤
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.stepname">
+            <summary>
+            步骤名
+            </summary>
+            <value></value>
+            
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.summary">
+            <summary>
+            摘要
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.rdate">
+            <summary>
+            費用/憑證日期
+            </summary>
+            <value></value>
+            
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.invno">
+            <summary>
+            发票号码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.invcode">
+            <summary>
+            发票编码
+            </summary>
+            <value></value>
+            
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.taxamount">
+            <summary>
+            稅額
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.untaxamount">
+            <summary>
+            税前总额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.untaxamountDisplay">
+            <summary>
+            稅額
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.taxamountDisplay">
+            <summary>
+            税前总额
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.payeeId">
+            <summary>
+            收款人
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.payeename">
+            <summary>
+            收款人姓名
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Application.Contracts.DTO.Report.ReportDto.projectcode">
+            <summary>
+            projectcode
+            </summary>
+            <value></value>
+            
+        </member>
+        <member name="P:ERS.Domain.Entities.Application.OverdueUserDto.delay">
+            <summary>
+            逾期次数
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ERS.Domain.Entities.Application.OverdueUserDto.delaydays">
+            <summary>
+            逾期天数
+            </summary>
+            <value></value>
+        </member>
+    </members>
+</doc>

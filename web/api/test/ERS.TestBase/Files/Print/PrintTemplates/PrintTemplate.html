@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <style>
+        html{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+        table {
+            /* table-layout: fixed; */
+            width: 90%;
+        }
+
+        table td {
+            word-wrap: break-word;
+            width: auto !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div style='margin: 0 auto; break-after: page;'>
+        <table align='center' border='0'>
+            <tbody>
+                <tr>
+                    <td>
+                        <h2 id='formname' style='text-align: center;'>$documentheader$</h2>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style='width:85%;' align='center' border='0'>
+            <tr>
+                <td colspan='22'>
+                    <table align='center' cellspacing='0' cellpadding='0'>
+                        <tbody>
+                            $header$
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table align='center' border='0'>
+            <!-- 分隔线 -->
+            <tr style='height: 10px;'></tr>
+            <tr>
+                <td style='display: flex; justify-content: center;'>
+                    <div style='width: 90%; border-width:0px;border-top:1pt solid Black'></div>
+                </td>
+            </tr>
+            <tr style='height: 10px;'></tr>
+        </table>
+
+
+
+        
+        $doccontent$
+
+        <table align='center' border='0'>
+            <!-- 分隔线 -->
+            <tr style='height: 10px;'></tr>
+            <tr>
+                <td style='display: flex; justify-content: center;'>
+                    <div style='width: 90%; border-width:0px;border-top:1pt solid Black'></div>
+                </td>
+            </tr>
+            <tr style='height: 10px;'></tr>
+        </table>
+
+        <!-- 签核表格 -->
+        <table style='width:85%; border-collapse: collapse; border-style:hidden;' align='center' border='1' cellspacing='0' cellpadding='0'>
+            <tr>
+                <td colspan='22'>
+                    <table style='border-collapse: collapse;border-width:0px;' align='center' cellspacing='0' border='1'>
+                        <tbody>
+                            $signtable$
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table align='center' border='0'>
+            <!-- 分隔线 -->
+            <tr style='height: 10px;'></tr>
+            <tr>
+                <td style='display: flex; justify-content: center;'>
+                    <div style='width: 90%; border-width:0px;border-top:1pt solid Black'></div>
+                </td>
+            </tr>
+            <tr style='height: 10px;'></tr>
+        </table>
+
+        <!-- 申请人部分 -->
+        <table align='center' border='0'>
+            <tr>
+                <td style='text-align: right; padding-right: 5%;'>
+                    $applyuser$
+                    <!-- 申請人:JML121 黃偉星 # -->
+                </td>
+            </tr>
+        </table>
+
+        <table align='center' border='0'>
+            <tr>
+                <!-- 申请日期部分 -->
+                <td style='text-align: right; padding-right: 5%;'>
+                    $applydate$
+                    <!-- Request date:2020/05/19 09:41:21 -->
+                </td>
+            </tr>
+            <!-- <tr>
+                页码显示部分
+                <td style='padding-left: 50%;'>$pagination$</td>
+            </tr> -->
+        </table>
+    </div>
+
+
+</body>
+
+</html>

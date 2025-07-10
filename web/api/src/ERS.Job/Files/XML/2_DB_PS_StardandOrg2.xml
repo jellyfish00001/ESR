@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataBase>
+  <source>
+    <HOST>10.37.37.120</HOST>
+    <PORT>1535</PORT>
+    <SERVICE_NAME>HCMPRD</SERVICE_NAME>
+    <UserId>WZSERS2022</UserId>
+    <Password>WZSERS!202201</Password>
+    <Select>
+      SELECT  Deptid,Descr,Descr_ac Descr_a,Manager_Id,Tree_Level_Num,Z_DEPTID_PARENT Uporg_Code_a,Company,
+      Z_PLANT_ID Plant_Id_a,Location,Z_SAL_LOCATION Sal_Location_a,0 Flag,'AddCoHead2Org' MUSER,to_char(sysdate,'yyyymmdd hh24:mi:ss') MDATE FROM PS_Z_OG2_WZSERS_VW
+    </Select>
+    <UpdateStatus>UPDATE EMP_ORG_STANDARD SET FLAG=1</UpdateStatus>
+    <Insert>
+      INSERT INTO EMP_ORG_STANDARD("Id",DEPTID,DESCR,DESCR_A,MANAGER_ID,TREE_LEVEL_NUM,UPORG_CODE_A,COMPANY,PLANT_ID_A,LOCATION,SAL_LOCATION_A,FLAG,MUSER,MDATE,ISDELETED)
+      VALUES(:Id::UUID,:DEPTID,:DESCR,:DESCR_A,:MANAGER_ID,:TREE_LEVEL_NUM::INTEGER,:UPORG_CODE_A,:COMPANY,:PLANT_ID_A,:LOCATION,:SAL_LOCATION_A,:FLAG::INTEGER,:MUSER,to_date(:MDATE,'yyyymmdd hh24:mi:ss'),false)
+    </Insert>
+    <Update>
+      UPDATE EMP_ORG_STANDARD SET DESCR=:DESCR,DESCR_A=:DESCR_A,MANAGER_ID=:MANAGER_ID,TREE_LEVEL_NUM=:TREE_LEVEL_NUM::INTEGER,UPORG_CODE_A=:UPORG_CODE_A,
+      COMPANY=:COMPANY,PLANT_ID_A=:PLANT_ID_A,LOCATION=:LOCATION,SAL_LOCATION_A=:SAL_LOCATION_A,FLAG=:FLAG::INTEGER,MUSER=:MUSER,MDATE=to_date(:MDATE,'yyyymmdd hh24:mi:ss') WHERE DEPTID=:DEPTID
+    </Update>
+    <Delete></Delete>
+    <Check>SELECT DEPTID FROM EMP_ORG_STANDARD WHERE DEPTID=:DEPTID</Check>
+    <CheckParm>DEPTID</CheckParm>
+    <System>PS StardandOrg2 PRD</System>
+  </source>
+  <purpose_2>
+    <HOST>10.41.20.122</HOST>
+    <PORT>1521</PORT>
+    <SERVICE_NAME>WZSACCT</SERVICE_NAME>
+    <UserId>CASH</UserId>
+    <Password>cash_admin2036</Password>
+    <System>ERS PRD</System>
+  </purpose_2>
+</DataBase>

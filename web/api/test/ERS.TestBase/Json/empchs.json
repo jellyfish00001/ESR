@@ -1,0 +1,38 @@
+[
+    {
+		"Id" : "64bcac29-ace3-450c-a0f8-019a46b021c8",
+		"emplid" : "Z12043132",
+		"scname" : "陈炫玑",
+		"stat" : "Y",
+		"company" : "WZS",
+		"mdate" : "2014-06-18T04:08:13.000Z",
+		"cdate" : "2014-06-17T10:26:54.000Z",
+		"cuser" : "Z13073316",
+		"muser" : "200807463",
+		"isdeleted" : false
+	},
+	{
+		"Id" : "a3bf3c21-83a5-4b99-96da-8a685e803e41",
+		"emplid" : "Z14033835",
+		"scname" : "徐珍珍",
+		"stat" : "Y",
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"Id" : "64232337-bd3a-477f-aa08-35accc620ca6",
+		"emplid" : "200906319",
+		"scname" : "董红帅",
+		"stat" : "Y",
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	}
+]

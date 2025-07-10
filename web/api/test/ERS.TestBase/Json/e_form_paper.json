@@ -1,0 +1,51 @@
+[
+    {
+        "rno": "E22081000001",
+        "status": "T",
+        "emplid": "Z19081961",
+        "aemplid": "Z19081962",
+        "company": "WZS",
+        "cname": "xing",
+        "cemplid": "Z19081961",
+        "cdate": "2022-08-10 16:57:15.581"
+    },
+    {
+        "rno": "E22081000996",
+        "status": "P",
+        "emplid": "Z21032798",
+        "aemplid": "Z21032798",
+        "company": "WZS",
+        "cname": "xing",
+        "cemplid": "Z21032798",
+        "cdate": "2022-08-10 16:57:15.581"
+    },
+    {
+        "rno": "E22081000998",
+        "status": "P",
+        "emplid": "Z21032798",
+        "aemplid": "Z21032798",
+        "company": "WZS",
+        "cname": "FUZHAO",
+        "cemplid": "Z21032798",
+        "cdate": "2022-08-10 16:57:15.581"
+    },
+    {
+        "rno": "E22082700996",
+        "status": "P",
+        "emplid": "Z21032798",
+        "aemplid": "Z21032798",
+        "company": "WZS",
+        "cname": "xing",
+        "cemplid": "Z21032798",
+        "cdate": "2022-08-27 16:57:15.581"
+    },
+    {
+        "rno": "E22083000996",
+        "status": "P",
+        "emplid": "Z22070025",
+        "aemplid": "Z22070025",
+        "company": "WZS",
+        "cemplid": "Z19081961",
+        "cdate":"2022-08-30 16:57:15.581"
+    }
+]

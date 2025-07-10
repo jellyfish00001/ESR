@@ -1,0 +1,52 @@
+[
+  {
+    "emplid": "Z21032798",
+    "account": "2011022901035585275",
+    "uuser": "SYSTEM",
+    "udate": "2014-05-28T23:16:44Z",
+    "bank": "中國工商銀行",
+    "effdt": "2014-03-31T16:00:00Z",
+    "company": "WZS",
+	"accountname": "徐富照"
+  },
+  {
+    "emplid": "Z19081961",
+    "account": "2011022901035585275",
+    "uuser": "SYSTEM",
+    "udate": "2014-05-28T23:16:44Z",
+    "bank": "中國工商銀行",
+    "effdt": "2014-03-31T16:00:00Z",
+    "company": "WZS",
+	"accountname": "黄伟星"
+  },
+  {
+		"Id" : "3a086dfb-13a3-116f-1fbb-eb8ade2ad24b",
+		"emplid" : "Z12073027",
+		"account" : "2011022901048829147",
+		"uuser" : "SYSTEM",
+		"udate" : null,
+		"bank" : "中國工商銀行",
+		"effdt" : "2022-02-25T16:00:00.000Z",
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"Id" : "3a086e1d-4dc8-f6a2-6268-7db9ddb9e1bc",
+		"emplid" : "Z12073027",
+		"account" : "2011022901048829147",
+		"uuser" : "SYSTEM",
+		"udate" : null,
+		"bank" : "中國工商銀行",
+		"effdt" : "2022-02-25T16:00:00.000Z",
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : null,
+		"cuser" : null,
+		"muser" : null,
+		"isdeleted" : false
+	}
+]

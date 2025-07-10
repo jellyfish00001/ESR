@@ -1,0 +1,23 @@
+[
+  {
+  "currency" : "RMB",
+  "currency_desc" : "人民幣",
+  "seq" : "1",
+  "company" : "WZS",
+  "mdate" : "2014-03-31T16:00:00Z",
+  "cdate" : "2014-03-31T16:00:00Z",
+  "cuser" : "sys",
+  "muser" : "sys",
+  "isdeleted": true
+ }, {
+  "currency" : "NTD",
+  "currency_desc" : "新台幣",
+  "seq" : "2",
+  "company" : "WZS",
+  "mdate" : "2014-03-31T16:00:00Z",
+  "cdate" : "2014-03-31T16:00:00Z",
+  "cuser" : "sys",
+  "muser" : "sys",
+  "isdeleted":true
+ }
+]

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ERS</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.8" />
+    <PackageReference Include="Volo.Abp.Core" Version="6.0.3" />
+	  <PackageReference Include="Volo.Abp.AutoMapper" Version="6.0.3" />
+	  <PackageReference Include="Volo.Abp.Ddd.Application" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ERS.Domain\ERS.Domain.csproj" />
+    <ProjectReference Include="..\ERS.Application.Contracts\ERS.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ERS.EntityFrameworkCore\ERS.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+</Project>

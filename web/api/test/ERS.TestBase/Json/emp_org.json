@@ -1,0 +1,80 @@
+[
+  {
+		"deptid" : "JM0000",
+		"descr" : "全球製造",
+		"descr_d" : "Global Manufacturing",
+		"manager_id" : "9709770",
+		"tree_level_num" : 2,
+		"uporg_code_a" : "J00000",
+		"company" : "M00",
+		"plant_id_a" : "UO",
+		"location" : "003",
+		"sal_location_a" : "WIH",
+		"flag" : 0
+	},
+	{
+		"deptid" : "JML000",
+		"descr" : "WT製造資訊管理",
+		"descr_d" : "WT Mfg. Information Mgmt.",
+		"manager_id" : "8701158",
+		"tree_level_num" : 4,
+		"uporg_code_a" : "JM0000",
+		"company" : "130",
+		"plant_id_a" : null,
+		"location" : "A13",
+		"sal_location_a" : "WZS",
+		"flag" : 0
+	},
+	{
+		"deptid" : "JML100",
+		"descr" : "數位資訊發展處",
+		"descr_d" : "Digital Information Development Division",
+		"manager_id" : "8704168",
+		"tree_level_num" : 5,
+		"uporg_code_a" : "JML000",
+		"company" : "130",
+		"plant_id_a" : "UO",
+		"location" : "A13",
+		"sal_location_a" : "WZS",
+		"flag" : 0
+	},
+	{
+		"deptid" : "JML120",
+		"descr" : "企業應用開發一部",
+		"descr_d" : "Enterprise Application Dev. Dept. I",
+		"manager_id" : "200603022",
+		"tree_level_num" : 7,
+		"uporg_code_a" : "JML100",
+		"company" : "130",
+		"plant_id_a" : "UO",
+		"location" : "A13",
+		"sal_location_a" : "WZS",
+		"flag" : 0
+	},
+	{
+		"deptid" : "JML121",
+		"descr" : "企業應用開發一課",
+		"descr_d" : null,
+		"manager_id" : "Z11071892",
+		"tree_level_num" : 8,
+		"uporg_code_a" : "JML120",
+		"company" : "130",
+		"plant_id_a" : "UO",
+		"location" : "A13",
+		"sal_location_a" : "WZS",
+		"flag" : 0
+	},
+	{
+		"deptid" : "JML122",
+		"descr" : "企業應用開發一課",
+		"descr_d" : null,
+		"manager_id" : "Z11071892",
+		"tree_level_num" : 8,
+		"uporg_code_a" : "JML120",
+		"company" : "130",
+		"plant_id_a" : "UO",
+		"location" : "A13",
+		"sal_location_a" : "WZS",
+		"flag" : 0
+	}
+]

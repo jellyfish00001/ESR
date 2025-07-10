@@ -1,0 +1,226 @@
+[
+	{
+		"formcode": "CASH_2",
+		"rno": "E22080500003",
+		"company": "WZS",
+		"actpay": "N",
+		"currency": "RMB",
+		"amount": 45645,
+		"actamt": 45645
+	},
+	{
+		"formcode": "CASH_2",
+		"rno": "E22081000001",
+		"currency": "RMB",
+		"amount": "1111",
+		"actpay": "N",
+		"actamt": "1111",
+		"company": "WZS",
+		"cuser": "Z19081961",
+		"cdate": "2022-08-10 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_2",
+		"rno": "E22080900001",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-08-10 16:57:15.584"
+	}
+	,
+	{
+		"formcode": "CASH_3",
+		"rno": "E22091000011",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-08-10 16:57:15.584"
+	}
+	,
+	{
+		"formcode": "CASH_3",
+		"rno": "E22091000012",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-08-10 16:57:15.584"
+	}
+	,
+	{
+		"formcode": "CASH_3",
+		"rno": "E22091000013",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-08-10 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "A22092000001",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-08-10 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "A22092200001",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "",
+		"cdate": "2022-09-22 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22092300001",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-08-10 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22092300002",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-09-22 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22093000001",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-08-10 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22093000002",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-09-22 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22082600005",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-09-22 16:57:15.584"
+	},
+	{
+		"formcode": "CASH_3",
+		"rno": "E22082600007",
+		"currency": "RMB",
+		"amount": 223.00,
+		"actpay": "N",
+		"actamt": 220.00,
+		"company": "WZS",
+		"cuser": "Z21032798",
+		"cdate": "2022-09-22 16:57:15.584"
+	},
+	{
+		"formcode" : "CASH_2",
+		"rno" : "E22083000010",
+		"currency" : "RMB",
+		"amount" : 1600.00,
+		"actpay" : "N",
+		"actamt" : 1600.00,
+		"company" : "WZS",
+		"mdate" : null,
+		"cdate" : "2022-08-30T02:35:16.609Z",
+		"cuser" : "Z21032798",
+		"muser" : null,
+		"isdeleted" : false
+	},
+	{
+		"formcode" : "CASH_1",
+		"rno" : "C1108120010",
+		"currency" : "RMB",
+		"amount" : 416.77,
+		"actpay" : "N",
+		"actamt" : 416.77,
+		"company" : "WZS",
+		"cuser" : "SYSTEM",
+		"cdate" : "2014-07-22T08:39:47.000Z",
+		"muser" : "SYSTEM",
+		"mdate" : "2014-07-22T08:39:47.000Z",
+		"isdeleted" : false
+	},
+	{
+		"formcode" : "CASH_3A",
+		"rno" : "A20220922007",
+		"currency" : "RMB",
+		"amount" : 416.77,
+		"actpay" : "N",
+		"actamt" : 416.77,
+		"company" : "WZS",
+		"cuser" : "SYSTEM",
+		"cdate" : "2014-07-22T08:39:47.000Z",
+		"muser" : "SYSTEM",
+		"mdate" : "2014-07-22T08:39:47.000Z",
+		"isdeleted" : false
+	},
+	{
+		"formcode" : "CASH_4",
+		"rno" : "B2012170001",
+		"currency" : "NTD",
+		"amount" : 600,
+		"actpay" : "N",
+		"actamt" : 600,
+		"company" : "WZS",
+		"cuser" : "SYSTEM",
+		"cdate" : "2020-12-17T00:31:25.000Z",
+		"muser" : "SYSTEM",
+		"mdate" : "2020-12-17T00:31:25.000Z",
+		"isdeleted" : false
+	},
+	{
+		"formcode" : "CASH_1",
+		"rno" : "C2003100001",
+		"currency" : "RMB",
+		"amount" : 120,
+		"actpay" : "N",
+		"actamt" : 120,
+		"cuser" : "SYSTEM",
+		"cdate" : "2020-03-10T05:44:05.000Z",
+		"muser" : "SYSTEM",
+		"mdate" : "2020-03-10T05:44:05.000Z",
+		"company" : "WZS"
+	}
+]

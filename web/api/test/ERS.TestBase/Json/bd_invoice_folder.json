@@ -1,0 +1,31 @@
+[
+    {
+        "buyername": "纬创资通（中山）有限公司",
+        "sellername": "安徽省鲤江贸易有限公司",
+        "buyertaxid": "914420007076361689",
+        "sellertaxid": "91341300MA2WAB8L7G",
+        "invno": "04642294",
+        "invcode": "034131700111",
+        "invtype": "INV003",
+        "invdate": "2022-08-21T16:00:00.000Z",
+        "untaxamount": 337.37,
+        "taxamount": 0.00,
+        "amount": 337.37,
+        "verifytype": null,
+        "paytype": "待請款",
+        "abnormalreason": null,
+        "remark": "",
+        "filepath": "Invoice\/202302\/04642294\/增值稅電子普通發票-04642294-作廢.jpg",
+        "rno": null,
+        "isfill": true,
+        "emplid": "Z19081961",
+        "uploadmethod": 4,
+        "docno": null,
+        "postingdate": null,
+        "company": "WZS",
+        "mdate": null,
+        "cdate": "2023-02-28T10:40:56.873Z",
+        "cuser": "Z19081961",
+        "muser": null
+    }
+]

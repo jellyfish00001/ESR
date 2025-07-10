@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataBase>
+  <source>
+    <HOST>10.37.37.120</HOST>
+    <PORT>1535</PORT>
+    <SERVICE_NAME>HCMPRD</SERVICE_NAME>
+    <UserId>WZSERS2022</UserId>
+    <Password>WZSERS!202201</Password>
+    <Select>
+      SELECT EMPLID,DESCR_AC BANK,ACCOUNT,NAME ACCOUNTNAME,TO_CHAR(EFFDT,'yyyymmdd') EFFDT FROM PS_Z_WZS_BANK_VW WHERE ACCOUNT IS NOT NULL AND LENGTH(TRIM(ACCOUNT)) &gt; 0
+    </Select>
+    <Insert>
+      INSERT INTO CASH_ACCOUNT_PS("Id",EMPLID,ACCOUNT,ACCOUNTNAME,COMPANY,BANK,UUSER,UDATE,EFFDT,ISDELETED) VALUES(:Id::UUID,:EMPLID,:ACCOUNT,:ACCOUNTNAME,'ALL',:BANK,'SYSTEM',CURRENT_DATE,TO_DATE(:EFFDT,'yyyymmdd'),false)
+    </Insert>
+    <Update>
+      UPDATE CASH_ACCOUNT_PS SET ACCOUNT=:ACCOUNT, ACCOUNTNAME=:ACCOUNTNAME, EFFDT = TO_DATE(:EFFDT,'yyyymmdd'),ISDELETED=false WHERE EMPLID=:EMPLID AND ACCOUNT=:ACCOUNT
+    </Update>
+    <Delete></Delete>
+    <Check>SELECT EMPLID FROM CASH_ACCOUNT_PS WHERE EMPLID=:EMPLID AND ACCOUNT=:ACCOUNT</Check>
+    <CheckParm>EMPLID,ACCOUNT</CheckParm>
+    <System>PeopleSoft PRD</System>
+  </source>
+    <purpose_05>
+    <HOST>10.41.20.122</HOST>
+    <PORT>1521</PORT>
+    <SERVICE_NAME>WZSACCT</SERVICE_NAME>
+    <UserId>CASH</UserId>
+    <Password>cash_admin2036</Password>
+    <System>ERS PRD</System>
+  </purpose_05>
+</DataBase>

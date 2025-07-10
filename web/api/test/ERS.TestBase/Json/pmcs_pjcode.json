@@ -1,0 +1,20 @@
+[
+  {
+    "code" : "EP201804.067",
+    "description" : "testV7Flow",
+    "ordertype" : null,
+    "classification" : "5",
+    "pm" : "10012032",
+    "am" : null,
+    "lifecycle" : "Validated",
+    "chargedept" : "MLLS00",
+    "custnickname" : null,
+    "profitcenter" : null,
+    "budgetstartdate" : "2018-04-18T16:00:00Z",
+    "budgetenddate" : "2018-04-25T16:00:00Z",
+    "remark" : "testV7Flow",
+    "iscreatedbyprjpnl" : 1,
+    "lastupdate" : "2018-04-19T09:44:54Z",
+    "company": "WZS"
+  }
+]

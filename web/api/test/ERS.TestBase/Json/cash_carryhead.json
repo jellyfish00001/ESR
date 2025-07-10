@@ -1,0 +1,16 @@
+[
+	{
+		"carryno" : "2110130001",
+		"postdate" : "2021-10-13T00:14:54.000Z",
+		"acctant" : "Z12073174",
+		"companycode" : "WZS",
+		"bank" : null,
+		"stat" : "Y",
+		"company" : "WZS",
+		"mdate" : "2021-10-13T00:14:55.000Z",
+		"cdate" : "2021-10-13T00:14:54.000Z",
+		"cuser" : "Z12073174",
+		"muser" : "SYSTEM",
+		"isdeleted" : false
+	}
+]

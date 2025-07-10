@@ -1,0 +1,26 @@
+[
+    {
+        "rno": "A22092000001",
+        "amount": "50",
+        "company": "WZS",
+        "cuser": "test"
+    },
+    {
+        "rno": "A22092200001",
+        "amount": "223",
+        "company": "WZS",
+        "cuser": "test"
+    },
+    {
+        "rno": "E22092300001",
+        "amount": "118",
+        "company": "WZS",
+        "cuser": "Z21032798"
+    },
+    {
+        "rno": "E22092300002",
+        "amount": "222",
+        "company": "WZS",
+        "cuser": "Z21032798"
+    }
+]

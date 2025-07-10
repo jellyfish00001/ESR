@@ -1,0 +1,28 @@
+[
+	{
+		"rno": "E22080500003",
+		"company": "WZS",
+		"seq": 1,
+		"item": 1,
+		"invcode": "144002101520",
+		"invno": "00368555",
+		"amount": 8849.56,
+		"taxloss": 2500,
+		"curr": "RMB",
+		"undertaker": "company",
+		"invdate": "2021-06-24T00:00:00",
+		"taxamount": 1150.44,
+		"oamount": 10000,
+		"invstat": "N",
+		"abnormalamount": 0,
+		"paymentName": "纬创资通（中山）有限公司",
+		"paymentNo": "914420007076361689",
+		"collectionName": "中山市驴鼎餐厅",
+		"collectionNo": "92442000MA52DXGR1R",
+		"expdesc": "銷售方地址電話有繁體字",
+		"expcode": "提示：發票：00368555(發票號碼) 銷售方地址電話有繁體字 請重開發票 稅金損失：2500.00",
+		"invdesc": "144002101520&00368555&8849.56&1150.44&10000.00&N",
+		"reason": null,
+		"abnormal": "N"
+	}
+]

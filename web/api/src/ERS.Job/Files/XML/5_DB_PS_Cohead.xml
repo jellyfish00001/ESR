@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataBase>
+  <source>
+    <HOST>10.37.37.120</HOST>
+    <PORT>1535</PORT>
+    <SERVICE_NAME>HCMPRD</SERVICE_NAME>
+    <UserId>WZSERS2022</UserId>
+    <Password>WZSERS!202201</Password>
+    <Select>
+      SELECT DEPTID, MANAGER_ID, SEQ_NO SEQ, 0 FLAG,'AddCoHead2Org' UUSER,to_char(sysdate,'yyyymmdd hh24:mi:ss') UDATE FROM SYSADM.PS_Z_COH_WZSERS_VW
+    </Select>
+    <UpdateStatus>UPDATE EMP_ORG_COHEAD SET FLAG=1</UpdateStatus>
+    <Insert>
+      INSERT INTO EMP_ORG_COHEAD (DEPTID, MANAGER_ID, SEQ,FLAG,UUSER,UDATE)
+      VALUES(:DEPTID, :MANAGER_ID, :SEQ,:FLAG,:UUSER,to_date(:UDATE,'yyyymmdd hh24:mi:ss'))
+    </Insert>
+    <Update>
+      UPDATE EMP_ORG_COHEAD SET SEQ=:SEQ,FLAG=:FLAG,UUSER=:UUSER,UDATE=to_date(:UDATE,'yyyymmdd hh24:mi:ss') WHERE DEPTID=:DEPTID AND MANAGER_ID=:MANAGER_ID
+    </Update>
+    <Delete></Delete>
+    <Procedure>P_AddCoHead2Org</Procedure>
+    <Check>SELECT DEPTID FROM EMP_ORG_COHEAD WHERE DEPTID=:DEPTID AND MANAGER_ID=:MANAGER_ID</Check>
+    <CheckParm>DEPTID,MANAGER_ID</CheckParm>
+    <System>PS Cohead PRD</System>
+  </source>
+  <purpose_5>
+    <HOST>10.41.20.122</HOST>
+    <PORT>1521</PORT>
+    <SERVICE_NAME>WZSACCT</SERVICE_NAME>
+    <UserId>CASH</UserId>
+    <Password>cash_admin2036</Password>
+    <System>ERS PRD</System>
+  </purpose_5>
+</DataBase>

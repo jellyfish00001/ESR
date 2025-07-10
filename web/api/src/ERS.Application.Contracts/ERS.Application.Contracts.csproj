@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ERS</RootNamespace>
+    <DocumentationFile>ERS.Application.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\BDExpenseSenario\AddBDExpDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\AssignStep.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\AttachmentDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\BDExpenseDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\BDExpenseExcelDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\BDExpenseFormDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\BDExpenseParamDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\BDPayDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\EditBDExpDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\ExpAcctDto.cs" />
+    <Compile Remove="DTO\BDExpenseSenario\UploadBDExpDto.cs" />
+    <Compile Remove="DTO\Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ERS.Domain.Shared\ERS.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO\ExtraSteps\" />
+  </ItemGroup>
+
+</Project>

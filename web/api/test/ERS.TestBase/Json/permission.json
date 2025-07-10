@@ -1,0 +1,620 @@
+[
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Home",
+    "action": "Index",
+    "actionName": "Home.Index",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Finance",
+    "action": "View",
+    "actionName": "Finance.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Permission",
+    "action": "Menu",
+    "actionName": "Permission.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Permission",
+    "action": "View",
+    "actionName": "Permission.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "Menu",
+    "actionName": "BDAccount.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "View",
+    "actionName": "BDAccount.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "Add",
+    "actionName": "BDAccount.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "Edit",
+    "actionName": "BDAccount.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "Delete",
+    "actionName": "BDAccount.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDAccount",
+    "action": "Download",
+    "actionName": "BDAccount.Download",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Account",
+    "action": "Menu",
+    "actionName": "Account.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Account",
+    "action": "View",
+    "actionName": "Account.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Account",
+    "action": "Add",
+    "actionName": "Account.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Account",
+    "action": "Delete",
+    "actionName": "Account.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Account",
+    "action": "Download",
+    "actionName": "Account.Download",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Auditor",
+    "action": "Menu",
+    "actionName": "Auditor.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Auditor",
+    "action": "View",
+    "actionName": "Auditor.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Auditor",
+    "action": "Add",
+    "actionName": "Auditor.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Auditor",
+    "action": "Edit",
+    "actionName": "Auditor.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Auditor",
+    "action": "Delete",
+    "actionName": "Auditor.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "Menu",
+    "actionName": "BDExp.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "View",
+    "actionName": "BDExp.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "Add",
+    "actionName": "BDExp.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "Edit",
+    "actionName": "BDExp.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "Delete",
+    "actionName": "BDExp.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDExp",
+    "action": "Download",
+    "actionName": "BDExp.Download",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CashReturn",
+    "action": "Menu",
+    "actionName": "CashReturn.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CashReturn",
+    "action": "View",
+    "actionName": "CashReturn.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CashReturn",
+    "action": "Add",
+    "actionName": "CashReturn.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CashReturn",
+    "action": "Edit",
+    "actionName": "CashReturn.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CashReturn",
+    "action": "Delete",
+    "actionName": "CashReturn.Delete",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Company",
+    "action": "Menu",
+    "actionName": "Company.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Company",
+    "action": "View",
+    "actionName": "Company.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Company",
+    "action": "Add",
+    "actionName": "Company.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Company",
+    "action": "Edit",
+    "actionName": "Company.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Company",
+    "action": "Delete",
+    "actionName": "Company.Delete",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "FinReview",
+    "action": "Menu",
+    "actionName": "FinReview.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "FinReview",
+    "action": "View",
+    "actionName": "FinReview.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "FinReview",
+    "action": "Add",
+    "actionName": "FinReview.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "FinReview",
+    "action": "Edit",
+    "actionName": "FinReview.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "FinReview",
+    "action": "Delete",
+    "actionName": "FinReview.Delete",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "Menu",
+    "actionName": "Payment.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "View",
+    "actionName": "Payment.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "Delete",
+    "actionName": "Payment.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "Add",
+    "actionName": "Payment.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "Edit",
+    "actionName": "Payment.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Payment",
+    "action": "Download",
+    "actionName": "Payment.Download",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Report",
+    "action": "Menu",
+    "actionName": "Report.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "Report",
+    "action": "View",
+    "actionName": "Report.View",
+    "url": ""
+  },
+
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDPaperSign",
+    "action": "Menu",
+    "actionName": "BDPaperSign.Menu",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDPaperSign",
+    "action": "View",
+    "actionName": "BDPaperSign.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDPaperSign",
+    "action": "Add",
+    "actionName": "BDPaperSign.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDPaperSign",
+    "action": "Edit",
+    "actionName": "BDPaperSign.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDPaperSign",
+    "action": "Delete",
+    "actionName": "BDPaperSign.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "RQ501",
+    "action": "View",
+    "actionName": "RQ501.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "RQ701",
+    "action": "View",
+    "actionName": "RQ701.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDInvoiceType",
+    "action": "View",
+    "actionName": "BDInvoiceType.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDInvoiceType",
+    "action": "Add",
+    "actionName": "BDInvoiceType.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDInvoiceType",
+    "action": "Edit",
+    "actionName": "BDInvoiceType.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "BDInvoiceType",
+    "action": "Delete",
+    "actionName": "BDInvoiceType.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CustomerNickname",
+    "action": "View",
+    "actionName": "CustomerNickname.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CustomerNickname",
+    "action": "Add",
+    "actionName": "CustomerNickname.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CustomerNickname",
+    "action": "Edit",
+    "actionName": "CustomerNickname.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "CustomerNickname",
+    "action": "Delete",
+    "actionName": "CustomerNickname.Delete",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "ProxyCash",
+    "action": "View",
+    "actionName": "ProxyCash.View",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "ProxyCash",
+    "action": "Add",
+    "actionName": "ProxyCash.Add",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "ProxyCash",
+    "action": "Edit",
+    "actionName": "ProxyCash.Edit",
+    "url": ""
+  },
+  {
+    "isMenuItem": false,
+    "clientId": "",
+    "icon": "icon-speedometer",
+    "program": "ProxyCash",
+    "action": "Delete",
+    "actionName": "ProxyCash.Delete",
+    "url": ""
+  }
+]

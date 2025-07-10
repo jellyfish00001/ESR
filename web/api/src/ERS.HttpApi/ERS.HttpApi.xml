@@ -1,0 +1,1085 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ERS.HttpApi</name>
+    </assembly>
+    <members>
+        <member name="M:ERS.Controllers.AccountController.QueryBanksByCompany(System.String)">
+            <summary>
+            根据company获取全部银行api
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.QueryAccountReceipts(ERS.DTO.Request{ERS.DTO.Account.QueryFormParamDto})">
+            <summary>
+            入账清单单据信息查询
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.GenerateAccountList(ERS.DTO.Account.QueryFormDto)">
+            <summary>
+            入账清单生成
+            </summary>
+            <param name="queryFormDtos"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.QueryPageAccountList(ERS.DTO.Request{ERS.DTO.Account.GenerateFormParamDto})">
+            <summary>
+            入账清单维护（查询）
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.BatchDeleteAccountlist(System.Collections.Generic.List{System.String})">
+            <summary>
+            批量删除入账清单
+            </summary>
+            <param name="carryno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.GetCarryDetailExcelData(System.String)">
+            <summary>
+            导出生成Excel所需数据
+            </summary>
+            <param name="carryno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AccountController.SaveAccountInfo(System.String,System.String)">
+            <summary>
+            补入账清单 cash_detail_pst
+            </summary>
+            <param name="rno"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AuditorController.GetPageAuditors(ERS.DTO.Request{ERS.DTO.Auditor.AuditorParamsDto})">
+            <summary>
+            簽核主管Auditor維護（BD04）查询
+            查询参数：只传单据类型代码、工号、公司别
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AuditorController.AddAuditor(ERS.DTO.Auditor.AuditorParamsDto)">
+            <summary>
+            簽核主管Auditor維護（BD04）添加
+            无需传递Id
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AuditorController.EditAuditor(ERS.DTO.Auditor.AuditorParamsDto)">
+            <summary>
+            簽核主管Auditor維護（BD04）修改
+            Id必传
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AuditorController.DeleteAuditor(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            簽核主管Auditor維護（BD04）删除
+            Id必传
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.AuditorController.GetEFormCodeName">
+            <summary>
+            簽核主管Auditor維護（BD04）
+            获取所有单据类型代码与名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDAccountController.GetPageBDAcct(ERS.DTO.Request{ERS.DTO.BDAccount.BDAccountParamDto})">
+            <summary>
+            会计科目分页条件查询
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDAccountController.AddBDAccount(ERS.DTO.BDAccount.BDAccountParamDto)">
+            <summary>
+            会计科目添加
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDAccountController.EditBDAccount(ERS.DTO.BDAccount.BDAccountParamDto)">
+            <summary>
+            會計科目編輯
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDAccountController.DeleteBDAccount(ERS.DTO.BDAccount.BDAccountParamDto)">
+            <summary>
+            會計科目刪除
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDAccountController.BatchUploadBDAccount(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            大量上传会计科目
+            </summary>
+            <param name="excelFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.GetNicknames(System.String)">
+            <summary>
+            获取全部客户昵称
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.Get(ERS.DTO.Request{ERS.DTO.NickNameCommonDto})">
+            <summary>
+            BaseData 查询
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.Add(ERS.DTO.NickNameCommonDto)">
+            <summary>
+            BaseData 新增
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.Update(ERS.DTO.NickNameCommonDto)">
+            <summary>
+            BaseData 编辑
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.Delete(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            BaseData 删除
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDCustomerNicknameController.BatchUploadNickName(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            BaseData 批量上傳
+            </summary>
+            <param name="excelFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.GetAccountantSubject(System.String)">
+            <summary>
+            按公司別查詢會計科目
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.GetClassNo(System.String)">
+            <summary>
+            获取ClasNo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.GetPageExpenseCategory(ERS.DTO.Request{ERS.DTO.BDExp.BDExpParamDto})">
+            <summary>
+            費用類別維護分页条件查询
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.AddExpenseCategory(ERS.DTO.BDExp.AddBDExpDto)">
+            <summary>
+            費用類別維護(添加)
+            无需传递Id
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.EditExpenseCategory(ERS.DTO.BDExp.EditBDExpDto)">
+            <summary>
+            費用類別維護(編輯)
+            Id必传
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.DeleteExpenseCategory(ERS.DTO.BDExp.BDExpFormDto)">
+            <summary>
+            費用類別維護(删除)
+            Id必传
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.DownloadExpCategory(ERS.DTO.BDExp.BDExpParamDto)">
+            <summary>
+            费用类别维护（Excel导出）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.GetBDExpExcelData(ERS.DTO.Request{ERS.DTO.BDExp.BDExpParamDto})">
+            <summary>
+            費用類別維護（導出Excel數據）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpController.BatchUploadBDExp(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            批量上传报销情景
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseDeptController.AddBDExpenseDept(ERS.DTO.BDExpenseDept.QueryBDExpenseDeptDto)">
+            歸屬部門添加
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseDeptController.EditBDExpenseDept(ERS.DTO.BDExpenseDept.QueryBDExpenseDeptDto)">
+            歸屬部門編輯
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetAccountantSubject(System.String)">
+            <summary>
+            按公司別查詢會計科目
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetAuditLevelCode(System.String)">
+            <summary>
+            获取核決權限代碼
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetPageExpenseCategory(ERS.DTO.Request{ERS.DTO.BDExp.BDExpParamDto})">
+            <summary>
+            費用類別維護分页条件查询
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.AddExpenseCategory(ERS.DTO.BDExp.AddBDExpDto)">
+            <summary>
+            費用類別維護(添加)
+            无需传递Id
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.EditExpenseCategory(ERS.DTO.BDExp.EditBDExpDto)">
+            <summary>
+            費用類別維護(編輯)
+            Id必传
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.DeleteExpenseCategory(System.Guid)">
+            <summary>
+            費用類別維護(删除)
+            Id必传
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.DownloadExpCategory(ERS.DTO.BDExp.BDExpParamDto)">
+            <summary>
+            费用类别维护（Excel导出）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetBDExpExcelData(ERS.DTO.Request{ERS.DTO.BDExp.BDExpParamDto})">
+            <summary>
+            費用類別維護（導出Excel數據）--废弃
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.BatchUploadBDExp(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            批量上传报销情景
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetExpenseCodes">
+            <summary>
+            獲取費用類別清單
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.GetSenarioByID(System.Guid)">
+            <summary>
+            按ID查詢報銷情景
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDExpenseSenarioController.SearchSenarioOptionsByKeyword(ERS.DTO.BDExpenseSenario.BDSenarioOptionFilterDto)">
+            <summary>
+            按關鍵字查詢報銷情景選項清單
+            </summary>
+            <param name="bDSenarioOptionFilterDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.GetPageInvInfo(ERS.DTO.Request{ERS.DTO.BDInvoiceFolder.QueryBDInvoiceFolderDto})">
+            <summary>
+            分页查询发票信息
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.GetInvPayTypes">
+            <summary>
+            获取发票请款状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.DeleteInvInfo(System.Guid)">
+            <summary>
+            刪除發票信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.EditInvInfo(ERS.DTO.Application.InvoiceDto)">
+            <summary>
+            编辑发票信息
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.GetUnpaidInvInfoBySelf(System.String)">
+            <summary>
+            獲取個人未請款的發票信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceFolderController.GetUnpaidInvInfoByUser(System.String,System.String)">
+            <summary>
+            獲取某人未請款的發票信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceRailController.GetPageTicketRails(ERS.DTO.Request{ERS.DTO.BDInvoiceRail.QueryBDInvoiceRailDto})">
+            <summary>
+            发票字轨維護（查詢）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceRailController.DeleteTicketRails(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            发票字轨維護（刪除）
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceRailController.BatchUploadBDInvoiceRail(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            批量上传发票字轨
+            </summary>
+            <param name="excelFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.GetPageInvTypes(ERS.DTO.Request{ERS.DTO.BDInvoiceType.QueryBDInvTypeDto})">
+            <summary>
+            發票類型維護（查詢）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.AddInvTypes(ERS.DTO.BDInvoiceType.AddBDInvTypeDto)">
+            <summary>
+            發票類型維護（添加）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.EditInvTypes(ERS.DTO.BDInvoiceType.EditBDInvTypeDto)">
+            <summary>
+            發票類型維護（修改）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.DeleteInvTypes(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            發票類型維護（刪除）
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.GetInvTypeByUserId(System.String)">
+            <summary>
+            根據當前登錄人的公司別獲取發票類型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDInvoiceTypeController.GetAllInvTypes">
+            <summary>
+            獲取發票類型下拉選項清單
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDMealAreaController.BatchUploadBDMealArea(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            批量上传公出城市
+            </summary>
+            <param name="excelFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDPaperSignController.GetPageBDPaperSign(ERS.DTO.Request{ERS.DTO.BDPaperSign.QueryPaperSignDto})">
+            <summary>
+            纸本单签核人维护（查询）查询条件：company、plant、emplid
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDPaperSignController.AddBDPaperSign(ERS.DTO.BDPaperSign.AddPaperSignDto)">
+            <summary>
+            纸本单签核人维护（新增）company、plant、emplid、company_code必填
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDPaperSignController.EditBDPaperSign(ERS.DTO.BDPaperSign.EditPaperSignDto)">
+            <summary>
+            纸本单签核人维护（修改）Id必传、company、plant、emplid、company_code不能为空
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDPaperSignController.DeleteBDPaperSigns(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            纸本单签核人维护（删除）仅传Id（多个）
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDSignlevelController.AddBDSignlevel(ERS.DTO.BDSignlevel.BDSignlevelParamDto)">
+            核決權限添加
+        </member>
+        <member name="M:ERS.Controllers.BDSignlevelController.EditBDSignlevel(ERS.DTO.BDSignlevel.BDSignlevelParamDto)">
+            核決權限編輯
+        </member>
+        <member name="M:ERS.Controllers.BDTicketRailController.AddTicketRails(ERS.DTO.BDTicketRail.AddBDTicketRailDto)">
+            <summary>
+            车票字轨維護（添加）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDTicketRailController.EditTicketRails(ERS.DTO.BDTicketRail.EditBDTicketRailDto)">
+            <summary>
+            车票字轨維護（修改）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDTicketRailController.DeleteTicketRails(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            车票字轨維護（刪除）
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.BDVirtualDepartmentController.AddBDVirtualDepartment(ERS.DTO.BDVirtualDepartments.QueryBDVirtualDepartmentsDto)">
+            虛擬部門添加
+        </member>
+        <member name="M:ERS.Controllers.BDVirtualDepartmentController.EditBDVirtualDepartment(ERS.DTO.BDVirtualDepartments.QueryBDVirtualDepartmentsDto)">
+            虛擬部門編輯
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetGeneralCostExp(System.String)">
+            <summary>
+            报销费用情景
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetMealExpense(ERS.DTO.TravelDto)">
+            <summary>
+            获取公出误餐费用
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetBDCarByCompany(System.String)">
+            <summary>
+            根据公司别查询BDCar
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetSelfDriveCostListFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            读取Excel获取自驾油费大量上传数据
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetOvertimeMealCostListFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            读取Excel获取误餐费大量上传数据
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            /// <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash1Controller.GetCityByCompany(System.String)">
+            <summary>
+            根据公司别获取公出城市
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ERS.Controllers.Cash3AController">
+            <summary>
+            预支延期
+            </summary>
+        </member>
+        <member name="M:ERS.Controllers.Cash3AController.Keep(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            暂存
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3AController.submit(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            提交
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3AController.DeferredQueryBySelf">
+            <summary>
+            个人未冲账预支
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3AController.DeferredQueryByUser(System.String)">
+            <summary>
+            个人未冲账预支
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3Controller.OverdueBySelf">
+            <summary>
+            获取未冲账明细
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3Controller.OverdueByUser(System.String)">
+            <summary>
+            获取未冲账明细
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3Controller.SearchAdvanceScene(System.String,System.String)">
+            <summary>
+            模糊查询预支场景（申请）
+            </summary>
+            <param name="input"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3Controller.SearchAllAdvanceScene(System.String)">
+            <summary>
+            查询预支场景（全部）
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash3Controller.ChangePayeeTips(System.Decimal,System.String)">
+            <summary>
+            根据预支金额是否超额，返回不同提示
+            </summary>
+            <param name="amount"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash4Controller.GetReimbursementListFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            报销清单批量上传excel文件读取数据
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash4Controller.GetOvertimeMealCostListFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            誤餐費批量報銷上傳excel文件讀取數據
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash4Controller.GetSelfDriveCostListFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            自駕油費批量報銷讀取Excel獲取數據
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash4Controller.GetPayeeInfo(System.String)">
+            <summary>
+            获取收款人信息
+            </summary>
+            <param name="keyword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash6Controller.Keep(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            返台會議申請暫存
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash6Controller.Submit(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            返台會議申請提交
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.Cash6Controller.GetReturnTaiwanExp(System.String)">
+            <summary>
+            返台會議申请费用类别查询
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashController.Approval(ERS.DTO.SignDto)">
+            <summary>
+            签核
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashController.Reject(ERS.DTO.SignDto)">
+            <summary>
+            驳回
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashController.GetSignLogs(System.String)">
+            <summary>
+            获取签核流程及签核记录
+            </summary>
+            <param name="rno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashController.GetHistoricalSignRecordsByRno(System.String)">
+            <summary>
+            根据单号获取签核历史数据（e_form_signlog）
+            </summary>
+            <param name="rno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashController.GetSignedDataByRno(System.String)">
+            <summary>
+            根据单号获取签核数据（e_form_alist）
+            </summary>
+            <param name="rno"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ERS.Controllers.CashXController">
+            <summary>
+            薪资请款
+            </summary>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.GetBanksBySite(System.String)">
+            <summary>
+            根据Site获取银行别
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.GenerateSummary(ERS.DTO.Application.CashX.SummaryInfoDto)">
+            <summary>
+            根据单据信息生成摘要text
+            </summary>
+            <param name="summaryInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.GetXZExp(System.String)">
+            <summary>
+            获取薪资请款情景
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.IsApplicant(System.String)">
+            <summary>
+            判断当前登录人是否为申请人簽核 1表示当前登录人是申请人
+            </summary>
+            <param name="rno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.GetApplyInfoFromExcel(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            大量上传获取请款信息
+            </summary>
+            <param name="excelFile"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.Submit(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            提交
+            </summary>
+            <param name="formCollection">cashdetail新增companycode rdate（需款日期） summary（薪资所属期）</param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.Keep(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            暂存
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CashXController.Approval(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            薪資請款簽核
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.GetComapnyByArea">
+            <summary>
+            根据地区获取公司别
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.GetAllComapnyAsync">
+            <summary>
+            获取全部公司别(申请使用)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.GetPermissionComapnyAsync">
+            <summary>
+            根据权限获取对应公司别（basedata用）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.GetComsInfoByCompany(ERS.DTO.Request{System.Collections.Generic.List{System.String}})">
+            <summary>
+            公司别维护（查询）
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.AddNewCompanyInfo(ERS.DTO.Company.ComInfoDto)">
+            <summary>
+            公司别维护（新增）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.EditCompanyInfo(ERS.DTO.BDCompanyCategory.BDCompanyCategoryParamDto)">
+            <summary>
+            公司别维护（编辑）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.DeleteCompanyInfo(System.Collections.Generic.List{ERS.DTO.BDCompanyCategory.BDCompanyCategoryParamDto})">
+            <summary>
+            公司别维护（删除）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.QueryCompanyCodeByCompany(System.String)">
+            <summary>
+            根據公司別獲取對應的companycode
+            </summary>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.CompanyController.GetComapnyBySite">
+            <summary>
+            根据地区获取公司别
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.FinReviewController.IsAccountantOrNot">
+            <summary>
+            判断当前登录人是否为会计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.FinReviewController.QueryPageFinApprover(ERS.DTO.Request{ERS.DTO.FinApprover.FinApproverParamsDto})">
+            <summary>
+            財務簽核人員維護（查詢）
+            查詢條件：公司別、公司別代碼、廠別
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.FinReviewController.AddFinApprover(ERS.DTO.FinApprover.AddFinApproverDto)">
+            <summary>
+            財務簽核人員維護（新增）
+            公司別、公司別代碼、廠別、會計初審1必填
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.FinReviewController.EditFinApprover(ERS.DTO.FinApprover.FinApproverDto)">
+            <summary>
+            財務簽核人員維護（编辑）
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.FinReviewController.DeleteFinApprover(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            財務簽核人員維護（刪除）
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.GeneratePaymentList(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            付款清單生成
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.GetPagePayList(ERS.DTO.Request{ERS.DTO.Payment.PayParamsDto})">
+            <summary>
+            已付款清单查询
+            </summary>
+            <param name="request">筛选参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.GetPageUnpaidList(ERS.DTO.Request{System.String})">
+            <summary>
+            未付款清单查询
+            </summary>
+            <param name="request">筛选参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.GetPaylistBySysNo(System.String,System.String)">
+            <summary>
+            按流水单号、银行别查询付款清单
+            </summary>
+            <param name="sysno"></param>
+            <param name="bank"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.DeletePaylist(System.Collections.Generic.List{System.String})">
+            <summary>
+            刪除付款清單
+            </summary>
+            <param name="sysno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.DownloadRemittanceExcel(ERS.DTO.Payment.RemittanceDto)">
+            <summary>
+            点击download按钮下载付款明细
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.DownloadPettyListExcel(ERS.DTO.Payment.UpdatePaymentDto)">
+            <summary>
+            点击sysno按钮根据sysno与bank下载零用金付款清单api
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PaymentController.UpdatePaymentStatus(System.Collections.Generic.List{ERS.DTO.Payment.UpdatePaymentDto})">
+            <summary>
+            变更付款状态（点击OK）
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PermissionController.Roles">
+            <summary>
+            获取角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PermissionController.Add(ERS.DTO.SelectParams)">
+            <summary>
+            新增权限
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PermissionController.Query(ERS.DTO.SelectParams)">
+            <summary>
+            查询权限
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PermissionController.Delete(ERS.DTO.RoleResult)">
+            <summary>
+            删除权限
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.PermissionController.Permissions">
+            <summary>
+            获取个人权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ProxyCashController.AddProxyCash(ERS.DTO.Proxy.AddProxyCashDto)">
+            <summary>
+            添加報銷人員可代填寫的人員資料
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ProxyCashController.QueryProxyCash(ERS.DTO.Request{ERS.DTO.Proxy.QueryProxyCashDto})">
+            <summary>
+            查询報銷人員可代填寫的人員資料
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ProxyCashController.DeleteProxyCash(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            刪除報銷人員可代填寫的人員資料
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ProxyCashController.EditProxyCash(ERS.DTO.Proxy.EditProxyCashDto)">
+            <summary>
+            編輯報銷人員可代填寫的人員資料
+            </summary>
+            <param name="request"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ReportController.QueryOverspendDetail(ERS.DTO.Report.GetOverSpendExcelDto)">
+            <summary>
+            交際費扣減部門年度績效獎金預算報表數據查詢
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.Controllers.ReportController.QuerySignedReport(ERS.DTO.Request{ERS.DTO.Report.QuerySignedReportDto})">
+            <summary>
+            已簽核表單查詢
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.EmporgController.QueryVagues(System.String)">
+            <summary>
+            费用归属部门查询
+            </summary>
+            <param name="deptid"></param>
+            <param name="company"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.EmporgController.GetPartDeptidList">
+            <summary>
+            获取部分费用归属部门
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.ReadInvoiceByFile(Microsoft.AspNetCore.Http.IFormCollection)">
+             <summary>
+             读取档案获取发票信息(APP会使用到)
+             </summary>
+             <param name="formCollection"></param>
+             <returns>
+            
+             </returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.GetAllElectricInvoiceInfo(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据发票号码查询全电发票信息
+            </summary>
+            <param name="invno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.UploadInvoices(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            發票上傳--wait to remove
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.UrlCheck(ERS.DTO.Invoice.ReadInvFileDto)">
+            <summary>
+            url检查
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.GetInvFileFromUrl(ERS.DTO.Invoice.ReadInvFileDto)">
+            <summary>
+            根据url获取发票文件
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.ShareInvoice(ERS.DTO.Invoice.ShareInvoiceDto)">
+            <summary>
+            發票分享
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.DownloadInvListExcel(System.String)">
+            <summary>
+            下載發票清單
+            </summary>
+            <param name="rno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.QueryInvoiceByNo(System.String,System.String,System.String)">
+            <summary>
+            根据发票号码/代码获取发票信息
+            </summary>
+            <param name="invno"></param>
+            <param name="invcode"></param>
+            <param name="invoiceArea"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.RecognizeInvoice(Microsoft.AspNetCore.Http.IFormCollection)">
+             <summary>
+             辨析档案获取发票信息(ERS2.0重构发票管理)
+             </summary>
+             <param name="formCollection"></param>
+             <returns>
+            
+             </returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.AddInvoices(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            添加發票
+            </summary>
+            <param name="formCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERS.HttpApi.Controllers.InvoiceController.getOcrResult(System.String)">
+            <summary>
+            获取OCR辨析结果记录
+            </summary>
+            <param name="ocrid"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
